@@ -127,10 +127,10 @@ CREATE TABLE IF NOT EXISTS achievement_person
 
 CREATE TABLE IF NOT EXISTS person_follow
 (
-    follow_person_id    INTEGER NOT NULL,
+    follower_person_id    INTEGER NOT NULL,
     follow_to_person_id INTEGER NOT NULL,
-    PRIMARY KEY (follow_person_id, follow_to_person_id),
-    FOREIGN KEY (follow_person_id) REFERENCES person (id) ON DELETE CASCADE,
+    PRIMARY KEY (follower_person_id, follow_to_person_id),
+    FOREIGN KEY (follower_person_id) REFERENCES person (id) ON DELETE CASCADE,
     FOREIGN KEY (follow_to_person_id) REFERENCES person (id) ON DELETE CASCADE
 );
 

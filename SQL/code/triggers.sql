@@ -1,7 +1,5 @@
--- create profile with inserting in user table
-drop trigger create_empty_profile on person;
-
-CREATE OR REPLACE function create_empty_profile() RETURNS TRIGGER AS
+/* create profile with inserting in user table */
+CREATE OR REPLACE FUNCTION create_empty_profile() RETURNS TRIGGER AS
 $create_empty_profile$
 DECLARE
     user_id INTEGER = NEW.id;
@@ -19,56 +17,68 @@ CREATE TRIGGER create_empty_profile
     FOR EACH ROW
 EXECUTE PROCEDURE create_empty_profile();
 
--- delete audio with deleting author trigger
-CREATE OR REPLACE function delete_audio_with_author() returns trigger AS
+/* delete audio with deleting author trigger */
+CREATE OR REPLACE FUNCTION delete_audio_with_author() RETURNS TRIGGER AS
 $$
-begin
-    if ((SELECT count(*) FROM author_audio WHERE audio_id = OLD.audio_id) = 0)
-    then
-        DELETE FROM audio WHERE audio.id = OLD.audio_id;
-    end if;
-    return old;
-end;
-$$ LANGUAGE plpgsql;
+BEGIN
+    IF
+        ((SELECT count(*) FROM author_audio WHERE audio_id = OLD.audio_id) = 0)
+    THEN
+        DELETE
+        FROM audio
+        WHERE audio.id = OLD.audio_id;
+    END IF;
+    RETURN old;
+END;
+$$
+    LANGUAGE plpgsql;
 
 CREATE TRIGGER delete_audio_with_author
-    after DELETE
+    AFTER DELETE
     ON author_audio
-    for each row
-execute function delete_audio_with_author();
+    FOR EACH ROW
+EXECUTE FUNCTION delete_audio_with_author();
 
--- delete playlist with deleting author
-CREATE OR REPLACE function delete_playlist_with_author() returns trigger AS
+/* delete playlist with deleting author */
+CREATE OR REPLACE FUNCTION delete_playlist_with_author() RETURNS TRIGGER AS
 $$
-begin
-    if ((SELECT count(*) FROM playlist_author WHERE playlist_id = OLD.playlist_id) = 0)
-    then
-        DELETE FROM playlist WHERE playlist.id = OLD.playlist_id;
-    end if;
-    return old;
-end;
-$$ LANGUAGE plpgsql;
+BEGIN
+    IF
+        ((SELECT count(*) FROM playlist_author WHERE playlist_id = OLD.playlist_id) = 0)
+    THEN
+        DELETE
+        FROM playlist
+        WHERE playlist.id = OLD.playlist_id;
+    END IF;
+    RETURN old;
+END;
+$$
+    LANGUAGE plpgsql;
 
 CREATE TRIGGER delete_playlist_with_author
-    after DELETE
+    AFTER DELETE
     ON playlist_author
-    for each row
-execute function delete_playlist_with_author();
+    FOR EACH ROW
+EXECUTE FUNCTION delete_playlist_with_author();
 
--- delete playlist if there is no audio in
-CREATE OR REPLACE function delete_playlist_without_audio() returns trigger AS
+/* delete playlist if there is no audio in */
+CREATE OR REPLACE FUNCTION delete_playlist_without_audio() RETURNS TRIGGER AS
 $$
-begin
-    if ((SELECT count(*) FROM playlist_audio WHERE playlist_id = OLD.playlist_id) = 0)
-    then
-        DELETE FROM playlist WHERE playlist.id = OLD.playlist_id;
-    end if;
-    return old;
-end;
-$$ LANGUAGE plpgsql;
+BEGIN
+    IF
+        ((SELECT count(*) FROM playlist_audio WHERE playlist_id = OLD.playlist_id) = 0)
+    THEN
+        DELETE
+        FROM playlist
+        WHERE playlist.id = OLD.playlist_id;
+    END IF;
+    RETURN old;
+END;
+$$
+    LANGUAGE plpgsql;
 
 CREATE TRIGGER delete_playlist_without_audio
-    after DELETE
+    AFTER DELETE
     ON playlist_audio
-    for each row
-execute function delete_playlist_without_audio();
+    FOR EACH ROW
+EXECUTE FUNCTION delete_playlist_without_audio();
