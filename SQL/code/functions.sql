@@ -160,7 +160,7 @@ BEGIN
     RETURN QUERY SELECT a.id, a.name, a.text, a.upload_date
                  FROM genre_audio ga
                           JOIN genre g ON ga.genre_id = g.id
-                          JOIN audio a on ga.audio_id = a.id
+                          JOIN audio a ON ga.audio_id = a.id
                  WHERE (g.name = genre_name);
 END;
 $$
@@ -175,8 +175,8 @@ $$
 BEGIN
     RETURN QUERY SELECT a.id, a.name, a.description, a.reward
                  FROM achievement_person ap
-                          JOIN achievement a on ap.achievement_id = a.id
-                          JOIN person p on ap.person_id = p.id
+                          JOIN achievement a ON ap.achievement_id = a.id
+                          JOIN person p ON ap.person_id = p.id
                  WHERE (p.username = user_name);
 END;
 $$
@@ -191,8 +191,8 @@ $$
 BEGIN
     RETURN QUERY SELECT a.id, a.name, a.text, a.upload_date
                  FROM save_audio sa
-                          JOIN person p on sa.person_id = p.id
-                          JOIN audio a on sa.audio_id = a.id
+                          JOIN person p ON sa.person_id = p.id
+                          JOIN audio a ON sa.audio_id = a.id
                  WHERE (p.username = user_name);
 END;
 $$
@@ -207,7 +207,7 @@ $$
 BEGIN
     RETURN QUERY SELECT p.id, p.username
                  FROM person_follow pf
-                          JOIN person p on pf.follower_person_id = p.id or pf.follow_to_person_id = p.id
+                          JOIN person p ON pf.follower_person_id = p.id OR pf.follow_to_person_id = p.id
                  WHERE (pf.follow_to_person_id = user_name);
 END;
 $$
@@ -222,7 +222,7 @@ $$
 BEGIN
     RETURN QUERY SELECT p.id, p.username
                  FROM person_follow pf
-                          JOIN person p on pf.follower_person_id = p.id or pf.follow_to_person_id = p.id
+                          JOIN person p ON pf.follower_person_id = p.id OR pf.follow_to_person_id = p.id
                  WHERE (pf.follower_person_id = user_name);
 END;
 $$
@@ -255,9 +255,25 @@ $$
 BEGIN
     SELECT r.id, r.name
     FROM role_person rp
-             JOIN person p on p.id = rp.person_id
-             JOIN role r on rp.role_id = r.id
+             JOIN person p ON p.id = rp.person_id
+             JOIN role r ON rp.role_id = r.id
     WHERE p.username = user_name;
+END;
+$$
+    LANGUAGE plpgsql;
+
+/* get achievement progress by name and username */
+DROP FUNCTION get_achievement_progress_by_name_and_username(TEXT, TEXT);
+
+CREATE OR REPLACE FUNCTION get_achievement_progress_by_name_and_username(_name TEXT, user_name TEXT)
+    RETURNS INTEGER AS
+$$
+BEGIN
+    SELECT ap.completed_count
+    FROM achievement_person ap
+             JOIN person p ON ap.person_id = p.id
+             JOIN achievement a ON ap.achievement_id = a.id
+    WHERE a.name = _name AND p.username = user_name;
 END;
 $$
     LANGUAGE plpgsql;

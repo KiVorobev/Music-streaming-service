@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS person
     email             VARCHAR(256) UNIQUE NOT NULL,
     registration_date TIMESTAMP           NOT NULL,
     balance           INTEGER             NOT NULL DEFAULT 0,
-    CHECK ( balance > 0 )
+    CHECK (balance > 0)
 );
 
 CREATE TABLE IF NOT EXISTS audio
@@ -31,11 +31,13 @@ CREATE TABLE IF NOT EXISTS role
 
 CREATE TABLE IF NOT EXISTS achievement
 (
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR(32) UNIQUE  NOT NULL,
-    description VARCHAR(256) UNIQUE NOT NULL,
-    reward      INTEGER             NOT NULL,
-    CHECK ( reward >= 0 )
+    id                      SERIAL PRIMARY KEY,
+    name                    VARCHAR(32) UNIQUE  NOT NULL,
+    description             VARCHAR(256) UNIQUE NOT NULL,
+    required_count_activity INTEGER             NOT NULL DEFAULT 0,
+    reward                  INTEGER             NOT NULL,
+    CHECK (reward >= 0),
+    CHECK (required_count_activity > 0)
 );
 
 CREATE TABLE IF NOT EXISTS emotion
@@ -118,8 +120,11 @@ CREATE TABLE IF NOT EXISTS role_person
 
 CREATE TABLE IF NOT EXISTS achievement_person
 (
-    achievement_id INTEGER NOT NULL,
-    person_id      INTEGER NOT NULL,
+    achievement_id  INTEGER NOT NULL,
+    person_id       INTEGER NOT NULL,
+    completed_count INTEGER NOT NULL,
+    is_access       BOOLEAN NOT NULL DEFAULT FALSE,
+    CHECK (completed_count > 0),
     PRIMARY KEY (achievement_id, person_id),
     FOREIGN KEY (achievement_id) REFERENCES achievement (id) ON DELETE CASCADE,
     FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE CASCADE
@@ -127,7 +132,7 @@ CREATE TABLE IF NOT EXISTS achievement_person
 
 CREATE TABLE IF NOT EXISTS person_follow
 (
-    follower_person_id    INTEGER NOT NULL,
+    follower_person_id  INTEGER NOT NULL,
     follow_to_person_id INTEGER NOT NULL,
     PRIMARY KEY (follower_person_id, follow_to_person_id),
     FOREIGN KEY (follower_person_id) REFERENCES person (id) ON DELETE CASCADE,
