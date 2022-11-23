@@ -273,11 +273,74 @@ CREATE OR REPLACE FUNCTION get_achievement_progress_by_name_and_username(_name T
     RETURNS INTEGER AS
 $$
 BEGIN
-    SELECT ap.completed_count
-    FROM achievement_person ap
-             JOIN person p ON ap.person_id = p.id
-             JOIN achievement a ON ap.achievement_id = a.id
-    WHERE a.name = _name AND p.username = user_name;
+    RETURN QUERY
+        SELECT ap.completed_count
+        FROM achievement_person ap
+                 JOIN person p ON ap.person_id = p.id
+                 JOIN achievement a ON ap.achievement_id = a.id
+        WHERE a.name = _name
+          AND p.username = user_name;
 END;
 $$
     LANGUAGE plpgsql;
+
+/* get audio by name */
+DROP FUNCTION get_audio_by_name(TEXT);
+
+CREATE OR REPLACE FUNCTION get_audio_by_name(audio_name TEXT)
+    RETURNS SETOF audio AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT *
+        FROM audio a
+        WHERE a.name ILIKE '%' || audio_name || '%';
+END;
+$$
+    LANGUAGE plpgsql;
+
+/* get playlists by name */
+DROP FUNCTION get_playlists_by_name(TEXT);
+
+CREATE OR REPLACE FUNCTION get_playlists_by_name(playlist_name TEXT)
+    RETURNS SETOF playlist AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT *
+        FROM playlist p
+        WHERE p.name ILIKE '%' || playlist_name || '%';
+END;
+$$
+    LANGUAGE plpgsql;
+
+/* get audio by author name */
+DROP FUNCTION get_audio_by_author_name(TEXT);
+
+CREATE OR REPLACE FUNCTION get_audio_by_author_name(author_name TEXT)
+    RETURNS SETOF audio AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT a.id, a.name, a.text, a.upload_date
+        FROM audio a
+                 JOIN author_audio aa ON a.id = aa.audio_id
+                 JOIN person p ON aa.author_id = p.id
+        WHERE p.username ILIKE author_name || '%';
+END;
+$$
+    LANGUAGE plpgsql;
+
+/* get persons by username */
+DROP FUNCTION get_persons_by_username(TEXT);
+
+CREATE OR REPLACE FUNCTION get_persons_by_username(user_name TEXT)
+    RETURNS SETOF person AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT *
+        FROM person p
+        WHERE p.username ILIKE user_name || '%';
+END;
+$$ LANGUAGE plpgsql;
