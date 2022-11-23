@@ -250,14 +250,18 @@ $$
 DROP FUNCTION get_role_by_username(TEXT);
 
 CREATE OR REPLACE FUNCTION get_role_by_username(user_name TEXT)
-    RETURNS role AS
+    RETURNS TEXT AS
 $$
+DECLARE
+    returning_role VARCHAR(32);
 BEGIN
-    SELECT r.id, r.name
+    SELECT r.name
+    INTO returning_role
     FROM role_person rp
              JOIN person p ON p.id = rp.person_id
              JOIN role r ON rp.role_id = r.id
     WHERE p.username = user_name;
+    RETURN returning_role;
 END;
 $$
     LANGUAGE plpgsql;

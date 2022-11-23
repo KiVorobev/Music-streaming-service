@@ -17,6 +17,25 @@ CREATE TRIGGER create_empty_profile
     FOR EACH ROW
 EXECUTE PROCEDURE create_empty_profile();
 
+/* set role "user" to new registered person */
+CREATE OR REPLACE FUNCTION set_base_role_to_new_user() RETURNS TRIGGER AS
+$set_base_role_to_new_user$
+DECLARE
+    user_id INTEGER = NEW.id;
+BEGIN
+    INSERT INTO role_person (person_id, role_id)
+    VALUES (user_id, (SELECT id FROM role r WHERE r.name = 'user'));
+    RETURN NEW;
+END;
+$set_base_role_to_new_user$
+    LANGUAGE plpgsql;
+
+CREATE TRIGGER set_base_role
+    AFTER INSERT
+    ON person
+    FOR EACH ROW
+EXECUTE PROCEDURE set_base_role_to_new_user();
+
 /* delete audio with deleting author trigger */
 CREATE OR REPLACE FUNCTION delete_audio_with_author() RETURNS TRIGGER AS
 $$
