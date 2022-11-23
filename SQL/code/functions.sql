@@ -110,19 +110,20 @@ DROP FUNCTION get_all_audios_from_playlist_by_playlist_id(INTEGER);
 CREATE OR REPLACE FUNCTION get_all_audios_from_playlist_by_playlist_id(_playlist_id INTEGER)
     RETURNS TABLE
             (
-                author_name VARCHAR(32),
-                audio_name  VARCHAR(32)
+                audio_name VARCHAR(32),
+                authors     TEXT
             )
 AS
 $$
 BEGIN
     RETURN QUERY
-        SELECT p.username, a.name
+        SELECT a.name, string_agg(username, ', ') authors
         FROM playlist_audio paud
                  JOIN audio a ON a.id = paud.audio_id
                  JOIN author_audio aa ON aa.audio_id = a.id
                  JOIN person p ON p.id = aa.author_id
-        WHERE paud.playlist_id = _playlist_id;
+        WHERE paud.playlist_id = _playlist_id
+        GROUP BY a.name;
 END;
 $$
     LANGUAGE plpgsql;
@@ -133,7 +134,7 @@ DROP FUNCTION get_audio_info_by_audio_id(INTEGER);
 CREATE OR REPLACE FUNCTION get_audio_info_by_audio_id(_audio_id INTEGER)
     RETURNS TABLE
             (
-                author_name VARCHAR(32),
+                authors     TEXT,
                 audio_name  VARCHAR(32),
                 upload_date TIMESTAMP
             )
@@ -141,11 +142,12 @@ AS
 $$
 BEGIN
     RETURN QUERY
-        SELECT p.username, a.name, a.upload_date
+        SELECT string_agg(p.username, ', '), a.name, a.upload_date
         FROM author_audio aa
                  JOIN audio a ON a.id = aa.audio_id
                  JOIN person p ON p.id = aa.author_id
-        WHERE aa.audio_id = _audio_id;
+        WHERE aa.audio_id = _audio_id
+        GROUP BY a.name, a.upload_date;
 END;
 $$
     LANGUAGE plpgsql;
