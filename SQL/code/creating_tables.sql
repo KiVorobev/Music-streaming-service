@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS person
     email             VARCHAR(256) UNIQUE NOT NULL,
     registration_date TIMESTAMP           NOT NULL,
     balance           INTEGER             NOT NULL DEFAULT 0,
-    CHECK (balance > 0)
+    CHECK (balance >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS audio
