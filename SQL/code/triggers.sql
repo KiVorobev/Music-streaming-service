@@ -108,6 +108,10 @@ CREATE OR REPLACE FUNCTION check_access_achievement()
     RETURNS TRIGGER AS
 $check_access_achievement$
 BEGIN
+    if (NEW.is_access = true) THEN
+        RETURN NEW;
+    end if;
+    
     if NEW.completed_count >= (SELECT ach.required_count_activity
                                FROM achievement ach
                                WHERE ach.id = NEW.achievement_id) THEN
