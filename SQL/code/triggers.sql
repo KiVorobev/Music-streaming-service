@@ -101,3 +101,26 @@ CREATE TRIGGER delete_playlist_without_audio
     ON playlist_audio
     FOR EACH ROW
 EXECUTE FUNCTION delete_playlist_without_audio();
+
+-- set is_access to true if user has enough count activity
+
+CREATE OR REPLACE FUNCTION check_access_achievement()
+    RETURNS TRIGGER AS
+$check_access_achievement$
+BEGIN
+    if NEW.completed_count >= (SELECT ach.required_count_activity
+                               FROM achievement ach
+                               WHERE ach.id = NEW.achievement_id) THEN
+        NEW.is_access := true;
+    end if;
+    RETURN NEW;
+END;
+$check_access_achievement$
+    LANGUAGE plpgsql;
+
+DROP TRIGGER check_access_achievement ON achievement_person;
+CREATE TRIGGER check_access_achievement
+    BEFORE UPDATE OR INSERT
+    on achievement_person
+    FOR EACH ROW
+EXECUTE function check_access_achievement();
