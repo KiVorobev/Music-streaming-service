@@ -249,20 +249,21 @@ $$
     LANGUAGE plpgsql;
 
 /* get user role by username */
-DROP FUNCTION get_role_by_username(TEXT);
+DROP FUNCTION get_roles_by_username(TEXT);
 
-CREATE OR REPLACE FUNCTION get_role_by_username(user_name TEXT)
+CREATE OR REPLACE FUNCTION get_roles_by_username(user_name TEXT)
     RETURNS TEXT AS
 $$
 DECLARE
-    returning_role VARCHAR(32);
+    returning_role TEXT;
 BEGIN
-    SELECT r.name
+    SELECT string_agg(r.name , ', ')
     INTO returning_role
     FROM role_person rp
              JOIN person p ON p.id = rp.person_id
              JOIN role r ON rp.role_id = r.id
-    WHERE p.username = user_name;
+    WHERE p.username = user_name
+    GROUP BY p.username;
     RETURN returning_role;
 END;
 $$
