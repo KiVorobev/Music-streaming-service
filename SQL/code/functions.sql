@@ -1,7 +1,7 @@
 /* get info about user by username */
-DROP FUNCTION get_info_by_username(TEXT);
+DROP FUNCTION get_person_info_by_username(TEXT);
 
-CREATE OR REPLACE FUNCTION get_info_by_username(user_name TEXT)
+CREATE OR REPLACE FUNCTION get_person_info_by_username(user_name TEXT)
     RETURNS SETOF person AS
 $$
 DECLARE
@@ -32,17 +32,16 @@ $$
     LANGUAGE plpgsql;
 
 /* get all audios from author by author name */
-DROP FUNCTION get_all_audios_by_author_name(TEXT);
+DROP FUNCTION get_all_audios_by_author_id(INTEGER);
 
-CREATE OR REPLACE FUNCTION get_all_audios_by_author_name(author_name TEXT)
+CREATE OR REPLACE FUNCTION get_all_audios_by_author_id(_author_id INTEGER)
     RETURNS SETOF audio AS
 $$
 BEGIN
     RETURN QUERY SELECT a.id, a.name, a.text, a.upload_date
                  FROM author_audio aa
-                          JOIN person p ON p.id = aa.author_id
                           JOIN audio a ON a.id = aa.audio_id
-                 WHERE (p.username = author_name);
+                 WHERE (aa.author_id = _author_id);
 END;
 $$
     LANGUAGE plpgsql;
@@ -85,9 +84,9 @@ $$
     LANGUAGE plpgsql;
 
 /* get all comments by post id */
-DROP FUNCTION get_comments_by_post_id(INTEGER);
+DROP FUNCTION get_all_comments_by_post_id(INTEGER);
 
-CREATE OR REPLACE FUNCTION get_comments_by_post_id(_post_id INTEGER)
+CREATE OR REPLACE FUNCTION get_all_comments_by_post_id(_post_id INTEGER)
     RETURNS TABLE
             (
                 comment_author_username VARCHAR(32),
@@ -151,17 +150,28 @@ $$
     LANGUAGE plpgsql;
 
 /* get audio by genre */
-DROP FUNCTION get_all_audio_by_genre(TEXT);
+DROP FUNCTION get_all_audios_by_genre(TEXT);
 
-CREATE OR REPLACE FUNCTION get_all_audio_by_genre(genre_name TEXT)
-    RETURNS SETOF audio AS
+CREATE OR REPLACE FUNCTION get_all_audios_by_genre(genre_name TEXT)
+    RETURNS TABLE
+            (
+                audio_id          INT,
+                audio_name        VARCHAR(32),
+                text              VARCHAR(10000),
+                audio_upload_date TIMESTAMP,
+                authors           TEXT
+            )
+AS
 $$
 BEGIN
-    RETURN QUERY SELECT a.id, a.name, a.text, a.upload_date
+    RETURN QUERY SELECT a.id, a.name, a.text, a.upload_date, string_agg(p.username, ', ')
                  FROM genre_audio ga
                           JOIN genre g ON ga.genre_id = g.id
                           JOIN audio a ON ga.audio_id = a.id
-                 WHERE (g.name = genre_name);
+                          JOIN author_audio aa on a.id = aa.audio_id
+                          JOIN person p on p.id = aa.author_id
+                 WHERE (g.name = genre_name)
+                 GROUP BY a.id;
 END;
 $$
     LANGUAGE plpgsql;
@@ -285,9 +295,9 @@ $$
     LANGUAGE plpgsql;
 
 /* get audio by name */
-DROP FUNCTION get_audio_by_name(TEXT);
+DROP FUNCTION get_audios_by_name(TEXT);
 
-CREATE OR REPLACE FUNCTION get_audio_by_name(audio_name TEXT)
+CREATE OR REPLACE FUNCTION get_audios_by_name(audio_name TEXT)
     RETURNS SETOF audio AS
 $$
 BEGIN
@@ -315,9 +325,9 @@ $$
     LANGUAGE plpgsql;
 
 /* get audio by author name */
-DROP FUNCTION get_audio_by_author_name(TEXT);
+DROP FUNCTION get_audios_by_author_name(TEXT);
 
-CREATE OR REPLACE FUNCTION get_audio_by_author_name(author_name TEXT)
+CREATE OR REPLACE FUNCTION get_audios_by_author_name(author_name TEXT)
     RETURNS SETOF audio AS
 $$
 BEGIN
