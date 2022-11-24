@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS emotion
 CREATE TABLE IF NOT EXISTS playlist
 (
     id            SERIAL PRIMARY KEY,
-    name          VARCHAR(128) UNIQUE NOT NULL,
+    name          VARCHAR(128) NOT NULL,
     description   VARCHAR(5000),
     creation_date DATE                NOT NULL
 );
