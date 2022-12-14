@@ -1,20 +1,17 @@
 package com.racers.euphmusic.entity;
 
-import com.racers.euphmusic.repository.PersonRepo;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = "roles")
+@ToString(exclude = {"roles", "posts", "comments"})
 @Builder
 @Table(schema = "s312762")
 public class Person {
@@ -48,6 +45,9 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "person")
+    private List<Comment> comments;
 
     public void addRole(RoleEntity role) {
         this.roles.add(role);
