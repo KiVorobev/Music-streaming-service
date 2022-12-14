@@ -1,0 +1,15 @@
+* {
+    font-family: Bellota Text;
+    color: #FFDE88;
+}
+
+body {
+    background: url("https://img1.fonwall.ru/o/cu/vraschenie-fioletovyy-krugi.jpg?dpr=2&h=750&route=mid") rgba(0, 0, 0, 0);
+}
+
+main {
+    display: inline-block;
+    width: 100%;
+    margin-top: 1vh;
+    transition: 300ms;
+}
