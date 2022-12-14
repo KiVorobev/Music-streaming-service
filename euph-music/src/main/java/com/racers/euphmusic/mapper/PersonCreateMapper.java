@@ -33,7 +33,6 @@ public class PersonCreateMapper implements Mapper<PersonCreateDto, Person> {
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)
                 .ifPresent(person::setPassword);
-
     }
 
     public RoleEntity getBaseRole() {

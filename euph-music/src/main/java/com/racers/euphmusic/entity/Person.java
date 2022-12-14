@@ -1,5 +1,6 @@
 package com.racers.euphmusic.entity;
 
+import com.racers.euphmusic.repository.PersonRepo;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +34,10 @@ public class Person {
 
     private Integer balance;
 
+    private String status;
+
+    private String description;
+
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "role_person",
@@ -40,6 +45,9 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles;
+
+    @OneToMany(mappedBy = "person")
+    private List<Post> posts;
 
     public void addRole(RoleEntity role) {
         this.roles.add(role);
