@@ -6,8 +6,7 @@
 }
 
 body {
-    /*background: url("https://img1.fonwall.ru/o/cu/vraschenie-fioletovyy-krugi.jpg?dpr=2&h=750&route=mid") rgba(0, 0, 0, 0);*/
-    background: radial-gradient(70% 30%, #dd7f27, #530681);
+    background: radial-gradient(farthest-corner at 85vw 50vh, #e7801fa1 10%, #6e0a9f 80%);
 }
 
 main {
