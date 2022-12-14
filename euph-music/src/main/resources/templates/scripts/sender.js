@@ -1,11 +1,13 @@
-function sendUserReg(login, password) {
+function sendUserReg(username, email, password) {
+    console.log('privet!')
     $.ajax({
         url: "http://localhost:8080/registration",
         type: "POST",
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify({
-            login: login,
+            username: username,
+            email: email,
             password: password
         }),
         success: function () {
@@ -37,9 +39,10 @@ function sendUserAuth(login, password) {
 }
 
 function userReg() {
-    let login = document.getElementById('login').value
+    let username = document.getElementById('username').value
+    let email = document.getElementById('email').value
     let password = document.getElementById('password').value
-    sendUserReg(login, password)
+    sendUserReg(username, email, password)
 }
 
 function userAuth() {

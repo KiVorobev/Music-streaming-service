@@ -10,13 +10,12 @@
     <#include "scripts/sender.js">
 </script>
 <style>
-
 </style>
 <body>
-<input type="text" id="login" placeholder="login"/>
+<input type="text" id="username" placeholder="username"/>
+<input type="email" id="email" placeholder="email"/>
 <input type="password" id="password" placeholder="password"/>
-<input type="password" id="repeat_password" placeholder="repeat password"/>
 <button style="height: 20px; width: 50px" type="submit" onclick="userReg()">Reg</button>
-<button onclick="goTo('authorization')">Go to Auth</button>
+<button onclick="goTo('login')">Go to Auth</button>
 </body>
 </html>

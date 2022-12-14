@@ -10,9 +10,15 @@
     </script>
 </head>
 <body>
-<input type="text" id="login" placeholder="login"/>
-<input type="password" id="password" placeholder="password"/>
-<button style="height: 20px; width: 50px" type="submit" onclick="userAuth()">Auth</button>
+<form action="/login" method="post">
+    <label for="username"> Username:
+        <input type="text" name="username">
+    </label><br>
+    <label for="password"> Paswword:
+        <input type="password" name="password">
+    </label><br>
+    <button style="height: 20px; width: 50px" type="submit">Submit</button>
+</form>
 <button onclick="goTo('registration')">Go to reg</button>
 </body>
 </html>
