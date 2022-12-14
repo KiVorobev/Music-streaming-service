@@ -1,7 +1,7 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.entity.Person;
-import com.racers.euphmusic.repository.UserRepo;
+import com.racers.euphmusic.repository.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class PersonController {
 
     @Autowired
-    private UserRepo userRepo;
+    private PersonRepo userRepo;
 
     @GetMapping("/test/{id}")
     public String getPerson(@PathVariable Integer id, Model model) {

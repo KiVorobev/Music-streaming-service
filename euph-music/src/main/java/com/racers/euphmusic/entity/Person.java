@@ -4,12 +4,16 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@ToString(exclude = "roles")
 @Builder
 @Table(schema = "s312762")
 public class Person {
@@ -28,4 +32,18 @@ public class Person {
     private LocalDateTime registrationDate;
 
     private Integer balance;
+
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "role_person",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<RoleEntity> roles;
+
+    public void addRole(RoleEntity role) {
+        this.roles.add(role);
+        role.getPersons().add(this);
+    }
+
 }
