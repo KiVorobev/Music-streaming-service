@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@300&family=Raleway:wght@200&display=swap');
+
+* {
+    font-family: 'Bellota Text', cursive;
+    color: #FFDE88;
+}
+
+body {
+    /*background: url("https://img1.fonwall.ru/o/cu/vraschenie-fioletovyy-krugi.jpg?dpr=2&h=750&route=mid") rgba(0, 0, 0, 0);*/
+    background: radial-gradient(70% 30%, #dd7f27, #530681);
+}
+
+main {
+    display: inline-block;
+    width: 100%;
+    margin-top: 1vh;
+    transition: 300ms;
+}

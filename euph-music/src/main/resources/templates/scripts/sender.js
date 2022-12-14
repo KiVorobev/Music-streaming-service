@@ -19,16 +19,17 @@ function sendUserReg(username, email, password) {
     })
 }
 
-function sendUserAuth(login, password) {
+function sendUserAuth(username, password) {
+    var fd = new FormData();
+    fd.append("username", username);
+    fd.append("password", password);
+
     $.ajax({
-        url: "http://localhost:8080/authorization",
+        url: "http://localhost:8080/login",
         type: "POST",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({
-            login: login,
-            password: password
-        }),
+        data: fd,
+        processData: false,
+        contentType: false,
         success: function () {
             console.log('Пользователь успешно авторизирован')
         },
@@ -46,7 +47,7 @@ function userReg() {
 }
 
 function userAuth() {
-    let login = document.getElementById('login').value
+    let username = document.getElementById('username').value
     let password = document.getElementById('password').value
-    sendUserAuth(login, password)
+    sendUserAuth(username, password)
 }

@@ -14,14 +14,14 @@ import java.util.Optional;
 public class PersonController {
 
     @Autowired
-    private PersonRepo userRepo;
+    private PersonRepo personRepo;
 
-    @GetMapping("/test/{id}")
-    public String getPerson(@PathVariable Integer id, Model model) {
+    @GetMapping("/{username}")
+    public String getPerson(@PathVariable String username, Model model) {
         try {
-            Optional<Person> maybePerson = userRepo.findById(id);
+            Optional<Person> maybePerson = personRepo.findByUsername(username);
             maybePerson.ifPresent(person -> model.addAttribute("person", person));
-            return "test";
+            return "view/pages/user_page";
         } catch (Exception e) {
             return "error";
         }

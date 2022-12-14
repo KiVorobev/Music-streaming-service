@@ -16,12 +16,12 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "authorization";
+        return "view/pages/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage() {
-        return "registration";
+        return "view/pages/registration";
     }
 
     @PostMapping("/registration")
