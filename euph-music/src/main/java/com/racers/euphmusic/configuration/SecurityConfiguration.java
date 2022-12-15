@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .authenticated()
                 )
                 .formLogin(login -> login.loginPage("/login")
-                        .defaultSuccessUrl("/person/test/2"));
+                        .defaultSuccessUrl("/"));
 
     }
 

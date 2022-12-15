@@ -11,10 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"roles", "posts", "comments", "followers" , "followTo"})
+@ToString(exclude = {"roles", "posts", "followers", "followTo", "loadedAudios", "savedAudios"})
 @Builder
 @Table(schema = "s312762")
 public class Person {
+
+    // TODO: 15.12.2022
+//    - сделать запрос на количество подписчиков и на кого подписан, чтоб сразу не дергать лист
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +46,8 @@ public class Person {
     )
     private List<RoleEntity> roles;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follow_to_person_id"),
@@ -51,7 +55,7 @@ public class Person {
     )
     private List<Person> followers;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follower_person_id"),
@@ -59,11 +63,24 @@ public class Person {
     )
     private List<Person> followTo;
 
-    @OneToMany(mappedBy = "person")
-    private List<Post> posts;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "author_audio",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "audio_id")
+    )
+    private List<Audio> loadedAudios;
 
-    @OneToMany(mappedBy = "person")
-    private List<Comment> comments;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "save_audio",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "audio_id")
+    )
+    private List<Audio> savedAudios;
+
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    private List<Post> posts;
 
     public void addRole(RoleEntity role) {
         this.roles.add(role);
