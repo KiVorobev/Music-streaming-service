@@ -4,7 +4,7 @@ header {
     font-size: 5vmin;
 }
 
-div {
+header div {
     display: inline-block;
     height: 100%;
 }
