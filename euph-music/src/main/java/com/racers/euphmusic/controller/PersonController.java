@@ -48,5 +48,14 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/{username}/follows")
+    public String getPersonFollows(@PathVariable String username, Model model) {
+        return personRepo.findByUsername(username)
+                .map(person -> {
+                    model.addAttribute("person", person);
+                    return "view/pages/follows";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
 }
