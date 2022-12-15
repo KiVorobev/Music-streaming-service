@@ -25,7 +25,7 @@ public class Post {
     @Column(name = "publication_date")
     private LocalDateTime publicationDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
 
     @Column(name = "playlist_id")

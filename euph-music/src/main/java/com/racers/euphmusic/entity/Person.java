@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = {"roles", "posts", "comments"})
+@ToString(exclude = {"roles", "posts", "comments", "followers" , "followTo"})
 @Builder
 @Table(schema = "s312762")
 public class Person {
@@ -42,6 +42,22 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "person_follow",
+            joinColumns = @JoinColumn(name = "follow_to_person_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_person_id")
+    )
+    private List<Person> followers;
+
+    @ManyToMany
+    @JoinTable(
+            name = "person_follow",
+            joinColumns = @JoinColumn(name = "follower_person_id"),
+            inverseJoinColumns = @JoinColumn(name = "follow_to_person_id")
+    )
+    private List<Person> followTo;
 
     @OneToMany(mappedBy = "person")
     private List<Post> posts;
