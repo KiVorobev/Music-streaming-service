@@ -16,8 +16,11 @@ header #right {
 }
 
 header img {
-    width: 3.5vmin;
+    mix-blend-mode: multiply;
+    height: 5vmin;
+    width: 6vmin;
     position: relative;
+    z-index: 10;
 }
 
 header text {

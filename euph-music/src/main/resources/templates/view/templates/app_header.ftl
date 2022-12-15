@@ -4,7 +4,7 @@
             <text>${username}</text>
         </div>
         <div id="balance" onclick="goTo('balance')">
-            <img src="https://e7.pngegg.com/pngimages/478/692/png-clipart-flow-realty-inc-finance-initial-coin-offering-cryptocurrency-technology-dtp-innovation-business.png"/>
+            <img src="https://e7.pngegg.com/pngimages/10/205/png-clipart-coin-money-bag-computer-icons-coin-text-trademark.png"/>
             <text>${balance}</text>
         </div>
     </div>
