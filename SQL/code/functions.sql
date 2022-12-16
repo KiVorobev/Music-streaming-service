@@ -358,3 +358,37 @@ BEGIN
         WHERE p.username ILIKE user_name || '%';
 END;
 $$ LANGUAGE plpgsql;
+
+/* follow */
+DROP function follow(from_username TEXT, to_username TEXT);
+
+CREATE function follow(from_username TEXT, to_username TEXT)
+    RETURNS INTEGER
+AS
+$$
+BEGIN
+    INSERT INTO person_follow (follower_person_id, follow_to_person_id)
+    VALUES ((SELECT p.id FROM person p where p.username = from_username),
+            (SELECT p.id FROM person p where p.username = to_username));
+    return 1;
+end;
+$$
+    language plpgsql;
+
+/* unfollow */
+DROP function unfollow(from_username TEXT, to_username TEXT);
+
+CREATE function unfollow(from_username TEXT, to_username TEXT)
+    RETURNS INTEGER
+AS
+$$
+BEGIN
+    DELETE
+    FROM person_follow
+    WHERE (follower_person_id = (SELECT p.id FROM person p where p.username = from_username)
+        AND follow_to_person_id = (SELECT p.id FROM person p where p.username = to_username));
+    return 1;
+end;
+$$
+    language plpgsql;
+
