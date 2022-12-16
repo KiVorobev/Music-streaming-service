@@ -5,15 +5,17 @@ import com.racers.euphmusic.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
-@SessionAttributes(names = "logged_person")
+@SessionAttributes(names = "loggedPerson")
 public class LoginController {
 
     @Autowired
     private PersonService personService;
+
 
     @GetMapping("/login")
     public String loginPage() {
@@ -21,7 +23,7 @@ public class LoginController {
     }
 
     @GetMapping("/registration")
-    public String registrationPage() {
+    public String registrationPage(Model model) {
         return "view/pages/registration";
     }
 
