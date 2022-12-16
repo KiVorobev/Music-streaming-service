@@ -10,29 +10,37 @@
         <div id="username_text">
             ${person.username}
         </div>
-        <div class="block" id="user_mood">
-            <div id="status">
-                <#if person.status??>
-                    ${person.status}
-                </#if>
+        <#if person.status?? || person.description??>
+            <div class="block" id="user_mood">
+                <div id="status">
+                    <#if person.status??>
+                        ${person.status}
+                    </#if>
+                </div>
+                <div id="description">
+                    <#if person.description??>
+                        ${person.description}
+                    </#if>
+                </div>
             </div>
-            <div id="description">
-                <#if person.description??>
-                    ${person.description}
-                </#if>
-            </div>
-        </div>
+        </#if>
         <div class="block" id="posts">
-            <#list person.posts as post>
-                ${post.description}
-                ${post.publicationDate}
-                <#if post.audio.name??>
-                    ${post.audio.name}
-                <#elseif post.playlist.name??>
-                    ${post.playlist.name}
-                </#if>
-                ${post.comments?size}
-            </#list>
+            <#if person.posts?has_content>
+                <#list person.posts as post>
+                    ${post.description}
+                    ${post.publicationDate}
+                    <#if post.audio.name??>
+                        ${post.audio.name}
+                    <#elseif post.playlist.name??>
+                        ${post.playlist.name}
+                    </#if>
+                    ${post.comments?size}
+                </#list>
+            <#else>
+                Пользователь пока не добавил ни одну запись
+                <br>
+                <img id="null_post_img" src="https://i.centerdiseasecondtrol.com/images/256467/image.png">
+            </#if>
         </div>
     </div>
     <div id="right">
@@ -42,9 +50,12 @@
     <#if loggedPerson.username == person.username>
         <div class="block" id="edit_follow" onmouseover="hover_highlight()" onmouseout="hover_unhighlight()">
         <span id="active_block">Редактировать</span>
-    <#else>
+    <#elseif !isFollowed>
         <div class="block" id="edit_follow" onmouseover="hover_highlight()" onmouseout="hover_unhighlight()">
         <span id="active_block">Подписаться</span>
+    <#elseif isFollowed>
+        <div style="background: rgba(62,45,113,0.82)" class="block" id="edit_follow" onmouseover="hover_highlight()" onmouseout="hover_unhighlight()">
+        <span id="active_block">Отписаться</span>
     </#if>
     </div>
     <script>
@@ -53,7 +64,7 @@
         }
 
         function hover_unhighlight() {
-            document.getElementById('active_block').removeAttribute('style', 'color: #72065f')
+            document.getElementById('active_block').removeAttribute('style', 'color')
         }
     </script>
     <div class="block" id="user_info">

@@ -1,5 +1,7 @@
 package com.racers.euphmusic.controller;
 
+import com.racers.euphmusic.dto.PersonReadDto;
+import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.repository.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +23,13 @@ public class PersonController {
         return personRepo.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
-                    model.addAttribute("followers", person.getFollowers());
-                    model.addAttribute("follow_to", person.getFollowTo());
+                    PersonReadDto loggedPerson = (PersonReadDto) model.getAttribute("loggedPerson");
+                    boolean isFollowed = person.getFollowers()
+                            .stream()
+                            .map(Person::getUsername)
+                            .toList()
+                            .contains(loggedPerson.getUsername());
+                    model.addAttribute("isFollowed", isFollowed);
                     return "view/pages/user_page";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

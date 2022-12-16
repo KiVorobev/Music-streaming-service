@@ -16,8 +16,8 @@ header #right {
 }
 
 header img {
-    mix-blend-mode: multiply;
-    height: 5vmin;
+    mix-blend-mode: darken;
+    height: 4.5vmin;
     width: 6vmin;
     position: relative;
     z-index: 10;

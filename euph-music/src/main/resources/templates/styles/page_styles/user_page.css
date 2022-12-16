@@ -12,7 +12,7 @@ main #right {
 }
 
 main .block:not(#avatar) {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(62, 45, 113, 0.42);
     border-radius: 16px;
 }
 
@@ -41,7 +41,7 @@ main #avatar {
     height: 30vh;
 }
 
-main img {
+main #avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -54,7 +54,6 @@ main #edit_follow {
 }
 
 main #edit_follow:hover {
-    box-shadow: 0 0 2px 1px purple;
     transition: 300ms;
 }
 
@@ -71,4 +70,15 @@ main #user_info span:hover {
     transform: scale(1.2);
     color: #72065f;
     transition: 300ms;
+}
+
+main #posts {
+    padding: 1.5vh;
+}
+
+main #null_post_img {
+    margin-top: 2vh;
+    width: 4vmin;
+    height: 5vmin;
+    mix-blend-mode: darken;
 }
