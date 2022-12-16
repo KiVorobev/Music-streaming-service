@@ -1,7 +1,7 @@
 /* get info about user by username */
-DROP FUNCTION get_info_by_username(TEXT);
+DROP FUNCTION get_person_info_by_username(TEXT);
 
-CREATE OR REPLACE FUNCTION get_info_by_username(user_name TEXT)
+CREATE OR REPLACE FUNCTION get_person_info_by_username(user_name TEXT)
     RETURNS SETOF person AS
 $$
 DECLARE
@@ -32,17 +32,16 @@ $$
     LANGUAGE plpgsql;
 
 /* get all audios from author by author name */
-DROP FUNCTION get_all_audios_by_author_name(TEXT);
+DROP FUNCTION get_all_audios_by_author_id(INTEGER);
 
-CREATE OR REPLACE FUNCTION get_all_audios_by_author_name(author_name TEXT)
+CREATE OR REPLACE FUNCTION get_all_audios_by_author_id(_author_id INTEGER)
     RETURNS SETOF audio AS
 $$
 BEGIN
     RETURN QUERY SELECT a.id, a.name, a.text, a.upload_date
                  FROM author_audio aa
-                          JOIN person p ON p.id = aa.author_id
                           JOIN audio a ON a.id = aa.audio_id
-                 WHERE (p.username = author_name);
+                 WHERE (aa.author_id = _author_id);
 END;
 $$
     LANGUAGE plpgsql;
@@ -85,9 +84,9 @@ $$
     LANGUAGE plpgsql;
 
 /* get all comments by post id */
-DROP FUNCTION get_comments_by_post_id(INTEGER);
+DROP FUNCTION get_all_comments_by_post_id(INTEGER);
 
-CREATE OR REPLACE FUNCTION get_comments_by_post_id(_post_id INTEGER)
+CREATE OR REPLACE FUNCTION get_all_comments_by_post_id(_post_id INTEGER)
     RETURNS TABLE
             (
                 comment_author_username VARCHAR(32),
@@ -111,7 +110,7 @@ CREATE OR REPLACE FUNCTION get_all_audios_from_playlist_by_playlist_id(_playlist
     RETURNS TABLE
             (
                 audio_name VARCHAR(32),
-                authors     TEXT
+                authors    TEXT
             )
 AS
 $$
@@ -171,8 +170,8 @@ BEGIN
                  FROM genre_audio ga
                           JOIN genre g ON ga.genre_id = g.id
                           JOIN audio a ON ga.audio_id = a.id
-                          JOIN author_audio aa on a.id = aa.audio_id
-                          JOIN person p on p.id = aa.author_id
+                          JOIN author_audio aa ON a.id = aa.audio_id
+                          JOIN person p ON p.id = aa.author_id
                  WHERE (g.name = genre_name)
                  GROUP BY a.id;
 END;
@@ -268,7 +267,7 @@ $$
 DECLARE
     returning_role TEXT;
 BEGIN
-    SELECT string_agg(r.name , ', ')
+    SELECT string_agg(r.name, ', ')
     INTO returning_role
     FROM role_person rp
              JOIN person p ON p.id = rp.person_id
@@ -299,9 +298,9 @@ $$
     LANGUAGE plpgsql;
 
 /* get audio by name */
-DROP FUNCTION get_audio_by_name(TEXT);
+DROP FUNCTION get_audios_by_name(TEXT);
 
-CREATE OR REPLACE FUNCTION get_audio_by_name(audio_name TEXT)
+CREATE OR REPLACE FUNCTION get_audios_by_name(audio_name TEXT)
     RETURNS SETOF audio AS
 $$
 BEGIN
@@ -329,9 +328,9 @@ $$
     LANGUAGE plpgsql;
 
 /* get audio by author name */
-DROP FUNCTION get_audio_by_author_name(TEXT);
+DROP FUNCTION get_audios_by_author_name(TEXT);
 
-CREATE OR REPLACE FUNCTION get_audio_by_author_name(author_name TEXT)
+CREATE OR REPLACE FUNCTION get_audios_by_author_name(author_name TEXT)
     RETURNS SETOF audio AS
 $$
 BEGIN
@@ -357,4 +356,45 @@ BEGIN
         FROM person p
         WHERE p.username ILIKE user_name || '%';
 END;
-$$ LANGUAGE plpgsql;
+$$
+    LANGUAGE plpgsql;
+
+/* get count of audios by author id */
+DROP FUNCTION get_count_of_audios_by_author_id(INTEGER);
+
+CREATE OR REPLACE FUNCTION get_count_of_audios_by_author_id(_author_id INTEGER)
+    RETURNS INTEGER AS
+$$
+DECLARE
+    count_of_audios INTEGER;
+BEGIN
+    SELECT COUNT(*)
+    INTO count_of_audios
+    FROM author_audio aa
+    WHERE (aa.author_id = _author_id);
+    RETURN count_of_audios;
+END;
+$$
+    LANGUAGE plpgsql;
+
+
+/* add new audio */
+DROP FUNCTION add_new_audio;
+
+CREATE OR REPLACE FUNCTION add_new_audio(_name VARCHAR(32), _text VARCHAR(10000), _upload_date TIMESTAMP WITH TIME ZONE,
+                                         user_name VARCHAR(32)[])
+    RETURNS VOID AS
+$$
+DECLARE
+    new_audio_id INT;
+BEGIN
+    INSERT INTO audio(NAME, TEXT, upload_date) VALUES (_name, _text, _upload_date) RETURNING id INTO new_audio_id;
+    FOR r IN 1..cardinality(user_name)
+        LOOP
+            INSERT INTO author_audio (author_id, audio_id)
+            VALUES ((SELECT id FROM person WHERE username = user_name[r]),
+                    new_audio_id);
+        END LOOP;
+END;
+$$
+    LANGUAGE plpgsql;

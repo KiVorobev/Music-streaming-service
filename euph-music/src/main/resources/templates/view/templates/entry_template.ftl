@@ -1,6 +1,6 @@
 <#macro entry page>
     <div id="logo">
-        <img src="https://e7.pngegg.com/pngimages/436/592/png-clipart-ink-purple-computer-file-purple-ink-circle-antiquity-violet.png"/>
+        <img src="https://adonius.club/uploads/posts/2022-02/1644938357_35-adonius-club-p-lotos-na-belom-fone-56.png"/>
     </div>
     <div id="inputs_block">
         <div class="inputs">

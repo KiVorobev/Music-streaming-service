@@ -1,7 +1,6 @@
 package com.racers.euphmusic.entity;
 
 import lombok.*;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -87,6 +86,5 @@ public class Person {
         this.roles.add(role);
         role.getPersons().add(this);
     }
-
 
 }

@@ -8,3 +8,15 @@ header button {
     background: rgba(62, 45, 113, 0.42);
     transition: 300ms;
 }
+
+header button:hover {
+    box-shadow: 0 0 5px 3px whitesmoke;
+    transform: scale(1.1);
+    transition: 300ms;
+}
+
+header button:active {
+    box-shadow: 0 0 5px 3px lawngreen;
+    transform: scale(1.1);
+    transition: 300ms;
+}

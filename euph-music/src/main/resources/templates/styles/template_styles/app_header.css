@@ -4,7 +4,7 @@ header {
     font-size: 5vmin;
 }
 
-div {
+header div {
     display: inline-block;
     height: 100%;
 }
@@ -16,8 +16,11 @@ header #right {
 }
 
 header img {
-    width: 3.5vmin;
+    mix-blend-mode: multiply;
+    height: 5vmin;
+    width: 6vmin;
     position: relative;
+    z-index: 10;
 }
 
 header text {

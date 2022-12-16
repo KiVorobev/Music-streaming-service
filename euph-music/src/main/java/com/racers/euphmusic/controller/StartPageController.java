@@ -10,6 +10,4 @@ public class StartPageController {
     public String loadStartPage() {
         return "view/pages/main";
     }
-
-
 }
