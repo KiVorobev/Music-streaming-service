@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    height: 15vh;
+    height: 5vh;
     font-size: 5vmin;
 }
 
@@ -16,13 +16,22 @@ header #right {
 }
 
 header img {
-    mix-blend-mode: multiply;
-    height: 5vmin;
+    mix-blend-mode: darken;
+    height: 4.5vmin;
     width: 6vmin;
     position: relative;
     z-index: 10;
 }
 
 header text {
+    display: inline-block;
     position: relative;
+}
+
+header #username, header #balance {
+    cursor: pointer;
+}
+
+header {
+    margin-bottom: 5vh;
 }

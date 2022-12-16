@@ -1,11 +1,11 @@
-<#macro appHeader username balance>
+<#macro appHeader>
     <div id="right">
-        <div id="username" onclick="goTo('person/${username}')">
-            <text>${username}</text>
+        <div id="username">
+            <text onclick="goTo('persons/${loggedPerson.username}')">${loggedPerson.username}</text>
         </div>
         <div id="balance" onclick="goTo('balance')">
             <img src="https://e7.pngegg.com/pngimages/10/205/png-clipart-coin-money-bag-computer-icons-coin-text-trademark.png"/>
-            <text>${balance}</text>
+            <text>${loggedPerson.balance}</text>
         </div>
     </div>
 </#macro>
