@@ -108,13 +108,21 @@ CREATE OR REPLACE FUNCTION check_access_achievement()
     RETURNS TRIGGER AS
 $check_access_achievement$
 BEGIN
-    if (NEW.is_access = true) THEN
+  if (NEW.is_access = true) THEN
         RETURN NEW;
     end if;
-    
+
     if NEW.completed_count >= (SELECT ach.required_count_activity
                                FROM achievement ach
                                WHERE ach.id = NEW.achievement_id) THEN
+        UPDATE person
+        SET balance = balance + (
+            SELECT ach.reward
+            from achievement ach
+            WHERE ach.id = OLD.achievement_id
+        )
+        WHERE id = OLD.person_id;
+
         NEW.is_access := true;
     end if;
     RETURN NEW;
