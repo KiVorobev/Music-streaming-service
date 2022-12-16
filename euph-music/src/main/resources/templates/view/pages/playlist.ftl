@@ -2,7 +2,7 @@
 <#include "../templates/app_header.ftl"/>
 
 <#macro header>
-    <@appHeader username="username" balance="balance"/>
+    <@appHeader/>
 </#macro>
 
 <#macro content>

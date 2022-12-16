@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    height: 15vh;
+    height: 5vh;
     font-size: 5vmin;
 }
 
@@ -24,5 +24,14 @@ header img {
 }
 
 header text {
+    display: inline-block;
     position: relative;
+}
+
+header #username, header #balance {
+    cursor: pointer;
+}
+
+header {
+    margin-bottom: 5vh;
 }

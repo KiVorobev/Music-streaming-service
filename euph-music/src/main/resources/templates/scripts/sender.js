@@ -12,7 +12,6 @@ function sendUserReg(username, email, password) {
         }),
         success: function () {
             console.log('Пользователь успешно добавлен')
-            goTo("/")
         },
         error: function () {
             console.log('Произошла ошибка')

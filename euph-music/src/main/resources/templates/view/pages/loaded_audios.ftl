@@ -3,7 +3,7 @@
 <#include "../templates/audios_template.ftl"/>
 
 <#macro header>
-    <@appHeader username="username" balance="balance"/>
+    <@appHeader/>
 </#macro>
 
 <#macro content>

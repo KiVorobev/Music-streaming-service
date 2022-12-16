@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/audios")
-@SessionAttributes(names = "logged_person")
+@SessionAttributes(names = "loggedPerson")
 public class AudioController {
 
     @Autowired

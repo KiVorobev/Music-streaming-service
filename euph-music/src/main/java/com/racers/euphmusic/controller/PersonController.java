@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/persons")
-@SessionAttributes(names = "logged_person")
+@SessionAttributes(names = "loggedPerson")
 public class PersonController {
 
     @Autowired

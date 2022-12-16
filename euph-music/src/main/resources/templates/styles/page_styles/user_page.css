@@ -26,23 +26,19 @@ main #left > div:not(:first-of-type), main #right > div:not(:first-of-type) {
     text-align: center;
 }
 
+main #username_text {
+    text-align: center;
+    font-size: 10vmin;
+}
+
 main #user_mood > div {
     word-wrap: break-word;
     text-align: center;
     padding: 1vh;
 }
 
-main #user_info {
-    padding: 1vh;
-}
-
-main #user_info p {
-    transition: 300ms;
-}
-
-main #user_info p:hover {
-    transform: scale(1.3);
-    transition: 300ms;
+main #avatar {
+    height: 30vh;
 }
 
 main img {
@@ -50,4 +46,29 @@ main img {
     height: 100%;
     object-fit: cover;
     border-radius: 16px;
+}
+
+main #edit_follow {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #edit_follow:hover {
+    box-shadow: 0 0 2px 1px purple;
+    transition: 300ms;
+}
+
+main #user_info span, main #edit_follow span {
+    cursor: pointer;
+    padding: 1.5vh;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    transition: 300ms;
+}
+
+main #user_info span:hover {
+    transform: scale(1.2);
+    color: #72065f;
+    transition: 300ms;
 }
