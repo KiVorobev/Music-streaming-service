@@ -4,6 +4,7 @@ import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.entity.Playlist;
 import com.racers.euphmusic.entity.RoleEntity;
 import com.racers.euphmusic.repository.*;
+import com.racers.euphmusic.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,22 +26,28 @@ class EuphMusicApplicationTests {
     AudioRepo audioRepo;
     @Autowired
     PostRepo postRepo;
+    @Autowired
+    PersonService personService;
+
+
+
+
 
     @Test
     @Transactional
-    void getPostById(){
+    void getPostById() {
         postRepo.findById(1);
         System.out.println("");
     }
 
     @Test
-    void getAudioById(){
+    void getAudioById() {
         audioRepo.findById(1);
         System.out.println("");
     }
-    
+
     @Test
-    void getPlaylistById(){
+    void getPlaylistById() {
         Optional<Playlist> maybePlaylist = playlistRepo.findById(1);
         System.out.println("");
     }

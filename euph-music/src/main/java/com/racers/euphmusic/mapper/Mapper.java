@@ -2,5 +2,9 @@ package com.racers.euphmusic.mapper;
 
 public interface Mapper<F, T> {
 
-    public void map(F from, T to);
+    T map(F from);
+
+    default T map(F from, T to) {
+        return to;
+    }
 }

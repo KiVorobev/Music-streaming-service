@@ -1,6 +1,7 @@
 package com.racers.euphmusic.service;
 
 import com.racers.euphmusic.dto.PersonCreateDto;
+import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.entity.Role;
 import com.racers.euphmusic.entity.RoleEntity;
@@ -16,15 +17,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PersonService implements UserDetailsService {
 
     @Autowired
@@ -34,15 +34,25 @@ public class PersonService implements UserDetailsService {
     @Autowired
     private PersonCreateMapper personCreateMapper;
 
+    @Transactional
     public Person create(PersonCreateDto personCreateDto) {
-        Person person = new Person();
-        personCreateMapper.map(personCreateDto, person);
+        Person person = personCreateMapper.map(personCreateDto);
         personRepo.save(person);
         return person;
     }
 
     public Optional<Person> findByUsername(String username) {
         return personRepo.findByUsername(username);
+    }
+
+    @Transactional
+    public void follow(PersonLoggedDto from, Person to) {
+        personRepo.follow(from.getUsername(), to.getUsername());
+    }
+
+    @Transactional
+    public void unfollow(PersonLoggedDto from, Person to) {
+        personRepo.unfollow(from.getUsername(), to.getUsername());
     }
 
     @Override
