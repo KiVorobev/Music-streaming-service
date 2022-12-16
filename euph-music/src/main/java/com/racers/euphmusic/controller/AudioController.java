@@ -1,6 +1,6 @@
 package com.racers.euphmusic.controller;
 
-import com.racers.euphmusic.repository.AudioRepo;
+import com.racers.euphmusic.service.AudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class AudioController {
 
     @Autowired
-    private AudioRepo audioRepo;
+    private AudioService audioService;
 
     @GetMapping("/{id}")
-    public String getAudio(@PathVariable Integer id, Model model) {
-        return audioRepo.findById(id)
+    public String findById(@PathVariable Integer id, Model model) {
+        return audioService.findById(id)
                 .map(audio -> {
                     model.addAttribute("audio", audio);
                     return "view/pages/audio";

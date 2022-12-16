@@ -1,8 +1,8 @@
 package com.racers.euphmusic.controller;
 
-import com.racers.euphmusic.dto.PersonReadDto;
+import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.entity.Person;
-import com.racers.euphmusic.repository.PersonRepo;
+import com.racers.euphmusic.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,19 +16,18 @@ import org.springframework.web.server.ResponseStatusException;
 public class PersonController {
 
     @Autowired
-    private PersonRepo personRepo;
+    private PersonService personService;
 
     @GetMapping("/{username}")
     public String getPerson(@PathVariable String username, Model model) {
-        return personRepo.findByUsername(username)
+        return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
-                    PersonReadDto loggedPerson = (PersonReadDto) model.getAttribute("loggedPerson");
                     boolean isFollowed = person.getFollowers()
                             .stream()
                             .map(Person::getUsername)
                             .toList()
-                            .contains(loggedPerson.getUsername());
+                            .contains(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername());
                     model.addAttribute("isFollowed", isFollowed);
                     return "view/pages/user_page";
                 })
@@ -37,7 +36,7 @@ public class PersonController {
 
     @GetMapping("/{username}/saved")
     public String getPersonSaved(@PathVariable String username, Model model) {
-        return personRepo.findByUsername(username)
+        return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
                     return "view/pages/saved_audios";
@@ -47,7 +46,7 @@ public class PersonController {
 
     @GetMapping("/{username}/loaded")
     public String getPersonLoaded(@PathVariable String username, Model model) {
-        return personRepo.findByUsername(username)
+        return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
                     return "view/pages/loaded_audios";
@@ -57,12 +56,33 @@ public class PersonController {
 
     @GetMapping("/{username}/follows")
     public String getPersonFollows(@PathVariable String username, Model model) {
-        return personRepo.findByUsername(username)
+        return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
                     return "view/pages/follows";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/follow/{followToUsername}")
+    public String followTo(@PathVariable String followToUsername, Model model) {
+        return personService.findByUsername(followToUsername)
+                .map(followedToPerson -> {
+                    personService.follow(PersonLoggedDto.getLoggedPersonFromSession(model), followedToPerson);
+                    return "redirect:/persons/" + followToUsername;
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/follow/{followToUsername}")
+    public String unfollowFrom(@PathVariable String unfollowFromUsername, Model model) {
+        return personService.findByUsername(unfollowFromUsername)
+                .map(unfollowFromPerson -> {
+                    personService.unfollow(PersonLoggedDto.getLoggedPersonFromSession(model), unfollowFromPerson);
+                    return "redirect:/persons/" + unfollowFromUsername;
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
 
 }

@@ -1,7 +1,6 @@
 package com.racers.euphmusic.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -55,7 +54,7 @@ public class Person {
     )
     private List<Person> followers;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follower_person_id"),
@@ -63,7 +62,7 @@ public class Person {
     )
     private List<Person> followTo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "author_audio",
             joinColumns = @JoinColumn(name = "author_id"),
@@ -86,5 +85,6 @@ public class Person {
         this.roles.add(role);
         role.getPersons().add(this);
     }
+
 
 }

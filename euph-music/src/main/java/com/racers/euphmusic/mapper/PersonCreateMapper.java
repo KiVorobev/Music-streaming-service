@@ -7,6 +7,7 @@ import com.racers.euphmusic.repository.RoleRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -23,16 +24,18 @@ public class PersonCreateMapper implements Mapper<PersonCreateDto, Person> {
     private final RoleRepo roleRepo;
 
     @Override
-    public void map(PersonCreateDto personCreateDto, Person person) {
-        person.setUsername(personCreateDto.getUsername());
-        person.setEmail(personCreateDto.getEmail());
-        person.setBalance(0);
-        person.setRegistrationDate(LocalDateTime.now());
-        person.setRoles(List.of(getBaseRole()));
-        Optional.ofNullable(personCreateDto.getPassword())
+    public Person map(PersonCreateDto from) {
+        Person person = new Person();
+        Optional.ofNullable(from.getPassword())
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)
                 .ifPresent(person::setPassword);
+        person.setUsername(from.getUsername());
+        person.setEmail(from.getEmail());
+        person.setBalance(0);
+        person.setRegistrationDate(LocalDateTime.now());
+        person.setRoles(List.of(getBaseRole()));
+        return person;
     }
 
     public RoleEntity getBaseRole() {
