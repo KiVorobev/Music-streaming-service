@@ -51,3 +51,13 @@ function userAuth() {
     let password = document.getElementById('password').value
     sendUserAuth(username, password)
 }
+
+function followTo() {
+    let username = document.getElementById("username_text").innerText
+    goTo("persons/follow/" + username )
+}
+
+function unfollowFrom() {
+    let username = document.getElementById("username_text").innerText
+    goTo("persons/unfollow/" + username )
+}

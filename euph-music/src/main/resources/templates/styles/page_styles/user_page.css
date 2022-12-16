@@ -11,34 +11,37 @@ main #right {
     width: 30vw;
 }
 
-main .block:not(#avatar) {
+main .block:not(#avatar, #unfollow) {
     background: rgba(62, 45, 113, 0.42);
     border-radius: 16px;
+    word-wrap: break-word;
+}
+
+main .block:not(#username_text) {
+    margin-top: 3vh;
 }
 
 main div {
     color: #FFDE88;
 }
 
-main #left > div:not(:first-of-type), main #right > div:not(:first-of-type) {
-    margin-top: 3vh;
-    word-wrap: break-word;
-    text-align: center;
-}
-
 main #username_text {
     text-align: center;
-    font-size: 10vmin;
+    font-size: 8vmin;
+}
+
+main #user_mood, main #user_info, main #null_posts, main #edit, main #follow, main #unfollow {
+    text-align: center;
 }
 
 main #user_mood > div {
     word-wrap: break-word;
     text-align: center;
-    padding: 1vh;
+    padding: 1.5vh;
 }
 
 main #avatar {
-    height: 30vh;
+    height: 35vh;
 }
 
 main #avatar img {
@@ -48,16 +51,28 @@ main #avatar img {
     border-radius: 16px;
 }
 
-main #edit_follow {
+main #edit, main #follow, main #unfollow {
     cursor: pointer;
     transition: 300ms;
 }
 
-main #edit_follow:hover {
+main #edit:hover, main #follow:hover {
+    background: rgba(62,45,113,0.82);
     transition: 300ms;
 }
 
-main #user_info span, main #edit_follow span {
+main #unfollow {
+    background: rgba(62,45,113,0.82);
+    border-radius: 16px;
+    word-wrap: break-word;
+}
+
+main #unfollow:hover {
+    background: rgb(203, 12, 12);
+    transition: 300ms;
+}
+
+main #user_info span, main #edit span, main #follow span, main #unfollow span {
     cursor: pointer;
     padding: 1.5vh;
     vertical-align: middle;
@@ -68,12 +83,13 @@ main #user_info span, main #edit_follow span {
 
 main #user_info span:hover {
     transform: scale(1.2);
-    color: #72065f;
+    color: #16ece6;
     transition: 300ms;
 }
 
-main #posts {
-    padding: 1.5vh;
+main #null_posts {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
 }
 
 main #null_post_img {
@@ -81,4 +97,88 @@ main #null_post_img {
     width: 4vmin;
     height: 5vmin;
     mix-blend-mode: darken;
+}
+
+main .post {
+    text-align: left;
+    width: 90%;
+    height: 90%;
+    padding: 3vmin;
+    word-wrap: break-word;
+}
+
+main .post_view {
+    text-align: center;
+    vertical-align: middle;
+}
+
+main .bottom_post, main .top_post {
+    overflow: hidden;
+}
+
+main .left_top_post {
+    vertical-align: middle;
+}
+
+main .right_top_post {
+    text-align: center;
+    vertical-align: middle;
+}
+
+main .right_top_post img {
+    width: 25vmin;
+    cursor: pointer;
+}
+
+main .left_top_post > div {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+main .left_top_post, main .left_bottom_post {
+    display: inline-block;
+    width: 30vw;
+    float: left;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+main .right_top_post, main .right_bottom_post {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 2.5vw;
+    width: 17vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+main .post_comments {
+    float: bottom;
+}
+
+main .post {
+    overflow: hidden;
+}
+
+main .hover_span {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .hover_span:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #add_post {
+    padding: 2vh;
+    text-align: center;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+main #add_post:hover {
+    background: rgba(62,45,113,0.82);
+    transition: 300ms;
 }

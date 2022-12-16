@@ -31,7 +31,3 @@ header text {
 header #username, header #balance {
     cursor: pointer;
 }
-
-header {
-    margin-bottom: 5vh;
-}
