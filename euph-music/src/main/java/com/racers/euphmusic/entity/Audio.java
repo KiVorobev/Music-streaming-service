@@ -27,7 +27,7 @@ public class Audio {
     @Column(name = "upload_date")
     private LocalDateTime uploadDate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "author_audio",
             joinColumns = @JoinColumn(name = "audio_id"),

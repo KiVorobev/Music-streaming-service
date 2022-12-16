@@ -56,7 +56,7 @@ class EuphMusicApplicationTests {
     @Test
     @Transactional
     void getUserById() {
-        Optional<Person> maybePerson = userRepo.findById(4);
+        Optional<Person> maybePerson = userRepo.findById(5);
         maybePerson.ifPresent(System.out::println);
     }
 
