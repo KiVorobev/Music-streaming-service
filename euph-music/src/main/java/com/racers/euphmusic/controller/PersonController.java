@@ -74,7 +74,7 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/follow/{followToUsername}")
+    @GetMapping("/unfollow/{unfollowFromUsername}")
     public String unfollowFrom(@PathVariable String unfollowFromUsername, Model model) {
         return personService.findByUsername(unfollowFromUsername)
                 .map(unfollowFromPerson -> {
