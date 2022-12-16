@@ -19,7 +19,7 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("/{username}")
-    public String getPerson(@PathVariable String username, Model model) {
+    public String findPersonByUsername(@PathVariable String username, Model model) {
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
@@ -35,7 +35,7 @@ public class PersonController {
     }
 
     @GetMapping("/{username}/saved")
-    public String getPersonSaved(@PathVariable String username, Model model) {
+    public String findPersonSavedAudios(@PathVariable String username, Model model) {
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
@@ -45,7 +45,7 @@ public class PersonController {
     }
 
     @GetMapping("/{username}/loaded")
-    public String getPersonLoaded(@PathVariable String username, Model model) {
+    public String findPersonLoadedAudios(@PathVariable String username, Model model) {
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
@@ -55,7 +55,7 @@ public class PersonController {
     }
 
     @GetMapping("/{username}/follows")
-    public String getPersonFollows(@PathVariable String username, Model model) {
+    public String findPersonFollows(@PathVariable String username, Model model) {
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
@@ -74,7 +74,7 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/follow/{followToUsername}")
+    @GetMapping("/unfollow/{unfollowFromUsername}")
     public String unfollowFrom(@PathVariable String unfollowFromUsername, Model model) {
         return personService.findByUsername(unfollowFromUsername)
                 .map(unfollowFromPerson -> {

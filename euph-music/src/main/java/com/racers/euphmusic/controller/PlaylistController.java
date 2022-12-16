@@ -20,7 +20,7 @@ public class PlaylistController {
     private PlaylistRepo playlistRepo;
 
     @GetMapping("/{id}")
-    public String getAudio(@PathVariable Integer id, Model model) {
+    public String findPlaylistById(@PathVariable Integer id, Model model) {
         return playlistRepo.findById(id)
                 .map(playlist -> {
                     model.addAttribute("playlist", playlist);

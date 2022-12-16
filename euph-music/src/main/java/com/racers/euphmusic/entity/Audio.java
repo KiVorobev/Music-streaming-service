@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"authors", "savedBy"})
+@ToString(exclude = {"authors", "savedBy", "genres"})
 @EqualsAndHashCode(of = "id")
 @Table(schema = "s312762")
 public class Audio {
@@ -26,6 +26,14 @@ public class Audio {
 
     @Column(name = "upload_date")
     private LocalDateTime uploadDate;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "genre_audio",
+            joinColumns = @JoinColumn(name = "audio_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

@@ -1,6 +1,6 @@
 package com.racers.euphmusic.handler;
 
-import com.racers.euphmusic.dto.PersonReadDto;
+import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.repository.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         Person person;
         String username = ((User) authentication.getPrincipal()).getUsername();
         person = personRepo.findByUsername(username).get();
-        PersonReadDto personReadDto = PersonReadDto.builder()
+        PersonLoggedDto personReadDto = PersonLoggedDto.builder()
                 .id(person.getId())
                 .username(person.getUsername())
                 .email(person.getEmail())
@@ -35,4 +35,5 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         session.setAttribute("loggedPerson", personReadDto);
         response.sendRedirect("/persons/" + personReadDto.getUsername());
     }
+
 }
