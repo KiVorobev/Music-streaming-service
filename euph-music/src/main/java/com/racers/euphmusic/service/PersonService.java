@@ -7,6 +7,7 @@ import com.racers.euphmusic.entity.RoleEntity;
 import com.racers.euphmusic.mapper.PersonCreateMapper;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PersonService implements UserDetailsService {
 
     @Autowired
@@ -38,6 +41,9 @@ public class PersonService implements UserDetailsService {
         return person;
     }
 
+    public Optional<Person> findByUsername(String username) {
+        return personRepo.findByUsername(username);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

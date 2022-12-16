@@ -28,13 +28,15 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
 
-    @Column(name = "playlist_id")
-    private Integer playlistId;
+    @OneToOne
+    @JoinColumn
+    private Playlist playlist;
 
-    @Column(name = "audio_id")
-    private Integer audioId;
+    @OneToOne
+    @JoinColumn
+    private Audio audio;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Comment> comments;
 
 }
