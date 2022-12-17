@@ -25,9 +25,12 @@
                 </div>
             </div>
         </#if>
-        <div class="block" id="add_post" onmouseover="hover_highlight('add_post_text')" onmouseout="hover_unhighlight('add_post_text')">
+        <#if loggedPerson.username == person.username>
+        <div class="block" id="add_post" onmouseover="hover_highlight('add_post_text')"
+             onmouseout="hover_unhighlight('add_post_text')">
             <span id="add_post_text">Добавить запись</span>
         </div>
+        </#if>
         <div id="posts">
             <#if person.posts?has_content>
                 <#list person.posts as note>
@@ -47,39 +50,55 @@
         </div>
     </div>
     <div id="right">
-    <div class="block" id="avatar">
-        <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
-    </div>
-    <#if loggedPerson.username == person.username>
-        <div class="block" id="edit" onmouseover="hover_highlight('active_block')" onmouseout="hover_unhighlight('active_block')">
-        <span id="active_block">Редактировать</span>
-    <#elseif !isFollowed>
-        <div class="block" id="follow" onclick="followTo()" onmouseover="hover_highlight('active_block')" onmouseout="hover_unhighlight('active_block')">
-        <span id="active_block">Подписаться</span>
-    <#elseif isFollowed>
-        <div class="block" id="unfollow" onclick="unfollowFrom()" onmouseover="hover_highlight('active_block')" onmouseout="hover_unhighlight('active_block')">
-        <span id="active_block">Отписаться</span>
-    </#if>
+        <div class="block" id="avatar">
+            <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+        </div>
+        <#if loggedPerson.username == person.username>
+            <div class="block" id="edit" onmouseover="hover_highlight('active_block')"
+                 onmouseout="hover_unhighlight('active_block')">
+                <span id="active_block">Редактировать</span>
+            </div>
+        <#elseif !isFollowed>
+            <div class="block" id="follow" onclick="followTo()" onmouseover="hover_highlight('active_block')"
+                 onmouseout="hover_unhighlight('active_block')">
+                <span id="active_block">Подписаться</span>
+            </div>
+        <#elseif isFollowed>
+            <div class="block" id="unfollow" onclick="unfollowFrom()" onmouseover="hover_highlight('active_block')"
+                 onmouseout="hover_unhighlight('active_block')">
+                <span id="active_block">Отписаться</span>
+            </div>
+        </#if>
+        <div class="block" id="user_info">
+            <div class="user_info_hover" id="first_user_info" onmouseover="hover_highlight('info_followTo')"
+                 onmouseout="hover_unhighlight('info_followTo')">
+                <span id="info_followTo"
+                      onclick="goTo('persons/${person.username}/follows')">Подписки: ${person.followTo?size}</span>
+            </div>
+            <div class="user_info_hover" onmouseover="hover_highlight('info_followers')"
+                 onmouseout="hover_unhighlight('info_followers')">
+                <span id="info_followers"
+                      onclick="goTo('persons/${person.username}/follows')">Подписчики: ${person.followers?size}</span>
+            </div>
+            <div class="user_info_hover" onmouseover="hover_highlight('info_loaded')"
+                 onmouseout="hover_unhighlight('info_loaded')">
+                <span id="info_loaded" onclick="goTo('persons/${person.username}/loaded')">Авторство</span>
+            </div>
+            <div class="user_info_hover" id="last_user_info" onmouseover="hover_highlight('info_saved')"
+                 onmouseout="hover_unhighlight('info_saved')">
+                <span id="info_saved" onclick="goTo('persons/${person.username}/saved')">Сохраненные аудио</span>
+            </div>
+        </div>
     </div>
     <script>
         function hover_highlight(id) {
-            document.getElementById(id).setAttribute('style', 'color: #16ece6')
+            document.getElementById(id).classList.add('hover_elements')
         }
 
         function hover_unhighlight(id) {
-            document.getElementById(id).removeAttribute('style', 'color')
+            document.getElementById(id).classList.remove('hover_elements')
         }
     </script>
-    <div class="block" id="user_info">
-        <span onclick="goTo('persons/${person.username}/follows')">Подписки: ${person.followTo?size}</span>
-        <br>
-        <span onclick="goTo('persons/${person.username}/follows')">Подписчики: ${person.followers?size}</span>
-        <br>
-        <span onclick="goTo('persons/${person.username}/loaded')">Авторство</span>
-        <br>
-        <span onclick="goTo('persons/${person.username}/saved')">Сохраненные аудио</span>
-    </div>
-    </div>
 </#macro>
 
 <@main cssPage="user_page"/>
