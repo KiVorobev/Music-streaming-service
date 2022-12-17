@@ -80,11 +80,11 @@
             </div>
             <div class="user_info_hover" onclick="goTo('persons/${person.username}/loaded')" onmouseover="hover_highlight('info_loaded')"
                  onmouseout="hover_unhighlight('info_loaded')">
-                <span id="info_loaded">Авторство</span>
+                <span id="info_loaded">Авторство: ${person.loadedAudios?size}</span>
             </div>
             <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/saved')" onmouseover="hover_highlight('info_saved')"
                  onmouseout="hover_unhighlight('info_saved')">
-                <span id="info_saved">Сохраненные аудио</span>
+                <span id="info_saved">Сохраненные аудио: ${person.savedAudios?size}</span>
             </div>
         </div>
     </div>
