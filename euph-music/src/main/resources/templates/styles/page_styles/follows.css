@@ -2,10 +2,6 @@ main {
     text-align: center;
 }
 
-ul {
-    text-align: center;
-}
-
 #left_table, #right_table {
     display: inline-block;
     width: 48vw;
