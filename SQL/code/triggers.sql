@@ -41,7 +41,7 @@ CREATE OR REPLACE FUNCTION delete_audio_with_author() RETURNS TRIGGER AS
 $$
 BEGIN
     IF
-        ((SELECT COUNT(*) FROM author_audio WHERE audio_id = OLD.audio_id) = 0)
+        ((SELECT count(*) FROM author_audio WHERE audio_id = OLD.audio_id) = 0)
     THEN
         DELETE
         FROM audio
@@ -108,13 +108,21 @@ CREATE OR REPLACE FUNCTION check_access_achievement()
     RETURNS TRIGGER AS
 $check_access_achievement$
 BEGIN
-    if (NEW.is_access = true) THEN
+  if (NEW.is_access = true) THEN
         RETURN NEW;
-    END if;
+    end if;
 
     if NEW.completed_count >= (SELECT ach.required_count_activity
                                FROM achievement ach
                                WHERE ach.id = NEW.achievement_id) THEN
+        UPDATE person
+        SET balance = balance + (
+            SELECT ach.reward
+            from achievement ach
+            WHERE ach.id = OLD.achievement_id
+        )
+        WHERE id = OLD.person_id;
+
         NEW.is_access := true;
     end if;
     RETURN NEW;
@@ -125,6 +133,6 @@ $check_access_achievement$
 DROP TRIGGER check_access_achievement ON achievement_person;
 CREATE TRIGGER check_access_achievement
     BEFORE UPDATE OR INSERT
-    ON achievement_person
+    on achievement_person
     FOR EACH ROW
-EXECUTE FUNCTION check_access_achievement();
+EXECUTE function check_access_achievement();

@@ -6,56 +6,44 @@
 </#macro>
 
 <#macro content>
-    <ul>
+    <div id="left_table">
         <div class="main_activity_table">
-            <div class="scroll-table">
-                <table>
-                    <caption>Подписчики:</caption>
-                    <thead>
-                    <tr>
-                        <td>Username</td>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
+            <span>Подписчики:</span>
             <div class="scroll-table-body">
                 <table>
                     <tbody>
                     <#list person.followers as user>
-                        <tr>
-                            <td>${user.username}</td>
+                        <tr onclick="goTo('persons/${user.username}')">
+                            <td class="image">
+                                <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+                            </td>
+                            <td class="username">${user.username}</td>
                         </tr>
                     </#list>
                     </tbody>
                 </table>
             </div>
         </div>
-    </ul>
-    <ul>
+    </div>
+    <div id="right_table">
         <div class="main_activity_table">
-            <div class="scroll-table">
-                <table>
-                    <caption>Подписки:</caption>
-                    <thead>
-                    <tr>
-                        <td>Username</td>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
+            <span>Подписки:</span>
             <div class="scroll-table-body">
                 <table>
                     <tbody>
                     <#list person.followTo as user>
-                        <tr>
-                            <td>${user.username}</td>
+                        <tr onclick="goTo('persons/${user.username}')">
+                            <td class="image">
+                                <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+                            </td>
+                            <td class="username">${user.username}</td>
                         </tr>
                     </#list>
                     </tbody>
                 </table>
             </div>
         </div>
-    </ul>
+    </div>
 </#macro>
 
 <@main cssPage="follows"/>

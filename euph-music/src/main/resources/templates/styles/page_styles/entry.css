@@ -30,8 +30,8 @@ main input {
     text-align: center;
     border-radius: 16px;
     height: 10vh;
-    width: 110vmin;
-    font-size: 6vmin;
+    width: 53vw;
+    font-size: 5vmin;
     background: rgba(62, 45, 113, 0.42);
     transition: 300ms;
 }
@@ -58,7 +58,7 @@ main button {
     text-align: center;
     border-radius: 16px;
     height: 10vh;
-    width: 110vmin;
+    width: 53vw;
     font-size: 6vmin;
     background: rgba(62, 45, 113, 0.42);
     transition: 300ms;

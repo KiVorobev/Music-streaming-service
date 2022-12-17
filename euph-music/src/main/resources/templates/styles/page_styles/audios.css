@@ -1,0 +1,102 @@
+main {
+    text-align: center;
+}
+
+.main_activity_table {
+    width: 100%;
+    text-align: center;
+}
+
+table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+#caption {
+    width: 100%;
+    font-size: 5vmin;
+}
+
+tr {
+    display: block;
+    border-radius: 10px;
+    margin: 2vmin;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transition: 300ms;
+}
+
+td {
+    border: none;
+    padding: 1vmin;
+    height: 10vh;
+    vertical-align: middle;
+}
+
+td img {
+    display: block;
+    margin: 0 auto;
+    width: 4.5vw;
+    height: 8vh;
+    object-fit: cover;
+}
+
+.elem_author, .username {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.elem_author:hover, .username:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+.action_button {
+    text-align: center;
+    width: 6vw;
+}
+
+.image {
+    width: 6vw;
+}
+
+.name_authors {
+    width: 79vw;
+    text-align: left;
+}
+
+.elem_name {
+    font-size: 4vmin;
+}
+
+.elem_authors {
+    font-size: 3vmin;
+}
+
+.scroll-table-body {
+    margin-top: 2vh;
+    height: 80vh;
+    overflow-x: auto;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+/* Стили для скролла */
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}

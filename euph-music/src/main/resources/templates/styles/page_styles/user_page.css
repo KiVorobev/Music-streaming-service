@@ -57,12 +57,12 @@ main #edit, main #follow, main #unfollow {
 }
 
 main #edit:hover, main #follow:hover {
-    background: rgba(62,45,113,0.82);
+    background: rgba(62, 45, 113, 0.82);
     transition: 300ms;
 }
 
 main #unfollow {
-    background: rgba(62,45,113,0.82);
+    background: rgba(62, 45, 113, 0.82);
     border-radius: 16px;
     word-wrap: break-word;
 }
@@ -123,11 +123,20 @@ main .left_top_post {
 main .right_top_post {
     text-align: center;
     vertical-align: middle;
+    height: 100%;
 }
 
 main .right_top_post img {
+    display: block;
+    margin: 0 auto;
     width: 25vmin;
     cursor: pointer;
+    transition: 300ms;
+}
+
+main .right_top_post img:hover {
+    transform: scale(1.05);
+    transition: 300ms;
 }
 
 main .left_top_post > div {
@@ -179,6 +188,34 @@ main #add_post {
 }
 
 main #add_post:hover {
-    background: rgba(62,45,113,0.82);
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .user_info_hover {
+    transition: 300ms;
+}
+
+main .user_info_hover:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .hover_elements {
+    transform: scale(1.2);
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #first_user_info {
+    border-radius: 16px 16px 0 0;
+}
+
+main #last_user_info {
+    border-radius: 0 0 16px 16px;
+}
+
+main #add_post_text {
+    display: inline-block;
     transition: 300ms;
 }
