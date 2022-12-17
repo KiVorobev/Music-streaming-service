@@ -70,23 +70,21 @@
             </div>
         </#if>
         <div class="block" id="user_info">
-            <div class="user_info_hover" id="first_user_info" onmouseover="hover_highlight('info_followTo')"
+            <div class="user_info_hover" id="first_user_info" onclick="goTo('persons/${person.username}/follows')" onmouseover="hover_highlight('info_followTo')"
                  onmouseout="hover_unhighlight('info_followTo')">
-                <span id="info_followTo"
-                      onclick="goTo('persons/${person.username}/follows')">Подписки: ${person.followTo?size}</span>
+                <span id="info_followTo">Подписки: ${person.followTo?size}</span>
             </div>
-            <div class="user_info_hover" onmouseover="hover_highlight('info_followers')"
+            <div class="user_info_hover" onclick="goTo('persons/${person.username}/follows')" onmouseover="hover_highlight('info_followers')"
                  onmouseout="hover_unhighlight('info_followers')">
-                <span id="info_followers"
-                      onclick="goTo('persons/${person.username}/follows')">Подписчики: ${person.followers?size}</span>
+                <span id="info_followers">Подписчики: ${person.followers?size}</span>
             </div>
-            <div class="user_info_hover" onmouseover="hover_highlight('info_loaded')"
+            <div class="user_info_hover" onclick="goTo('persons/${person.username}/loaded')" onmouseover="hover_highlight('info_loaded')"
                  onmouseout="hover_unhighlight('info_loaded')">
-                <span id="info_loaded" onclick="goTo('persons/${person.username}/loaded')">Авторство</span>
+                <span id="info_loaded">Авторство</span>
             </div>
-            <div class="user_info_hover" id="last_user_info" onmouseover="hover_highlight('info_saved')"
+            <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/saved')" onmouseover="hover_highlight('info_saved')"
                  onmouseout="hover_unhighlight('info_saved')">
-                <span id="info_saved" onclick="goTo('persons/${person.username}/saved')">Сохраненные аудио</span>
+                <span id="info_saved">Сохраненные аудио</span>
             </div>
         </div>
     </div>
