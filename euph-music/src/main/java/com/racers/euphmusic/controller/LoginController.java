@@ -2,8 +2,9 @@ package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonCreateDto;
 import com.racers.euphmusic.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @SessionAttributes(names = "loggedPerson")
+@RequiredArgsConstructor
 public class LoginController {
 
-    @Autowired
-    private PersonService personService;
-
+    private final PersonService personService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -27,9 +27,9 @@ public class LoginController {
         return "view/pages/registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping(value = "/registration", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public String register(@RequestBody PersonCreateDto personCreateDto) {
+    public String register(PersonCreateDto personCreateDto) {
         personService.create(personCreateDto);
         return "redirect:/login";
     }

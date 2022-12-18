@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
 
-
     @Override
     public AudioReadDto map(Audio from) {
         return AudioReadDto.builder()

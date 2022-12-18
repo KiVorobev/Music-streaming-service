@@ -9,14 +9,15 @@ import com.racers.euphmusic.mapper.PersonCreateMapper;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.SneakyThrows;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -27,18 +28,31 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class PersonService implements UserDetailsService {
 
-    @Autowired
-    private PersonRepo personRepo;
-    @Autowired
-    private RoleRepo roleRepo;
-    @Autowired
-    private PersonCreateMapper personCreateMapper;
+    private final PersonRepo personRepo;
+    private final RoleRepo roleRepo;
+    private final PersonCreateMapper personCreateMapper;
+    private final ImageService imageService;
 
     @Transactional
     public Person create(PersonCreateDto personCreateDto) {
+        uploadImage(personCreateDto.getImage());
         Person person = personCreateMapper.map(personCreateDto);
         personRepo.save(person);
         return person;
+    }
+
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+        }
+    }
+
+    public Optional<byte[]> findAvatar(String username) {
+        return personRepo.findByUsername(username)
+                .map(Person::getImage)
+                .filter(StringUtils::hasText)
+                .flatMap(imageService::get);
     }
 
     public Optional<Person> findByUsername(String username) {

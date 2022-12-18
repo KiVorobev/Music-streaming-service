@@ -35,4 +35,5 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         session.setAttribute("loggedPerson", personReadDto);
         response.sendRedirect("/persons/" + personReadDto.getUsername());
     }
+
 }

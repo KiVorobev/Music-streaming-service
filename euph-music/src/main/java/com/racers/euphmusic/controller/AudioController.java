@@ -1,6 +1,7 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.service.AudioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,10 @@ import org.springframework.web.server.ResponseStatusException;
 @Controller
 @RequestMapping("/audios")
 @SessionAttributes(names = "loggedPerson")
+@RequiredArgsConstructor
 public class AudioController {
 
-    @Autowired
-    private AudioService audioService;
+    private final AudioService audioService;
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Integer id, Model model) {
