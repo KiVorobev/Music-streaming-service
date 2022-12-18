@@ -3,6 +3,7 @@ package com.racers.euphmusic.service;
 import com.racers.euphmusic.dto.AudioReadDto;
 import com.racers.euphmusic.mapper.AudioReadMapper;
 import com.racers.euphmusic.repository.AudioRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +13,11 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class AudioService {
 
-    @Autowired
-    private AudioRepo audioRepo;
-    @Autowired
-    private AudioReadMapper audioReadMapper;
+    private final AudioRepo audioRepo;
+    private final AudioReadMapper audioReadMapper;
 
     public List<AudioReadDto> findAll() {
         return audioRepo.findAll()
@@ -30,7 +30,6 @@ public class AudioService {
         return audioRepo.findById(id)
                 .map(audioReadMapper::map);
     }
-
 
 
 }

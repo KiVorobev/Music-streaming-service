@@ -1,6 +1,7 @@
 package com.racers.euphmusic.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,9 @@ public class Person {
 
     private String description;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    private String image;
+
+    @ManyToMany
     @JoinTable(
             name = "role_person",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -54,7 +57,7 @@ public class Person {
     )
     private List<Person> followers;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follower_person_id"),
@@ -62,7 +65,7 @@ public class Person {
     )
     private List<Person> followTo;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "author_audio",
             joinColumns = @JoinColumn(name = "author_id"),
@@ -81,10 +84,22 @@ public class Person {
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<Post> posts;
 
+    @ManyToMany
+    @JoinTable(
+            name = "nravlik",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "audio_id")
+    )
+    private List<Audio> audiosSettedNravlik;
+
     public void addRole(RoleEntity role) {
         this.roles.add(role);
         role.getPersons().add(this);
     }
 
+    private void addAudio(Audio audio) {
+        this.getSavedAudios().add(audio);
+        audio.getAuthors().add(this);
+    }
 
 }

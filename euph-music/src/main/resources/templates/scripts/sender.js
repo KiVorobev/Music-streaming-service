@@ -1,15 +1,18 @@
-function sendUserReg(username, email, password) {
+function sendUserReg(username, email, password, image) {
     console.log('privet!')
+    var fd = new FormData();
+    fd.append("username", username);
+    fd.append("email", email);
+    fd.append("password", password);
+    fd.append("image", image[0]);
+    console.log(image[0])
     $.ajax({
         url: "http://localhost:8080/registration",
         type: "POST",
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({
-            username: username,
-            email: email,
-            password: password
-        }),
+        // contentType: "multipart/form-data",
+        data: fd,
+        processData: false,
+        contentType:false,
         success: function () {
             console.log('Пользователь успешно добавлен')
         },
@@ -43,7 +46,8 @@ function userReg() {
     let username = document.getElementById('username').value
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
-    sendUserReg(username, email, password)
+    let image = $('#image')[0].files;
+    sendUserReg(username, email, password, image)
 }
 
 function userAuth() {
@@ -54,10 +58,10 @@ function userAuth() {
 
 function followTo() {
     let username = document.getElementById("username_text").innerText
-    goTo("persons/follow/" + username )
+    goTo("persons/follow/" + username)
 }
 
 function unfollowFrom() {
     let username = document.getElementById("username_text").innerText
-    goTo("persons/unfollow/" + username )
+    goTo("persons/unfollow/" + username)
 }
