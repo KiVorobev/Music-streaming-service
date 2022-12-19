@@ -21,6 +21,8 @@ public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
                 .username(from.getUsername())
                 .status(from.getStatus())
                 .description(from.getDescription())
+                .balance(from.getBalance())
+                .image(from.getImage())
                 .followers(
                         from.getFollowers().stream()
                                 .map(personUsernameMapper::map)

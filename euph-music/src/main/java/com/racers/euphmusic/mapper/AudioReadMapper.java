@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
 
     private final PersonUsernameMapper authorAudioMapper;
+    private final GenreReadMapper genreReadMapper;
 
     @Override
     public AudioReadDto map(Audio from) {
@@ -24,6 +25,11 @@ public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
                 .authors(
                         from.getAuthors().stream()
                                 .map(authorAudioMapper::map)
+                                .collect(Collectors.toList())
+                )
+                .genres(
+                        from.getGenres().stream()
+                                .map(genreReadMapper::map)
                                 .collect(Collectors.toList())
                 )
                 .build();

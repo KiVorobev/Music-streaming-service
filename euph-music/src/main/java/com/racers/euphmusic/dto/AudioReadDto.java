@@ -18,4 +18,6 @@ public class AudioReadDto {
     private String uploadDate;
 
     private List<PersonUsernameDto> authors;
+
+    private List<GenreReadDto> genres;
 }
