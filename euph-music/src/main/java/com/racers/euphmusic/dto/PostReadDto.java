@@ -22,7 +22,7 @@ public class PostReadDto {
 
     private Playlist playlist;
 
-    private Audio audio;
+    private AudioReadDto audio;
 
     private List<CommentReadDto> comments;
 }
