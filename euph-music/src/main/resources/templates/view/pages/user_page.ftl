@@ -1,6 +1,6 @@
 <#include "../templates/main_template.ftl"/>
 <#include "../templates/app_header.ftl"/>
-<#include "../templates/post.ftl"/>
+<#include "../templates/posts_template.ftl"/>
 
 <#macro header>
     <@appHeader/>
@@ -35,9 +35,9 @@
             <#if person.posts?has_content>
                 <#list person.posts as note>
                     <#if note.audio.name??>
-                        <@post id=note.id date=note.publicationDate description=note.description media=note.audio comments=note.comments?size/>
+                        <@posts id=note.id date=note.publicationDate description=note.description media=note.audio comments=note.comments?size/>
                     <#elseif note.playlist.name??>
-                        <@post id=note.id date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size/>
+                        <@posts id=note.id date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size/>
                     </#if>
                 </#list>
             <#else>
@@ -59,7 +59,7 @@
         </div>
         <#if loggedPerson.username == person.username>
             <div class="block" id="edit" onmouseover="hover_highlight('active_block')"
-                 onmouseout="hover_unhighlight('active_block')">
+                 onmouseout="hover_unhighlight('active_block')" onclick="goTo('persons/${person.username}/edit')">
                 <span id="active_block">Редактировать</span>
             </div>
         <#elseif !isFollowed>

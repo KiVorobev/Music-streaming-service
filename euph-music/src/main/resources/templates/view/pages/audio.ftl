@@ -7,7 +7,7 @@
 
 <#macro content>
     <div id="topic">
-        <div id="back_button" onclick="window.history.go(-1)" ;>
+        <div id="back_button" onclick="window.history.go(-1)">
             <img id="back_arrow" src="https://stihi.ru/pics/2019/07/14/5314.jpg">
             Назад
         </div>
@@ -33,12 +33,9 @@
             </div>
             <div class="audio_info">
             <span>Авторы:
-<#--                <#list media.authors as author>-->
-                <#--                    <span class="hover_span" onclick="goTo('persons/${author.username}')">-->
-                <#--                    ${author.username}-->
-                <#--                    </span>-->
-                <#--                    <#if author_has_next>,</#if>-->
-                <#--                </#list>-->
+                <#list audio.authors as author>
+                    <span class="hover_span" onclick="goTo('persons/${author.username}')">${author.username}</span><#if author_has_next>,</#if>
+                </#list>
             </span>
             </div>
         </div>

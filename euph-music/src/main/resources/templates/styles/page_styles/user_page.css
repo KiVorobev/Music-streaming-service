@@ -168,7 +168,8 @@ main .left_bottom_post {
 }
 
 main .right_bottom_post {
-    width: 25vw;
+    margin-left: 13vw;
+    width: 16vw;
 }
 
 main .post_comments {

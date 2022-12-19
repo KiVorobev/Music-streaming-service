@@ -6,7 +6,11 @@
     </div>
     <div id="right">
         <div id="username">
-            <text onclick="goTo('persons/${loggedPerson.username}')">${loggedPerson.username}</text>
+            <span>${loggedPerson.username}</span>
+<#--            <ul>-->
+<#--                <li onclick="goTo('persons/${loggedPerson.username}')">Перейти в профиль</li>-->
+<#--                <li onclick="goTo('logout')">Выйти</li>-->
+<#--            </ul>-->
         </div>
         <div id="balance" onclick="goTo('balance')">
             <img src="https://e7.pngegg.com/pngimages/10/205/png-clipart-coin-money-bag-computer-icons-coin-text-trademark.png"/>

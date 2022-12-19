@@ -41,7 +41,15 @@ main #right {
     width: 50vw;
 }
 
+main .hover_span {
+    cursor: pointer;
+    transition: 300ms;
+}
 
+main .hover_span:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
 
 main #audio_text {
     font-size: 2vmin;
