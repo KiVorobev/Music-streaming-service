@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    height: 5vh;
+    height: 10vh;
     font-size: 5vmin;
 }
 
@@ -9,13 +9,28 @@ header div {
     height: 100%;
 }
 
+header #left {
+    vertical-align: middle;
+    float: left;
+    margin-left: 3vmin;
+}
+
 header #right {
     vertical-align: middle;
     float: right;
     margin-right: 10vmin;
 }
 
-header img {
+header #left img {
+    height: 10vmin;
+    width: 10vmin;
+    position: relative;
+    z-index: 10;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+header #right img {
     mix-blend-mode: darken;
     height: 4.5vmin;
     width: 6vmin;
@@ -30,4 +45,5 @@ header text {
 
 header #username, header #balance {
     cursor: pointer;
+    vertical-align: middle;
 }

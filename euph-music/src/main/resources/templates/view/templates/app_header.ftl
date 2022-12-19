@@ -1,4 +1,9 @@
 <#macro appHeader>
+    <div id="left">
+        <div id="logo">
+            <img onclick="goTo('')" src="https://adonius.club/uploads/posts/2022-02/1644938357_35-adonius-club-p-lotos-na-belom-fone-56.png"/>
+        </div>
+    </div>
     <div id="right">
         <div id="username">
             <text onclick="goTo('persons/${loggedPerson.username}')">${loggedPerson.username}</text>
