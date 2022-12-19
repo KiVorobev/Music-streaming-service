@@ -1,7 +1,12 @@
 <#macro audios page>
     <#if page == "saved">
         <div class="main_activity_table">
-            <span id="caption">Сохраненные аудио <span class="username" onclick="goTo('persons/${person.username}')">${person.username}</span></span>
+            <div id="topic">
+                <div id="back_button" onclick="goTo('persons/${person.username}')">
+                    <img id="back_arrow" src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                    Назад</div>
+                <span id="caption">Сохраненные аудио</span>
+            </div>
             <div class="scroll-table-body">
                 <table>
                     <tbody>
@@ -15,7 +20,7 @@
                                 <br>
                                 <span class="elem_authors">
                                         <#list elem.authors as author>
-                                        <span class="elem_author" onclick="goTo('persons/${author.username}')">
+                                            <span class="elem_author">
                                             ${author.username}<#if author_has_next>,</#if></span></#list></span>
                             </td>
                             <td class="action_button">
@@ -29,7 +34,12 @@
         </div>
     <#elseif page == "loaded">
         <div class="main_activity_table">
-            <span id="caption">Сохраненные аудио <span class="username" onclick="goTo('persons/${person.username}')">${person.username}</span></span>
+            <div id="topic">
+                <div id="back_button" onclick="goTo('persons/${person.username}')">
+                    <img id="back_arrow" src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                    Назад</div>
+                <span id="caption">Авторство</span>
+            </div>
             <div class="scroll-table-body">
                 <table>
                     <tbody>
@@ -43,7 +53,7 @@
                                 <br>
                                 <span class="elem_authors">
                                         <#list elem.authors as author>
-                                        <span class="elem_author" onclick="goTo('persons/${author.username}')">
+                                            <span class="elem_author">
                                             ${author.username}<#if author_has_next>,</#if></span></#list></span>
                             </td>
                             <td class="action_button">

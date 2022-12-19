@@ -14,8 +14,7 @@ table {
     border-collapse: collapse;
 }
 
-#caption {
-    width: 100%;
+main #caption {
     font-size: 5vmin;
 }
 
@@ -53,11 +52,6 @@ td img {
     transition: 300ms;
 }
 
-.elem_author:hover, .username:hover {
-    color: #16ece6;
-    transition: 300ms;
-}
-
 .action_button {
     text-align: center;
     width: 6vw;
@@ -65,6 +59,30 @@ td img {
 
 .image {
     width: 6vw;
+}
+
+main #back_button {
+    position: absolute;
+    font-size: 5vmin;
+    margin-left: 3vw;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #back_button:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #topic {
+    height: 5vmin;
+    width: 98vw;
+    vertical-align: middle;
+}
+
+main #back_arrow {
+    float: bottom;
+    height: 4vmin;
 }
 
 .name_authors {
@@ -82,7 +100,7 @@ td img {
 
 .scroll-table-body {
     margin-top: 2vh;
-    height: 80vh;
+    height: 78vh;
     overflow-x: auto;
     table-layout: fixed;
     word-wrap: break-word;
