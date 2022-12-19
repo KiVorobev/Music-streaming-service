@@ -1,15 +1,15 @@
 package com.racers.euphmusic.mapper;
 
-import com.racers.euphmusic.dto.AuthorDto;
+import com.racers.euphmusic.dto.PersonUsernameDto;
 import com.racers.euphmusic.entity.Person;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthorMapper implements Mapper<Person, AuthorDto> {
+public class PersonUsernameMapper implements Mapper<Person, PersonUsernameDto> {
 
     @Override
-    public AuthorDto map(Person from) {
-        return AuthorDto.builder()
+    public PersonUsernameDto map(Person from) {
+        return PersonUsernameDto.builder()
                 .username(from.getUsername())
                 .build();
     }

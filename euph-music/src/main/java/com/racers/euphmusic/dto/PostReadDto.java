@@ -1,6 +1,5 @@
 package com.racers.euphmusic.dto;
 
-import com.racers.euphmusic.entity.Audio;
 import com.racers.euphmusic.entity.Playlist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +17,7 @@ public class PostReadDto {
 
     private String description;
 
-    private String formattedPublicationDate;
+    private String publicationDate;
 
     private Playlist playlist;
 

@@ -15,7 +15,7 @@ public class AudioReadDto {
 
     private String text;
 
-    private String formattedUploadDate;
+    private String uploadDate;
 
-    private List<AuthorDto> authors;
+    private List<PersonUsernameDto> authors;
 }

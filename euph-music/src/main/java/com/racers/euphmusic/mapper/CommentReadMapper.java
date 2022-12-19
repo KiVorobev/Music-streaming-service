@@ -11,14 +11,14 @@ import static com.racers.euphmusic.utils.LocalDateTimeUtils.*;
 @RequiredArgsConstructor
 public class CommentReadMapper implements Mapper<Comment, CommentReadDto> {
 
-    private final AuthorMapper authorMapper;
+    private final PersonUsernameMapper personUsernameMapper;
 
     @Override
     public CommentReadDto map(Comment from) {
         return CommentReadDto.builder()
                 .text(from.getText())
-                .formattedPublicationDate(format(from.getPublicationDate()))
-                .person(authorMapper.map(from.getPerson()))
+                .publicationDate(format(from.getPublicationDate()))
+                .person(personUsernameMapper.map(from.getPerson()))
                 .build();
     }
 }

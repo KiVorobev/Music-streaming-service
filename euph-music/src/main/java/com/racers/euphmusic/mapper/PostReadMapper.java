@@ -24,7 +24,7 @@ public class PostReadMapper implements Mapper<Post, PostReadDto> {
         return PostReadDto.builder()
                 .id(from.getId())
                 .description(from.getDescription())
-                .formattedPublicationDate(format(from.getPublicationDate()))
+                .publicationDate(format(from.getPublicationDate()))
                 .audio(from.getAudio() == null ? null : audioReadMapper.map(from.getAudio()))
                 .playlist(from.getPlaylist() == null ? null : from.getPlaylist())
                 .comments(

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-@Controller("/posts")
-@SessionAttributes(names = "loggedPerson")
+@Controller
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
 
@@ -22,7 +22,7 @@ public class PostController {
         return postService.findById(id)
                 .map(post -> {
                     model.addAttribute("post", post);
-                    return "/view/templates/post";
+                    return "/view/pages/post";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

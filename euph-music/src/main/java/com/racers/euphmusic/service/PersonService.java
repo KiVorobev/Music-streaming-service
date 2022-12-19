@@ -2,10 +2,12 @@ package com.racers.euphmusic.service;
 
 import com.racers.euphmusic.dto.PersonCreateDto;
 import com.racers.euphmusic.dto.PersonLoggedDto;
+import com.racers.euphmusic.dto.PersonReadDto;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.entity.Role;
 import com.racers.euphmusic.entity.RoleEntity;
 import com.racers.euphmusic.mapper.PersonCreateMapper;
+import com.racers.euphmusic.mapper.PersonReadMapper;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,7 @@ public class PersonService implements UserDetailsService {
     private final RoleRepo roleRepo;
     private final PersonCreateMapper personCreateMapper;
     private final ImageService imageService;
+    private final PersonReadMapper personReadMapper;
 
     @Transactional
     public Person create(PersonCreateDto personCreateDto) {
@@ -55,17 +58,18 @@ public class PersonService implements UserDetailsService {
                 .flatMap(imageService::get);
     }
 
-    public Optional<Person> findByUsername(String username) {
-        return personRepo.findByUsername(username);
+    public Optional<PersonReadDto> findByUsername(String username) {
+        return personRepo.findByUsername(username)
+                .map(personReadMapper::map);
     }
 
     @Transactional
-    public void follow(PersonLoggedDto from, Person to) {
+    public void follow(PersonLoggedDto from, PersonReadDto to) {
         personRepo.follow(from.getUsername(), to.getUsername());
     }
 
     @Transactional
-    public void unfollow(PersonLoggedDto from, Person to) {
+    public void unfollow(PersonLoggedDto from, PersonReadDto to) {
         personRepo.unfollow(from.getUsername(), to.getUsername());
     }
 
