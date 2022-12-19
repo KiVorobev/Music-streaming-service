@@ -35,9 +35,9 @@
             <#if person.posts?has_content>
                 <#list person.posts as note>
                     <#if note.audio.name??>
-                        <@post date=note.publicationDate description=note.description media=note.audio comments=note.comments?size/>
+                        <@post id=note.id date=note.publicationDate description=note.description media=note.audio comments=note.comments?size/>
                     <#elseif note.playlist.name??>
-                        <@post date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size/>
+                        <@post id=note.id date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size/>
                     </#if>
                 </#list>
             <#else>

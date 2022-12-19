@@ -1,4 +1,4 @@
-<#macro post date description media comments>
+<#macro post id date description media comments>
     <div class="block post_view">
         <div class="post">
             <div class="top_post">
@@ -24,13 +24,10 @@
             </div>
             <div class="bottom_post">
                 <div class="left_bottom_post">
-                    <span class="post_comments">Комментарии: ${comments}</span>
+                    <span class="post_comments" onclick="goTo('persons/posts/${id}/comments')">Комментарии: ${comments}</span>
                 </div>
                 <div class="right_bottom_post">
-                    <span class="post_date">Опубликовано:
-                        <br>
-                        ${date}
-                    </span>
+                    <span class="post_date">Опубликовано: ${date}</span>
                 </div>
             </div>
         </div>

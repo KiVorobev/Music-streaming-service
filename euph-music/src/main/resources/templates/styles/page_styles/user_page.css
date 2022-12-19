@@ -162,8 +162,23 @@ main .right_top_post, main .right_bottom_post {
     padding-bottom: 1vh;
 }
 
+main .left_bottom_post {
+    width: 20vw;
+    height: 5vh;
+}
+
+main .right_bottom_post {
+    width: 25vw;
+}
+
 main .post_comments {
-    float: bottom;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .post_comments:hover {
+    color: #16ece6;
+    transition: 300ms;
 }
 
 main .post {
