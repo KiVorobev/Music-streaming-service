@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
 
-    private final AuthorMapper authorAudioMapper;
+    private final PersonUsernameMapper authorAudioMapper;
 
     @Override
     public AudioReadDto map(Audio from) {
@@ -20,7 +20,7 @@ public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
                 .id(from.getId())
                 .name(from.getName())
                 .text(from.getText())
-                .formattedUploadDate(LocalDateTimeUtils.format(from.getUploadDate()))
+                .uploadDate(LocalDateTimeUtils.format(from.getUploadDate()))
                 .authors(
                         from.getAuthors().stream()
                                 .map(authorAudioMapper::map)

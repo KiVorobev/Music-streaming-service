@@ -1,7 +1,7 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonLoggedDto;
-import com.racers.euphmusic.entity.Person;
+import com.racers.euphmusic.dto.PersonUsernameDto;
 import com.racers.euphmusic.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +28,7 @@ public class PersonController {
                     model.addAttribute("person", person);
                     boolean isFollowed = person.getFollowers()
                             .stream()
-                            .map(Person::getUsername)
+                            .map(PersonUsernameDto::getUsername)
                             .toList()
                             .contains(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername());
                     model.addAttribute("isFollowed", isFollowed);

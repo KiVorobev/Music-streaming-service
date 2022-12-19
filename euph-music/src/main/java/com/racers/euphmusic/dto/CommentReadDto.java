@@ -1,6 +1,5 @@
 package com.racers.euphmusic.dto;
 
-import com.racers.euphmusic.entity.Person;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +13,8 @@ public class CommentReadDto {
 
     private String text;
 
-    private String formattedPublicationDate;
+    private String publicationDate;
 
-    private AuthorDto person;
+    private PersonUsernameDto person;
 
 }

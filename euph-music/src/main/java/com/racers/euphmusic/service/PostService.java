@@ -1,7 +1,6 @@
 package com.racers.euphmusic.service;
 
 import com.racers.euphmusic.dto.PostReadDto;
-import com.racers.euphmusic.entity.Post;
 import com.racers.euphmusic.mapper.PostReadMapper;
 import com.racers.euphmusic.repository.PostRepo;
 import lombok.RequiredArgsConstructor;
