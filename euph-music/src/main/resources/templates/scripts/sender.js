@@ -42,7 +42,10 @@ function sendUpdateUser(status, description, image) {
     var fd = new FormData();
     fd.append("status", status);
     fd.append("description", description);
-    fd.append("image", image[0]);
+    if (image.length!=0){
+        console.log('lenght is not 0!')
+        fd.append("image", image[0]);
+    }
     $.ajax({
         url: "http://localhost:8080/persons/update",
         type: "POST",
@@ -83,9 +86,8 @@ function unfollowFrom() {
 }
 
 function updateUser() {
-    let status = document.getElementById('input_status').innerText
-    let description = document.getElementById('input_description').innerText
-    let image = document.getElementById('image_edit').innerText
-    console.log(image)
-    // sendUpdateUser(status, description, image)
+    let status = document.getElementById('input_status').value
+    let description = document.getElementById('input_description').value
+    let image = $('#image_edit')[0].files;
+    sendUpdateUser(status, description, image)
 }

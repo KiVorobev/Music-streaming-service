@@ -19,6 +19,10 @@ public class PersonReadDto {
 
     private String description;
 
+    private String image;
+
+    private Integer balance;
+
     private List<PersonUsernameDto> followers;
 
     private List<PersonUsernameDto> followTo;

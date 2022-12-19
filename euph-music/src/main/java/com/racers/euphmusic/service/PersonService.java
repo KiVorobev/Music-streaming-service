@@ -1,12 +1,11 @@
 package com.racers.euphmusic.service;
 
-import com.racers.euphmusic.dto.PersonCreateDto;
-import com.racers.euphmusic.dto.PersonLoggedDto;
-import com.racers.euphmusic.dto.PersonReadDto;
+import com.racers.euphmusic.dto.*;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.entity.Role;
 import com.racers.euphmusic.entity.RoleEntity;
 import com.racers.euphmusic.mapper.PersonCreateMapper;
+import com.racers.euphmusic.mapper.PersonEditMapper;
 import com.racers.euphmusic.mapper.PersonReadMapper;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
@@ -35,13 +34,31 @@ public class PersonService implements UserDetailsService {
     private final PersonCreateMapper personCreateMapper;
     private final ImageService imageService;
     private final PersonReadMapper personReadMapper;
+    private final PersonEditMapper personEditMapper;
 
     @Transactional
-    public Person create(PersonCreateDto personCreateDto) {
-        uploadImage(personCreateDto.getImage());
-        Person person = personCreateMapper.map(personCreateDto);
-        personRepo.save(person);
-        return person;
+    public PersonReadDto create(PersonCreateDto personCreateDto) {
+        return Optional.of(personCreateDto)
+                .map(dto -> {
+                    uploadImage(dto.getImage());
+                    Person person = personCreateMapper.map(dto);
+                    personRepo.save(person);
+                    return personReadMapper.map(person);
+                })
+                .orElseThrow();
+    }
+
+    @Transactional
+    public Optional<PersonReadDto> update(String username, PersonEditDto personEditDto) {
+        return Optional.ofNullable(personEditDto)
+                .map(dto -> {
+                    Optional.ofNullable(personEditDto.getImage())
+                            .ifPresent(this::uploadImage);
+                    Person person = personRepo.findByUsername(username).orElse(null);
+                    personEditMapper.map(personEditDto, person);
+                    personRepo.saveAndFlush(person);
+                    return personReadMapper.map(person);
+                });
     }
 
     @SneakyThrows
@@ -56,6 +73,16 @@ public class PersonService implements UserDetailsService {
                 .map(Person::getImage)
                 .filter(StringUtils::hasText)
                 .flatMap(imageService::get);
+    }
+
+    @Transactional
+    public boolean delete(String username) {
+        return personRepo.findByUsername(username)
+                .map(entity -> {
+                    personRepo.delete(entity);
+                    return true;
+                })
+                .orElse(false);
     }
 
     public Optional<PersonReadDto> findByUsername(String username) {
@@ -75,17 +102,17 @@ public class PersonService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Person> maybeUser = personRepo.findByUsername(username);
-        Integer personId = maybeUser.map(user -> user.getId()).get();
+        Optional<PersonAuthenticationInfo> maybePersonAuthInfo = personRepo.findProjectionByUsername(username);
+        Integer personId = maybePersonAuthInfo.map(PersonAuthenticationInfo::id).get();
         List<RoleEntity> allRolesByPersonsId = roleRepo.findAllRolesByPersonsId(personId);
         Set<Role> rolesSet = allRolesByPersonsId
                 .stream()
                 .map(RoleEntity::getRole)
                 .collect(Collectors.toSet());
-        return maybeUser
+        return maybePersonAuthInfo
                 .map(user -> new User(
-                        user.getUsername(),
-                        user.getPassword(),
+                        user.username(),
+                        user.password(),
                         rolesSet
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
