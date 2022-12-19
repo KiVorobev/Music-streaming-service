@@ -52,7 +52,8 @@ public class PersonService implements UserDetailsService {
     public Optional<PersonReadDto> update(String username, PersonEditDto personEditDto) {
         return Optional.ofNullable(personEditDto)
                 .map(dto -> {
-                    uploadImage(personEditDto.getImage());
+                    Optional.ofNullable(personEditDto.getImage())
+                            .ifPresent(this::uploadImage);
                     Person person = personRepo.findByUsername(username).orElse(null);
                     personEditMapper.map(personEditDto, person);
                     personRepo.saveAndFlush(person);

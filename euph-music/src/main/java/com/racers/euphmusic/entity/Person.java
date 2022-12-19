@@ -1,7 +1,8 @@
 package com.racers.euphmusic.entity;
 
 import lombok.*;
-
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Person {
 
     private String username;
 
+    @Column(updatable = false)
     private String password;
 
     private String email;
@@ -32,6 +34,7 @@ public class Person {
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 
+    @Generated(GenerationTime.ALWAYS)
     private Integer balance;
 
     private String status;
@@ -97,9 +100,19 @@ public class Person {
         role.getPersons().add(this);
     }
 
-    private void addAudio(Audio audio) {
-        this.getSavedAudios().add(audio);
+    public void addAudio(Audio audio) {
+        this.getLoadedAudios().add(audio);
         audio.getAuthors().add(this);
     }
 
+    public void saveAudio(Audio audio) {
+        this.getSavedAudios().add(audio);
+        audio.getSavedBy().size();
+        audio.getSavedBy().add(this);
+    }
+
+    public void addPost(Post post) {
+        post.setPerson(this);
+        this.getPosts().add(post);
+    }
 }
