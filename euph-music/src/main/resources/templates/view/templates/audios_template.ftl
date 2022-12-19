@@ -11,7 +11,7 @@
                 <table>
                     <tbody>
                     <#list person.savedAudios as elem>
-                        <tr onclick="goTo('audios/${elem.id}')">
+                        <tr onclick="goTo('audios/${elem.id?c}')">
                             <td class="image">
                                 <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
                             </td>

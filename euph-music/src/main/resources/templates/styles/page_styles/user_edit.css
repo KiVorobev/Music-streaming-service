@@ -1,0 +1,103 @@
+main #top_area, main #bottom_area {
+    display: block;
+}
+
+main #left {
+    display: inline-block;
+    width: 56vw;
+    text-align: center;
+    float: left;
+    background: rgba(62, 45, 113, 0.42);
+    padding: 2vmin;
+    border-radius: 16px;
+    font-size: 5vmin;
+    margin-left: 3vw;
+}
+
+main #left textarea, main #right input {
+    background: transparent;
+    font-size: 3vmin;
+    border-radius: 16px;
+    padding: 2vmin;
+    resize: none;
+}
+
+main #left #input_status {
+    height: 8vh;
+}
+
+main #left #input_description {
+    height: 30vh;
+}
+
+main #right {
+    border-radius: 16px;
+    font-size: 5vmin;
+    display: inline-block;
+    width: 30vw;
+    margin-left: 3vw;
+}
+
+main #image {
+    border-radius: 16px;
+    height: 45vh;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+main #right img {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+main #left #status {
+    padding-right: 5vmin;
+}
+
+main #left #description {
+    margin-top: 3vh;
+    padding-right: 5vmin;
+}
+
+main #input_description, main #input_status {
+    width: 100%;
+}
+
+main #image_edit_block {
+    margin-top: 3vh;
+    background: rgba(62, 45, 113, 0.42);
+    border-radius: 16px;
+}
+
+main #bottom_area {
+    margin-top: 3vh;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+main #bottom_area > div {
+    background: rgba(62, 45, 113, 0.42);
+    border-radius: 16px;
+    padding: 2vmin;
+    display: inline-block;
+    transition: 300ms;
+}
+
+main #cancel_edit {
+    margin-left: 5vmin;
+}
+
+main #cancel_edit, main #save_edit {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #cancel_edit:hover, main #save_edit:hover {
+    transform: scale(1.2);
+    background: rgba(62, 45, 113, 0.82);
+    color: #16ece6;
+    transition: 300ms;
+}

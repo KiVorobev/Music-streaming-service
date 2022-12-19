@@ -1,15 +1,12 @@
 function sendUserReg(username, email, password, image) {
-    console.log('privet!')
     var fd = new FormData();
     fd.append("username", username);
     fd.append("email", email);
     fd.append("password", password);
     fd.append("image", image[0]);
-    console.log(image[0])
     $.ajax({
         url: "http://localhost:8080/registration",
         type: "POST",
-        // contentType: "multipart/form-data",
         data: fd,
         processData: false,
         contentType:false,
@@ -26,7 +23,6 @@ function sendUserAuth(username, password) {
     var fd = new FormData();
     fd.append("username", username);
     fd.append("password", password);
-
     $.ajax({
         url: "http://localhost:8080/login",
         type: "POST",
@@ -35,6 +31,26 @@ function sendUserAuth(username, password) {
         contentType: false,
         success: function () {
             console.log('Пользователь успешно авторизирован')
+        },
+        error: function () {
+            console.log('Произошла ошибка')
+        }
+    })
+}
+
+function sendUpdateUser(status, description, image) {
+    var fd = new FormData();
+    fd.append("status", status);
+    fd.append("description", description);
+    fd.append("image", image[0]);
+    $.ajax({
+        url: "http://localhost:8080/persons/update",
+        type: "POST",
+        data: fd,
+        processData: false,
+        contentType:false,
+        success: function () {
+            console.log('Пользователь успешно изменен')
         },
         error: function () {
             console.log('Произошла ошибка')
@@ -57,11 +73,19 @@ function userAuth() {
 }
 
 function followTo() {
-    let username = document.getElementById("username_text").innerText
+    let username = document.getElementById('username_text').innerText
     goTo("persons/follow/" + username)
 }
 
 function unfollowFrom() {
-    let username = document.getElementById("username_text").innerText
+    let username = document.getElementById('username_text').innerText
     goTo("persons/unfollow/" + username)
+}
+
+function updateUser() {
+    let status = document.getElementById('input_status').innerText
+    let description = document.getElementById('input_description').innerText
+    let image = document.getElementById('image_edit').innerText
+    console.log(image)
+    // sendUpdateUser(status, description, image)
 }

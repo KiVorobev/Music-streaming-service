@@ -10,9 +10,6 @@
             <div class="inputs">
                 <input id="email" type="text" placeholder="Email"/>
             </div>
-            <label for="image"> Image
-                <input id="image" type="file" name="image">
-            </label>
         </#if>
         <div class="inputs">
             <input id="password" type="password" placeholder="Пароль"/>

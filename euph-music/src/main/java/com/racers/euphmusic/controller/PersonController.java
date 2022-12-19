@@ -77,6 +77,17 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/{username}/edit")
+    public String loadEditUserPage(@PathVariable String username, Model model) {
+        return personService.findByUsername(username)
+                .map(person -> {
+                    model.addAttribute("person", person);
+                    return "view/pages/user_edit";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+
     @GetMapping("/follow/{followToUsername}")
     public String followTo(@PathVariable String followToUsername, Model model) {
         return personService.findByUsername(followToUsername)
