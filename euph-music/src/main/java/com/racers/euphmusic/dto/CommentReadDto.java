@@ -16,7 +16,6 @@ public class CommentReadDto {
 
     private String formattedPublicationDate;
 
-    private Person person;
-
+    private AuthorDto person;
 
 }
