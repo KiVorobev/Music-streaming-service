@@ -1,0 +1,163 @@
+main {
+    text-align: center;
+}
+
+main .post {
+    margin-top: 3vh;
+    display: inline-block;
+    padding: 3vmin;
+    word-wrap: break-word;
+    border-radius: 16px;
+    background: rgba(62, 45, 113, 0.42);
+}
+
+main .post_view {
+    text-align: center;
+    vertical-align: middle;
+}
+
+main .bottom_post, main .top_post {
+    overflow: hidden;
+}
+
+main #back_button {
+    position: absolute;
+    font-size: 5vmin;
+    margin-left: 3vw;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #back_button:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #back_arrow {
+    float: bottom;
+    height: 4vmin;
+}
+
+main .left_top_post {
+    text-align: left;
+    vertical-align: middle;
+}
+
+main .right_top_post {
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+}
+
+main .right_top_post img {
+    display: block;
+    margin: 0 auto;
+    width: 25vmin;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .right_top_post img:hover {
+    transform: scale(1.05);
+    transition: 300ms;
+}
+
+main .left_top_post > div {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+main .left_top_post {
+    display: inline-block;
+    width: 30vw;
+    float: left;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+main .right_top_post, main .right_bottom_post {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 2.5vw;
+    width: 17vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+main .left_bottom_post {
+    display: none;
+}
+
+main .bottom_post {
+    text-align: center;
+}
+
+main .right_bottom_post {
+    width: 19vw;
+}
+
+main .hover_span {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .hover_span:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main .comment {
+    margin-top: 2vh;
+    padding: 1vmin;
+    width: 51.7vw;
+    display: inline-block;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 300ms;
+}
+
+main .image, main .author, main .comment_text {
+    display: inline-block;
+    border: none;
+    padding: 1vmin;
+    height: 10vh;
+    vertical-align: middle;
+}
+
+main .image img {
+    display: block;
+    margin: 0 auto;
+    width: 2vw;
+    height: 4vh;
+    object-fit: cover;
+    border-radius: 50px;
+}
+
+#comments {
+    text-align: center;
+}
+
+main .top_comment {
+    text-align: left;
+    height: 5vh;
+}
+
+main .middle_comment {
+    display: inline-block;
+}
+
+main #add_comment_input {
+    display: inline-block;
+    width: 51.7vw;
+    background: transparent;
+    outline: none;
+    font-size: 3vmin;
+    border-radius: 16px;
+    padding: 1vmin;
+    margin-top: 2vh;
+}
+
+::-webkit-input-placeholder {
+    color: #FFDE88;
+}
