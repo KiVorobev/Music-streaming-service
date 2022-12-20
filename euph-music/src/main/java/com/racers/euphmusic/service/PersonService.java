@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -43,7 +44,6 @@ public class PersonService implements UserDetailsService {
     public PersonReadDto create(PersonCreateDto personCreateDto) {
         return Optional.of(personCreateDto)
                 .map(dto -> {
-                    uploadImage(dto.getImage());
                     Person person = personCreateMapper.map(dto);
                     personRepo.save(person);
                     return personReadMapper.map(person);

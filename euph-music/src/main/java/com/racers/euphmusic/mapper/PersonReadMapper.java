@@ -5,7 +5,10 @@ import com.racers.euphmusic.entity.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static java.util.stream.Collectors.*;
+import java.util.Collection;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor
@@ -24,27 +27,35 @@ public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
                 .balance(from.getBalance())
                 .image(from.getImage())
                 .followers(
-                        from.getFollowers().stream()
+                        Optional.ofNullable(from.getFollowers())
+                                .stream()
+                                .flatMap(Collection::stream)
                                 .map(personUsernameMapper::map)
                                 .collect(toList())
                 )
                 .followTo(
-                        from.getFollowTo().stream()
+                        Optional.ofNullable(from.getFollowTo())
+                                .stream()
+                                .flatMap(Collection::stream)
                                 .map(personUsernameMapper::map)
-                                .collect(toList())
-                )
+                                .collect(toList()))
                 .savedAudios(
-                        from.getSavedAudios().stream()
+                        Optional.ofNullable(from.getSavedAudios())
+                                .stream()
+                                .flatMap(Collection::stream)
                                 .map(audioReadMapper::map)
-                                .collect(toList())
-                )
+                                .collect(toList()))
                 .loadedAudios(
-                        from.getLoadedAudios().stream()
+                        Optional.ofNullable(from.getLoadedAudios())
+                                .stream()
+                                .flatMap(Collection::stream)
                                 .map(audioReadMapper::map)
                                 .collect(toList())
                 )
                 .posts(
-                        from.getPosts().stream()
+                        Optional.ofNullable(from.getPosts())
+                                .stream()
+                                .flatMap(Collection::stream)
                                 .map(postReadMapper::map)
                                 .collect(toList())
                 )
