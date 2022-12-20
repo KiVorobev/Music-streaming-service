@@ -1,0 +1,82 @@
+main #topic {
+    text-align: center;
+    font-size: 5vmin;
+}
+
+table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+tr {
+    display: block;
+    border-radius: 10px;
+    margin: 2vmin;
+    background: rgba(62, 45, 113, 0.42);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+tr:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+td {
+    border: none;
+    padding: 1vmin;
+    height: 10vh;
+    vertical-align: middle;
+}
+
+td img {
+    display: block;
+    margin: 0 auto;
+    width: 4.5vw;
+    height: 8vh;
+    object-fit: cover;
+}
+
+.elem_author, .username {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.name_authors {
+    font-size: 3vmin;
+    width: 79vw;
+    text-align: left;
+}
+
+.image {
+    width: 6vw;
+}
+
+main #topic {
+    height: 5vmin;
+    width: 98vw;
+    vertical-align: middle;
+}
+
+#table {
+    margin-top: 4vh;
+    height: 78vh;
+    overflow-x: auto;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+/* Стили для скролла */
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}

@@ -18,7 +18,7 @@ public class StartPageController {
 
     @GetMapping("/")
     public String loadStartPage(Model model) {
-        List<AudioReadDto> audios = audioService.findAll(0, 6);
+        List<AudioReadDto> audios = audioService.findAll(0, 5);
         model.addAttribute("audios", audios);
         return "view/pages/main";
     }
