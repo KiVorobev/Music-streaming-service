@@ -6,6 +6,24 @@ main #caption {
     margin-top: 3vh;
 }
 
+main #back_button {
+    position: absolute;
+    font-size: 5vmin;
+    margin-left: 3vw;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #back_button:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #back_arrow {
+    float: bottom;
+    height: 4vmin;
+}
+
 main #content {
     margin-left: 8vw;
     width: 80vw;
