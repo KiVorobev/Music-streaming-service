@@ -61,6 +61,29 @@ function sendUpdateUser(status, description, image) {
     })
 }
 
+function sendSearch(text) {
+    let fd = new FormData();
+    fd.append("text", text);
+    $.ajax({
+        url: "http://localhost:8080/search",
+        type: "POST",
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function () {
+            console.log('Поиск присутствует')
+        },
+        error: function () {
+            console.log('Произошла ошибка')
+        }
+    })
+}
+
+function search() {
+    let text = document.getElementById('search_input').value
+    sendSearch(text)
+}
+
 function userReg() {
     let username = document.getElementById('username').value
     let email = document.getElementById('email').value

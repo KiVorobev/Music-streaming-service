@@ -112,8 +112,15 @@ header #search_input {
     padding: 1vmin;
 }
 
-header #search_input:hover :not(#search_input:focus) {
+header #search_input:focus {
+    box-shadow: 0 0 5px 3px purple;
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+header #search_input:hover:not(header #search_input:focus) {
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 header ::-webkit-input-placeholder {

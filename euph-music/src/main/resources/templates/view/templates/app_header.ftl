@@ -6,8 +6,18 @@
         </div>
     </div>
     <div id="search_block">
-        <input id="search_input" type="text" placeholder="Поиск" onsubmit="goTo('search')"/>
+        <input id="search_input" type="text" placeholder="Поиск"/>
     </div>
+    <script>
+        document.getElementById('search_input').onkeypress = function (e) {
+            if (e.keyCode === 13) {
+                search()
+            }
+        }
+        if (window.location.href === 'http://localhost:8080/search') {
+            document.getElementById('search_block').style.display = 'none'
+        }
+    </script>
     <div id="right">
         <div id="username">
             ${loggedPerson.username}

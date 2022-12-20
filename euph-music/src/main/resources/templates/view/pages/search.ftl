@@ -6,6 +6,7 @@
 </#macro>
 
 <#macro content>
+
 </#macro>
 
 <@main cssPage="search"/>
