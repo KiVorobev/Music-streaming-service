@@ -66,7 +66,7 @@ main .audio_info {
 }
 
 main #image {
-    height: 60vh;
+    height: 50vh;
     text-align: center;
     word-wrap: break-word;
 }
@@ -76,4 +76,13 @@ main #left img {
     max-height: 100%;
     margin: 0 auto;
     object-fit: cover;
+}
+
+main #genres {
+    padding: 2vmin;
+    display: inline-block;
+    width: 25vw;
+    margin-top: 2vh;
+    background: rgba(62, 45, 113, 0.42);
+    border-radius: 16px;
 }

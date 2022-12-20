@@ -111,12 +111,13 @@ main #bottom_area {
     text-align: center;
 }
 
-main #bottom_area > div {
+main #cancel_edit, main #save_edit {
     background: rgba(62, 45, 113, 0.42);
     border-radius: 16px;
     padding: 2vmin;
     display: inline-block;
     transition: 300ms;
+    border: none;
 }
 
 main #cancel_edit {

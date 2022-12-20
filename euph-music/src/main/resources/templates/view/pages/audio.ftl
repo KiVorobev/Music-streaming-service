@@ -17,10 +17,17 @@
             <div id="image">
                 <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
             </div>
+            <div id="genres">
+                <span>Жанры</span>
+                <br>
+                <#list audio.genres as genre>
+                    <span>${genre.name}</span><#if genre_has_next>,</#if>
+                </#list>
+            </div>
         </div>
         <div id="right">
             <div id="information_block">
-                <span>Информация:</span>
+                <span>Информация</span>
             </div>
             <div class="audio_info">
                 <span>Название: ${audio.name}</span>
@@ -34,7 +41,8 @@
             <div class="audio_info">
             <span>Авторы:
                 <#list audio.authors as author>
-                    <span class="hover_span" onclick="goTo('persons/${author.username}')">${author.username}</span><#if author_has_next>,</#if>
+                    <span class="hover_span"
+                          onclick="goTo('persons/${author.username}')">${author.username}</span><#if author_has_next>,</#if>
                 </#list>
             </span>
             </div>
