@@ -1,4 +1,4 @@
-package com.racers.euphmusic.mapper;
+package com.racers.euphmusic.dto;
 
 import lombok.Builder;
 import lombok.Data;

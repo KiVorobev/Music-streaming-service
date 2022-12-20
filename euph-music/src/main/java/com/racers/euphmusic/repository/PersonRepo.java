@@ -1,7 +1,7 @@
 package com.racers.euphmusic.repository;
 
-import com.racers.euphmusic.dto.PersonAuthenticationInfo;
 import com.racers.euphmusic.entity.Person;
+import com.racers.euphmusic.projection.PersonFoundByUsername;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +14,10 @@ public interface PersonRepo extends JpaRepository<Person, Integer> {
 
     Optional<Person> findByUsername(String username);
 
-    Optional<PersonAuthenticationInfo> findProjectionByUsername(String username);
+    <T> Optional<T> findByUsername(String username, Class<T> clazz);
+
+    @Query(value = "SELECT * FROM get_persons_by_username (:username);", nativeQuery = true)
+    List<PersonFoundByUsername> findUsersByUsernameLike(@Param("username") String username);
 
     @Query(value = "SELECT follow (:followerUsername , :followToUsername);", nativeQuery = true)
     void follow(@Param("followerUsername") String fromUsername, @Param("followToUsername") String toUsername);
