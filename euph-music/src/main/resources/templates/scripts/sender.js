@@ -79,9 +79,32 @@ function sendSearch(text) {
     })
 }
 
+function sendAddComment(text, postId) {
+    let fd = new FormData();
+    fd.append("text", text);
+    $.ajax({
+        url: "http://localhost:8080/posts/" + postId + "/comments/add",
+        type: "POST",
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function () {
+            console.log('Комментарий добавлен')
+        },
+        error: function () {
+            console.log('Произошла ошибка')
+        }
+    })
+}
+
 function search() {
     let text = document.getElementById('search_input').value
     sendSearch(text)
+}
+
+function addComment(postId) {
+    let text = document.getElementById('add_comment_input').value
+    sendAddComment(text, postId)
 }
 
 function userReg() {
