@@ -34,9 +34,12 @@ main #user_mood, main #user_info, main #null_posts, main #edit, main #follow, ma
     text-align: center;
 }
 
+main #user_mood {
+    text-align: left;
+}
+
 main #user_mood > div {
     word-wrap: break-word;
-    text-align: center;
     padding: 1.5vh;
 }
 

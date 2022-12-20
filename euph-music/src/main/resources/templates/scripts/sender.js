@@ -1,5 +1,5 @@
 function sendUserReg(username, email, password, image) {
-    var fd = new FormData();
+    let fd = new FormData();
     fd.append("username", username);
     fd.append("email", email);
     fd.append("password", password);
@@ -9,7 +9,7 @@ function sendUserReg(username, email, password, image) {
         type: "POST",
         data: fd,
         processData: false,
-        contentType:false,
+        contentType: false,
         success: function () {
             console.log('Пользователь успешно добавлен')
         },
@@ -20,7 +20,7 @@ function sendUserReg(username, email, password, image) {
 }
 
 function sendUserAuth(username, password) {
-    var fd = new FormData();
+    let fd = new FormData();
     fd.append("username", username);
     fd.append("password", password);
     $.ajax({
@@ -39,10 +39,10 @@ function sendUserAuth(username, password) {
 }
 
 function sendUpdateUser(status, description, image) {
-    var fd = new FormData();
+    let fd = new FormData();
     fd.append("status", status);
     fd.append("description", description);
-    if (image.length!=0){
+    if (image.length !== 0) {
         console.log('lenght is not 0!')
         fd.append("image", image[0]);
     }
@@ -51,7 +51,7 @@ function sendUpdateUser(status, description, image) {
         type: "POST",
         data: fd,
         processData: false,
-        contentType:false,
+        contentType: false,
         success: function () {
             console.log('Пользователь успешно изменен')
         },
@@ -65,7 +65,7 @@ function userReg() {
     let username = document.getElementById('username').value
     let email = document.getElementById('email').value
     let password = document.getElementById('password').value
-    let image = $('#image')[0].files;
+    let image = $('#image')[0].files
     sendUserReg(username, email, password, image)
 }
 
@@ -88,6 +88,6 @@ function unfollowFrom() {
 function updateUser() {
     let status = document.getElementById('input_status').value
     let description = document.getElementById('input_description').value
-    let image = $('#image_edit')[0].files;
+    let image = $('#image_edit')[0].files
     sendUpdateUser(status, description, image)
 }

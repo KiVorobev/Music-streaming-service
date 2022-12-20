@@ -12,16 +12,16 @@
                 <span>Статус:</span>
                 <br>
                 <#if person.status??>
-                    <textarea id="input_status" type="text">${person.status}</textarea>
-                <#else> <textarea id="input_status" type="text"></textarea>
+                    <textarea maxlength="128" id="input_status" type="text">${person.status}</textarea>
+                <#else> <textarea maxlength="128" id="input_status" type="text"></textarea>
                 </#if>
             </div>
             <div id="description">
                 <span>Описание:</span>
                 <br>
                 <#if person.description??>
-                    <textarea id="input_description" type="text">${person.description}</textarea>
-                <#else> <textarea id="input_description" type="text"></textarea>
+                    <textarea maxlength="512" id="input_description" type="text">${person.description}</textarea>
+                <#else> <textarea maxlength="512" id="input_description" type="text"></textarea>
                 </#if>
             </div>
         </div>
@@ -35,6 +35,7 @@
             </div>
             <div id="image_edit_block">
                 <input id="image_edit" type="file" name="image">
+                <label id="select_file_label" for="image_edit">Выберите файл</label>
             </div>
         </div>
     </div>
