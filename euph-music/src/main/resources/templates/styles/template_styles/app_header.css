@@ -47,3 +47,53 @@ header #username, header #balance {
     cursor: pointer;
     vertical-align: middle;
 }
+
+header ul {
+    padding: 0;
+    margin-top: 0;
+    margin-left: -9vmin;
+    position: absolute;
+    display: none;
+}
+
+header li {
+    list-style: none;
+    padding: 0.5vmin;
+    background: rgba(62, 45, 113, 0.42);
+    position: relative;
+    transition: 300ms;
+}
+
+header #username:hover ul {
+    display: block;
+}
+
+header li:nth-of-type(1) {
+    border-radius: 16px 16px 0 0;
+}
+
+header li:nth-of-type(2) {
+    border-radius: 0 0 16px 16px;
+}
+
+header li:nth-of-type(1):hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+header li:nth-of-type(2):hover {
+    background: rgba(210, 0, 0, 0.82);
+    transition: 300ms;
+}
+
+header li:hover #to_profile, header li:hover #logout {
+    color: #16ece6;
+}
+
+header #to_profile, header #logout {
+    font-size: 3vmin;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+}
