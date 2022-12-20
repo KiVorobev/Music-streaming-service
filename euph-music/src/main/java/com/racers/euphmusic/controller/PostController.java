@@ -32,6 +32,11 @@ public class PostController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/create")
+    public String createPost() {
+        return "/view/pages/add_post";
+    }
+
     @PostMapping("/create")
     public String create(PostCreateDto postCreateDto, Model model) {
         return personRepo.findByUsername(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername())

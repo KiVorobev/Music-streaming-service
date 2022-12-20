@@ -35,7 +35,7 @@ main #user_mood, main #user_info, main #null_posts, main #edit, main #follow, ma
 }
 
 main #user_mood {
-    text-align: left;
+    padding: 1vmin;
 }
 
 main #user_mood > div {

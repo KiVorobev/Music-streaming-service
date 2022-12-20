@@ -26,7 +26,7 @@
             </div>
         </#if>
         <#if loggedPerson.username == person.username>
-            <div class="block" id="add_post" onmouseover="hover_highlight('add_post_text')"
+            <div class="block" id="add_post" onclick="goTo('posts/create')" onmouseover="hover_highlight('add_post_text')"
                  onmouseout="hover_unhighlight('add_post_text')">
                 <span id="add_post_text">Добавить запись</span>
             </div>

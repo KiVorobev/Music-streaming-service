@@ -9,19 +9,19 @@
     <div id="top_area">
         <div id="left">
             <div id="status">
-                <span>Статус:</span>
+                <span>Статус</span>
                 <br>
                 <#if person.status??>
-                    <textarea maxlength="128" id="input_status" type="text">${person.status}</textarea>
-                <#else> <textarea maxlength="128" id="input_status" type="text"></textarea>
+                    <textarea maxlength="128" id="input_status">${person.status}</textarea>
+                <#else> <textarea maxlength="128" id="input_status"></textarea>
                 </#if>
             </div>
             <div id="description">
-                <span>Описание:</span>
+                <span>Описание</span>
                 <br>
                 <#if person.description??>
-                    <textarea maxlength="512" id="input_description" type="text">${person.description}</textarea>
-                <#else> <textarea maxlength="512" id="input_description" type="text"></textarea>
+                    <textarea maxlength="512" id="input_description">${person.description}</textarea>
+                <#else> <textarea maxlength="512" id="input_description"></textarea>
                 </#if>
             </div>
         </div>
