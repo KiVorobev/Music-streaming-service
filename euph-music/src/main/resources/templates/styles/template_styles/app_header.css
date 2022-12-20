@@ -2,6 +2,7 @@ header {
     width: 100%;
     height: 10vh;
     font-size: 5vmin;
+    vertical-align: middle;
 }
 
 header div {
@@ -96,4 +97,25 @@ header #to_profile, header #logout {
     display: block;
     text-align: center;
     line-height: 40px;
+}
+
+header #search_block {
+    margin-left: 1vw;
+    background: transparent;
+}
+
+header #search_input {
+    background: transparent;
+    border-radius: 16px;
+    font-size: 3vmin;
+    outline: none;
+    padding: 1vmin;
+}
+
+header #search_input:hover :not(#search_input:focus) {
+    cursor: pointer;
+}
+
+header ::-webkit-input-placeholder {
+    color: #FFDE88;
 }
