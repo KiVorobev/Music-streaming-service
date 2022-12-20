@@ -1,7 +1,7 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonLoggedDto;
-import com.racers.euphmusic.mapper.PostCreateDto;
+import com.racers.euphmusic.dto.PostCreateDto;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.service.PostService;
 import lombok.RequiredArgsConstructor;

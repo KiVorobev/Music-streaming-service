@@ -47,8 +47,9 @@ public class PersonController {
 
     @PostMapping(value = "/update")
     public String update(Model model, PersonEditDto personEditDto) {
-        return personService.update(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername(), personEditDto)
-                .map(it -> "view/pages/user_page")
+        String loggedUsername = PersonLoggedDto.getLoggedPersonFromSession(model).getUsername();
+        return personService.update(loggedUsername, personEditDto)
+                .map(it -> "redirect:/persons/" + loggedUsername)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

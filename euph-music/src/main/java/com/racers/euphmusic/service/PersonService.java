@@ -6,7 +6,9 @@ import com.racers.euphmusic.entity.Role;
 import com.racers.euphmusic.entity.RoleEntity;
 import com.racers.euphmusic.mapper.PersonCreateMapper;
 import com.racers.euphmusic.mapper.PersonEditMapper;
+import com.racers.euphmusic.mapper.PersonFoundedMapper;
 import com.racers.euphmusic.mapper.PersonReadMapper;
+import com.racers.euphmusic.projection.PersonAuthenticationInfo;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,7 @@ public class PersonService implements UserDetailsService {
     private final ImageService imageService;
     private final PersonReadMapper personReadMapper;
     private final PersonEditMapper personEditMapper;
+    private final PersonFoundedMapper personFoundedMapper;
 
     @Transactional
     public PersonReadDto create(PersonCreateDto personCreateDto) {
@@ -90,6 +93,12 @@ public class PersonService implements UserDetailsService {
                 .map(personReadMapper::map);
     }
 
+    public List<PersonFoundedDto> findUsersByUsernameLike(String username) {
+        return personRepo.findUsersByUsernameLike(username).stream()
+                .map(personFoundedMapper::map)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public void follow(PersonLoggedDto from, PersonReadDto to) {
         personRepo.follow(from.getUsername(), to.getUsername());
@@ -102,7 +111,7 @@ public class PersonService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<PersonAuthenticationInfo> maybePersonAuthInfo = personRepo.findProjectionByUsername(username);
+        Optional<PersonAuthenticationInfo> maybePersonAuthInfo = personRepo.findByUsername(username, PersonAuthenticationInfo.class);
         Integer personId = maybePersonAuthInfo.map(PersonAuthenticationInfo::id).get();
         List<RoleEntity> allRolesByPersonsId = roleRepo.findAllRolesByPersonsId(personId);
         Set<Role> rolesSet = allRolesByPersonsId
