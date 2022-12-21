@@ -40,7 +40,7 @@ public class AudioController {
 
     @PostMapping("/create")
     public String addAudio(AudioCreateDto audioCreateDto, Model model) {
-        audioCreateDto.getAuthors().add(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername());
+        audioCreateDto.setAuthors(audioCreateDto.getAuthors() + "," + PersonLoggedDto.getLoggedPersonFromSession(model).getUsername());
         return audioService.addAudio(audioCreateDto)
                 .map(dto -> "redirect:/audios/" + dto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -65,8 +65,8 @@ public class AudioController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping(value = "/{id}/avatar")
-    public ResponseEntity<byte[]> findAvatar(@PathVariable("username") Integer id) {
+    @GetMapping("/{id}/avatar")
+    public ResponseEntity<byte[]> findAvatar(@PathVariable("id") Integer id) {
         return audioService.findAvatar(id)
                 .map(content -> ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
