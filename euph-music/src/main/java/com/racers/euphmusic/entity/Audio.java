@@ -24,6 +24,8 @@ public class Audio {
 
     private String text;
 
+    private String image;
+
     @Column(name = "upload_date")
     private LocalDateTime uploadDate;
 

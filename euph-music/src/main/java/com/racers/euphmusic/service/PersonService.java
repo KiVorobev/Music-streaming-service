@@ -27,6 +27,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.racers.euphmusic.utils.StringUtils.DEFAULT_IMAGE_AVATAR_NAME;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -67,7 +69,7 @@ public class PersonService implements UserDetailsService {
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
         if (!image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Person.class);
         }
     }
 
@@ -75,11 +77,11 @@ public class PersonService implements UserDetailsService {
         return personRepo.findByUsername(username)
                 .map(Person::getImage)
                 .filter(StringUtils::hasText)
-                .flatMap(imageService::get);
+                .flatMap(image -> imageService.get(image, Person.class));
     }
 
     public Optional<byte[]> findDefaultAvatar() {
-        return imageService.findDefaultPersonAvatar(com.racers.euphmusic.utils.StringUtils.DEFAULT_IMAGE_AVATAR_NAME);
+        return imageService.findDefaultPersonAvatar(DEFAULT_IMAGE_AVATAR_NAME, Person.class);
     }
 
     @Transactional
