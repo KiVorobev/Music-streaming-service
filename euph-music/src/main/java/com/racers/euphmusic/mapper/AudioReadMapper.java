@@ -21,6 +21,9 @@ public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
                 .id(from.getId())
                 .name(from.getName())
                 .text(from.getText())
+                .image(from.getImage() == null
+                        ? null
+                        : from.getImage())
                 .uploadDate(LocalDateTimeUtils.format(from.getUploadDate()))
                 .authors(
                         from.getAuthors().stream()

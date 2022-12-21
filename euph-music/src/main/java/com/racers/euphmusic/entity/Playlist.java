@@ -22,6 +22,8 @@ public class Playlist {
 
     private String description;
 
+    private String image;
+
     @Column(name = "creation_date")
     private LocalDate date;
 }

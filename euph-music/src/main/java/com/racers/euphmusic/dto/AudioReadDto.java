@@ -2,11 +2,12 @@ package com.racers.euphmusic.dto;
 
 import lombok.Builder;
 import lombok.Data;
+
 import java.util.List;
 
 @Data
 @Builder
-public class  AudioReadDto {
+public class AudioReadDto {
 
     private Integer id;
 
@@ -15,6 +16,8 @@ public class  AudioReadDto {
     private String text;
 
     private String uploadDate;
+
+    private String image;
 
     private List<PersonUsernameDto> authors;
 
