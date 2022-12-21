@@ -76,6 +76,7 @@ main #left img {
     max-height: 100%;
     margin: 0 auto;
     object-fit: cover;
+    height: 44vh;
 }
 
 main #genres {
@@ -85,4 +86,31 @@ main #genres {
     margin-top: 2vh;
     background: rgba(62, 45, 113, 0.42);
     border-radius: 16px;
+}
+
+main #top, main #bottom {
+    display: inline-block;
+    width: 98vw;
+}
+
+main #bottom {
+    text-align: center;
+}
+
+main #text {
+    width: 81%;
+    margin-left: 1%;
+    text-align: center;
+    background: rgba(62, 45, 113, 0.42);
+    border-radius: 16px;
+    padding: 2vmin;
+    display: inline-block;
+}
+
+main #label_text {
+    font-size: 4vmin;
+}
+
+main .text {
+    font-size: 3vmin;
 }
