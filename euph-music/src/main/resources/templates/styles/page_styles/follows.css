@@ -27,6 +27,8 @@ span {
 }
 
 tr {
+    display: block;
+    border-radius: 16px;
     cursor: pointer;
     transition: 300ms;
 }
