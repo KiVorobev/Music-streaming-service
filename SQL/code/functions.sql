@@ -392,3 +392,101 @@ end;
 $$
     language plpgsql;
 
+/* create playlist*/
+DROP FUNCTION create_playlist(playlist_name text, playlist_description text, _image text, audios text, authors text);
+
+CREATE FUNCTION create_playlist(playlist_name text, playlist_description text, _image text, audios text,
+                                authors text) returns playlist
+    LANGUAGE plpgsql
+as
+$$
+declare
+    res           playlist;
+    audios_array  text[] = string_to_array(audios, ',');
+    authors_array text[] = string_to_array(authors, ',');
+begin
+    INSERT INTO playlist (name, description, creation_date, image)
+    VALUES (playlist_name, playlist_description, now(), _image)
+    RETURNING * INTO res;
+    FOR r IN 1..cardinality(authors_array)
+        LOOP
+            INSERT INTO playlist_author (playlist_id, author_id)
+            VALUES (res.id,
+                    (SELECT p.id FROM person p WHERE p.username = authors_array[r]));
+        END LOOP;
+    FOR r IN 1..cardinality(audios_array)
+        LOOP
+            INSERT INTO playlist_audio (playlist_id, audio_id)
+            VALUES (res.id,
+                    (SELECT a.id FROM audio a where a.id = audios_array[r]::integer));
+        END LOOP;
+    RETURN res;
+end;
+$$;
+
+/* create audio*/
+DROP FUNCTION create_new_audio(_name text, _text text, _image text, user_names text, genres text);
+
+CREATE FUNCTION create_new_audio(_name text, _text text, _image text, user_names text, genres text) returns audio
+    LANGUAGE plpgsql
+as
+$$
+DECLARE
+    res              audio;
+    user_names_array text[] = string_to_array(user_names, ',');
+    genres_array     text[] = string_to_array(genres, ',');
+BEGIN
+    INSERT INTO audio(name, text, image, upload_date) VALUES (_name, _text, _image, now()) RETURNING * INTO res;
+    FOR r IN 1..cardinality(user_names_array)
+        LOOP
+            INSERT INTO author_audio (author_id, audio_id)
+            VALUES ((SELECT id FROM person WHERE username = user_names_array[r]),
+                    res.id);
+        END LOOP;
+    FOR r IN 1..cardinality(genres_array)
+        LOOP
+            INSERT INTO genre_audio (genre_id, audio_id)
+            VALUES ((SELECT g.id FROM genre g WHERE g.name = genres_array[r]),
+                    res.id);
+        END LOOP;
+    RETURN res;
+END;
+$$;
+
+/* create comment*/
+DROP FUNCTION add_comment(comment_text text, person_name text, _post_id integer);
+
+CREATE FUNCTION add_comment(comment_text text, person_name text, _post_id integer) returns SETOF comment
+    LANGUAGE plpgsql
+as
+$$
+BEGIN
+    RETURN QUERY INSERT INTO comment (person_id, post_id, text, publication_date)
+        VALUES ((SELECT p.id
+                 FROM person p
+                 WHERE p.username = person_name),
+                _post_id, comment_text, now())
+        RETURNING *;
+end;
+$$;
+
+/* create post*/
+DROP FUNCTION add_post(_username TEXT, _playlist_id INTEGER, _audio_id INTEGER, _description TEXT);
+
+CREATE FUNCTION add_post(_username text, _playlist_id integer, _audio_id integer, _description text) returns post
+    LANGUAGE plpgsql
+as
+$$
+DECLARE
+    res post;
+begin
+    INSERT INTO post (person_id, playlist_id, audio_id, description, publication_date)
+    VALUES ((SELECT p.id from person p where p.username = _username),
+            _playlist_id,
+            _audio_id,
+            _description,
+            now())
+    RETURNING * into res;
+    RETURN res;
+end;
+$$;
