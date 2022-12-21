@@ -9,4 +9,5 @@ public class PersonUsernameDto {
 
     private String username;
 
+    private String image;
 }

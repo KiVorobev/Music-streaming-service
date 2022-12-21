@@ -3,8 +3,9 @@
         <div class="main_activity_table">
             <div id="topic">
                 <div id="back_button" onclick="goTo('persons/${person.username}')">
-                    <img id="back_arrow" src="https://stihi.ru/pics/2019/07/14/5314.jpg">
-                    Назад</div>
+                    <img id="back_arrow" src="/images/arrow.png">
+                    Назад
+                </div>
                 <span id="caption">Сохраненные аудио</span>
             </div>
             <div class="scroll-table-body">
@@ -36,15 +37,16 @@
         <div class="main_activity_table">
             <div id="topic">
                 <div id="back_button" onclick="goTo('persons/${person.username}')">
-                    <img id="back_arrow" src="https://stihi.ru/pics/2019/07/14/5314.jpg">
-                    Назад</div>
+                    <img id="back_arrow" src="/images/arrow.png">
+                    Назад
+                </div>
                 <span id="caption">Авторство</span>
             </div>
             <div class="scroll-table-body">
                 <table>
                     <tbody>
                     <#list person.loadedAudios as elem>
-                        <tr onclick="goTo('audios/${elem.id}')">
+                        <tr onclick="goTo('audios/${elem.id?c}')">
                             <td class="image">
                                 <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
                             </td>

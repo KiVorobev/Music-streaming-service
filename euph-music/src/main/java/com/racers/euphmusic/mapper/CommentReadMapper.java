@@ -5,7 +5,7 @@ import com.racers.euphmusic.entity.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.racers.euphmusic.utils.LocalDateTimeUtils.*;
+import static com.racers.euphmusic.utils.LocalDateTimeUtils.format;
 
 @Component
 @RequiredArgsConstructor

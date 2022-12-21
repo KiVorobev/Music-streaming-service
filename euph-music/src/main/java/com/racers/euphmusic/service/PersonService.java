@@ -4,10 +4,7 @@ import com.racers.euphmusic.dto.*;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.entity.Role;
 import com.racers.euphmusic.entity.RoleEntity;
-import com.racers.euphmusic.mapper.PersonCreateMapper;
-import com.racers.euphmusic.mapper.PersonEditMapper;
-import com.racers.euphmusic.mapper.PersonFoundedMapper;
-import com.racers.euphmusic.mapper.PersonReadMapper;
+import com.racers.euphmusic.mapper.*;
 import com.racers.euphmusic.projection.PersonAuthenticationInfo;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
@@ -27,6 +24,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.racers.euphmusic.utils.StringUtils.DEFAULT_IMAGE_AVATAR_NAME;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -39,6 +38,7 @@ public class PersonService implements UserDetailsService {
     private final PersonReadMapper personReadMapper;
     private final PersonEditMapper personEditMapper;
     private final PersonFoundedMapper personFoundedMapper;
+    private final PersonUsernameMapper personUsernameMapper;
 
     @Transactional
     public PersonReadDto create(PersonCreateDto personCreateDto) {
@@ -67,7 +67,7 @@ public class PersonService implements UserDetailsService {
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
         if (!image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Person.class);
         }
     }
 
@@ -75,7 +75,11 @@ public class PersonService implements UserDetailsService {
         return personRepo.findByUsername(username)
                 .map(Person::getImage)
                 .filter(StringUtils::hasText)
-                .flatMap(imageService::get);
+                .flatMap(image -> imageService.get(image, Person.class));
+    }
+
+    public Optional<byte[]> findDefaultAvatar() {
+        return imageService.findDefaultPersonAvatar(DEFAULT_IMAGE_AVATAR_NAME, Person.class);
     }
 
     @Transactional
@@ -96,6 +100,12 @@ public class PersonService implements UserDetailsService {
     public List<PersonFoundedDto> findUsersByUsernameLike(String username) {
         return personRepo.findUsersByUsernameLike(username).stream()
                 .map(personFoundedMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public List<PersonUsernameDto> findAll() {
+        return personRepo.findAll().stream()
+                .map(personUsernameMapper::map)
                 .collect(Collectors.toList());
     }
 

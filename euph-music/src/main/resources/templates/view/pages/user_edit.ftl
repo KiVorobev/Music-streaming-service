@@ -31,7 +31,7 @@
                     <#if person.image??>
                         <img src="/persons/${person.username}/avatar">
                     <#else>
-                        <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+                        <img src="/persons/avatar">
                     </#if>
                 </div>
                 <div id="image_edit_block">

@@ -1,10 +1,10 @@
 package com.racers.euphmusic.dto;
 
-import com.racers.euphmusic.entity.Playlist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
@@ -19,7 +19,7 @@ public class PostReadDto {
 
     private String publicationDate;
 
-    private Playlist playlist;
+    private PlaylistReadDto playlist;
 
     private AudioReadDto audio;
 

@@ -3,6 +3,7 @@ package com.racers.euphmusic.entity;
 import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Person {
     private List<RoleEntity> roles;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follow_to_person_id"),
@@ -60,7 +61,7 @@ public class Person {
     )
     private List<Person> followers;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follower_person_id"),
@@ -68,7 +69,7 @@ public class Person {
     )
     private List<Person> followTo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "author_audio",
             joinColumns = @JoinColumn(name = "author_id"),
@@ -76,7 +77,7 @@ public class Person {
     )
     private List<Audio> loadedAudios;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "save_audio",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -84,32 +85,16 @@ public class Person {
     )
     private List<Audio> savedAudios;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "person")
     private List<Post> posts;
 
-    @ManyToMany
-    @JoinTable(
-            name = "nravlik",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "audio_id")
-    )
-    private List<Audio> audiosSettedNravlik;
-
-    public void addRole(RoleEntity role) {
-        this.roles.add(role);
-        role.getPersons().add(this);
-    }
-
-    public void addAudio(Audio audio) {
-        this.getLoadedAudios().add(audio);
-        audio.getAuthors().add(this);
-    }
-
-    public void saveAudio(Audio audio) {
-        this.getSavedAudios().add(audio);
-        audio.getSavedBy().size();
-        audio.getSavedBy().add(this);
-    }
+//    @ManyToMany(fe)
+//    @JoinTable(
+//            name = "nravlik",
+//            joinColumns = @JoinColumn(name = "person_id"),
+//            inverseJoinColumns = @JoinColumn(name = "audio_id")
+//    )
+//    private List<Audio> audiosSettedNravlik;
 
     public void addPost(Post post) {
         post.setPerson(this);

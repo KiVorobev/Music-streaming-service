@@ -1,6 +1,7 @@
 package com.racers.euphmusic.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Post {
     @JoinColumn
     private Audio audio;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
 }
