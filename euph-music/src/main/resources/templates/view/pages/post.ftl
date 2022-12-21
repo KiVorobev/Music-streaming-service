@@ -36,12 +36,15 @@
                 <div class="top_comment">
                     <div class="image">
                         <#if comment.person.image??>
-                            <img src="/persons/${comment.person.username}/avatar">
+                            <img onclick="goTo('persons/${comment.person.username}')"
+                                 src="/persons/${comment.person.username}/avatar">
                         <#else>
-                            <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+                            <img onclick="goTo('persons/${comment.person.username}')"
+                                 src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
                         </#if>
                     </div>
-                    <div class="author">${comment.person.username}</div>
+                    <div class="author hover_span"
+                         onclick="goTo('persons/${comment.person.username}')">${comment.person.username}</div>
                 </div>
                 <div class="middle_comment">
                     <div class="comment_text">${comment.text}</div>

@@ -121,8 +121,12 @@ main .image, main .author, main .comment_text {
     display: inline-block;
     border: none;
     padding: 1vmin;
-    height: 10vh;
     vertical-align: middle;
+}
+
+main .comment_text {
+    width: 97%;
+    display: block;
 }
 
 main .image img {
@@ -132,6 +136,18 @@ main .image img {
     height: 4vh;
     object-fit: cover;
     border-radius: 50px;
+}
+
+main .image, main .author {
+    cursor: pointer;
+}
+
+main .image {
+    padding-right: 0;
+}
+
+main .author {
+    padding-left: 0;
 }
 
 #comments {
@@ -144,10 +160,21 @@ main .top_comment {
 }
 
 main .middle_comment {
+    word-wrap: break-word;
+    height: 5vh;
     display: inline-block;
+    text-align: left;
+    width: 100%;
+}
+
+.bottom_comment {
+    padding-right: 2vw;
+    text-align: right;
 }
 
 main #add_comment_input {
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.2);
     display: inline-block;
     width: 51.7vw;
     background: transparent;
@@ -156,6 +183,17 @@ main #add_comment_input {
     border-radius: 16px;
     padding: 1vmin;
     margin-top: 2vh;
+    transition: 300ms;
+}
+
+main #add_comment_input:hover:not(main #add_comment_input:focus) {
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #add_comment_input:focus {
+    background: rgba(62, 45, 113, 0.82);
 }
 
 ::-webkit-input-placeholder {
