@@ -1,5 +1,6 @@
 package com.racers.euphmusic.service;
 
+import com.racers.euphmusic.dto.AudioCreateDto;
 import com.racers.euphmusic.dto.AudioFoundedDto;
 import com.racers.euphmusic.dto.AudioReadDto;
 import com.racers.euphmusic.entity.Audio;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -27,6 +29,19 @@ public class AudioService {
     private final AudioReadMapper audioReadMapper;
     private final AudioFoundedMapper audioFoundedMapper;
     private final ImageService imageService;
+
+    @Transactional
+    public Optional<AudioReadDto> addAudio(AudioCreateDto audioCreateDto) {
+        return audioRepo.addAudio(
+                audioCreateDto.getName(),
+                audioCreateDto.getText(),
+                audioCreateDto.getImage().getOriginalFilename(),
+                audioCreateDto.getAuthors().stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(","))
+        ).map(audioReadMapper::map);
+
+    }
 
     public List<AudioReadDto> findAll(int page, int size) {
         PageRequest request = PageRequest.of(page, size, Sort.by("uploadDate").descending());

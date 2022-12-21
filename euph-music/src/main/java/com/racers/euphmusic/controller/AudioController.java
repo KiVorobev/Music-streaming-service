@@ -32,7 +32,7 @@ public class AudioController {
     private final PersonService personService;
     private final GenreService genreService;
 
-    @GetMapping("/add")
+    @GetMapping("/create")
     public String loadAddAudioCreatePage(AudioCreateDto audioCreateDto, Model model) {
         return Optional.ofNullable(audioService.addAudio(audioCreateDto))
                 .map(audioReadDto -> {
