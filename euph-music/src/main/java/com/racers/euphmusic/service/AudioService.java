@@ -8,11 +8,13 @@ import com.racers.euphmusic.mapper.AudioFoundedMapper;
 import com.racers.euphmusic.mapper.AudioReadMapper;
 import com.racers.euphmusic.repository.AudioRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,15 +34,30 @@ public class AudioService {
 
     @Transactional
     public Optional<AudioReadDto> addAudio(AudioCreateDto audioCreateDto) {
+        Optional.ofNullable(audioCreateDto.getImage())
+                .ifPresent(this::uploadImage);
         return audioRepo.addAudio(
                 audioCreateDto.getName(),
                 audioCreateDto.getText(),
-                audioCreateDto.getImage().getOriginalFilename(),
+                audioCreateDto.getImage() == null
+                        ? null
+                        : audioCreateDto.getImage().getOriginalFilename(),
                 audioCreateDto.getAuthors().stream()
                         .map(String::valueOf)
                         .collect(Collectors.joining(","))
         ).map(audioReadMapper::map);
+    }
 
+    @Transactional
+    public boolean saveAudio(String username, Integer audioId) {
+        return audioRepo.saveAudio(username, audioId) == 1;
+    }
+
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Audio.class);
+        }
     }
 
     public List<AudioReadDto> findAll(int page, int size) {
