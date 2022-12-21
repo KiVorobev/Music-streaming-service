@@ -24,7 +24,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script>
             <#include "../../scripts/navigator.js">
-            <#include "../../scripts/sender.js">
         </script>
     </head>
     <body>

@@ -26,7 +26,8 @@
             </div>
         </#if>
         <#if loggedPerson.username == person.username>
-            <div class="block" id="add_post" onclick="goTo('posts/create')" onmouseover="hover_highlight('add_post_text')"
+            <div class="block" id="add_post" onclick="goTo('posts/create')"
+                 onmouseover="hover_highlight('add_post_text')"
                  onmouseout="hover_unhighlight('add_post_text')">
                 <span id="add_post_text">Добавить запись</span>
             </div>
@@ -63,12 +64,14 @@
                 <span id="active_block">Редактировать</span>
             </div>
         <#elseif !isFollowed>
-            <div class="block" id="follow" onclick="followTo()" onmouseover="hover_highlight('active_block')"
+            <div class="block" id="follow" onclick="goTo('persons/follow/${person.username}')"
+                 onmouseover="hover_highlight('active_block')"
                  onmouseout="hover_unhighlight('active_block')">
                 <span id="active_block">Подписаться</span>
             </div>
         <#elseif isFollowed>
-            <div class="block" id="unfollow" onclick="unfollowFrom()" onmouseover="hover_highlight('active_block')"
+            <div class="block" id="unfollow" onclick="goTo('persons/unfollow/${person.username}')"
+                 onmouseover="hover_highlight('active_block')"
                  onmouseout="hover_unhighlight('active_block')">
                 <span id="active_block">Отписаться</span>
             </div>
