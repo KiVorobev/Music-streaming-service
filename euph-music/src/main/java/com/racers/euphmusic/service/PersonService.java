@@ -4,10 +4,7 @@ import com.racers.euphmusic.dto.*;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.entity.Role;
 import com.racers.euphmusic.entity.RoleEntity;
-import com.racers.euphmusic.mapper.PersonCreateMapper;
-import com.racers.euphmusic.mapper.PersonEditMapper;
-import com.racers.euphmusic.mapper.PersonFoundedMapper;
-import com.racers.euphmusic.mapper.PersonReadMapper;
+import com.racers.euphmusic.mapper.*;
 import com.racers.euphmusic.projection.PersonAuthenticationInfo;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.RoleRepo;
@@ -41,6 +38,7 @@ public class PersonService implements UserDetailsService {
     private final PersonReadMapper personReadMapper;
     private final PersonEditMapper personEditMapper;
     private final PersonFoundedMapper personFoundedMapper;
+    private final PersonUsernameMapper personUsernameMapper;
 
     @Transactional
     public PersonReadDto create(PersonCreateDto personCreateDto) {
@@ -102,6 +100,12 @@ public class PersonService implements UserDetailsService {
     public List<PersonFoundedDto> findUsersByUsernameLike(String username) {
         return personRepo.findUsersByUsernameLike(username).stream()
                 .map(personFoundedMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public List<PersonUsernameDto> findAll() {
+        return personRepo.findAll().stream()
+                .map(personUsernameMapper::map)
                 .collect(Collectors.toList());
     }
 
