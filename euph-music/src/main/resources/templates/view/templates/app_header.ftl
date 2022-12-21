@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div id="balance" onclick="goTo('balance')">
-            <img src="https://e7.pngegg.com/pngimages/10/205/png-clipart-coin-money-bag-computer-icons-coin-text-trademark.png"/>
+            <img src="/images/balance.png"/>
             <text>${loggedPerson.balance}</text>
         </div>
     </div>

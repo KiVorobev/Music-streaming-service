@@ -2,6 +2,7 @@ package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.AudioCreateDto;
 import com.racers.euphmusic.dto.GenreReadDto;
+import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.dto.PersonUsernameDto;
 import com.racers.euphmusic.service.AudioService;
 import com.racers.euphmusic.service.GenreService;
@@ -13,14 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/audios")
@@ -33,16 +30,29 @@ public class AudioController {
     private final GenreService genreService;
 
     @GetMapping("/create")
-    public String loadAddAudioCreatePage(AudioCreateDto audioCreateDto, Model model) {
-        return Optional.ofNullable(audioService.addAudio(audioCreateDto))
-                .map(audioReadDto -> {
-                    List<GenreReadDto> genreReadDtos = genreService.findAll();
-                    List<PersonUsernameDto> personReadDtos = personService.findAll();
-                    model.addAttribute("genres", genreReadDtos);
-                    model.addAttribute("persons", personReadDtos);
-                    return "/view/pages/audio_create";
-                })
+    public String loadAddAudioCreatePage(Model model) {
+        List<GenreReadDto> genreReadDtos = genreService.findAll();
+        List<PersonUsernameDto> personReadDtos = personService.findAll();
+        model.addAttribute("genres", genreReadDtos);
+        model.addAttribute("persons", personReadDtos);
+        return "/view/pages/audio_create";
+    }
+
+    @PostMapping("/create")
+    public String addAudio(AudioCreateDto audioCreateDto, Model model) {
+        audioCreateDto.getAuthors().add(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername());
+        return audioService.addAudio(audioCreateDto)
+                .map(dto -> "redirect:/audios/" + dto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping("/{id}/save")
+    public String saveAudio(@PathVariable("id") Integer id, Model model) {
+        String username = PersonLoggedDto.getLoggedPersonFromSession(model).getUsername();
+        if (!audioService.saveAudio(username, id)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return "redirect:/persons/" + username + "/saved";
     }
 
     @GetMapping("/{id}")
