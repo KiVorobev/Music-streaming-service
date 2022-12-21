@@ -2,7 +2,6 @@ package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.AudioCreateDto;
 import com.racers.euphmusic.dto.GenreReadDto;
-import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.dto.PersonUsernameDto;
 import com.racers.euphmusic.service.AudioService;
 import com.racers.euphmusic.service.GenreService;
@@ -19,6 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static com.racers.euphmusic.dto.PersonLoggedDto.getLoggedPersonFromSession;
+
 @Controller
 @RequestMapping("/audios")
 @SessionAttributes(names = "loggedPerson")
@@ -33,6 +34,8 @@ public class AudioController {
     public String loadAddAudioCreatePage(Model model) {
         List<GenreReadDto> genreReadDtos = genreService.findAll();
         List<PersonUsernameDto> personReadDtos = personService.findAll();
+        personReadDtos
+                .removeIf(personReadDto -> personReadDto.getUsername().equals(getLoggedPersonFromSession(model).getUsername()));
         model.addAttribute("genres", genreReadDtos);
         model.addAttribute("persons", personReadDtos);
         return "/view/pages/audio_create";
@@ -40,7 +43,7 @@ public class AudioController {
 
     @PostMapping("/create")
     public String addAudio(AudioCreateDto audioCreateDto, Model model) {
-        audioCreateDto.setAuthors(audioCreateDto.getAuthors() + "," + PersonLoggedDto.getLoggedPersonFromSession(model).getUsername());
+        audioCreateDto.setAuthors(audioCreateDto.getAuthors() + "," + getLoggedPersonFromSession(model).getUsername());
         return audioService.addAudio(audioCreateDto)
                 .map(dto -> "redirect:/audios/" + dto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -48,7 +51,7 @@ public class AudioController {
 
     @PostMapping("/{id}/save")
     public String saveAudio(@PathVariable("id") Integer id, Model model) {
-        String username = PersonLoggedDto.getLoggedPersonFromSession(model).getUsername();
+        String username = getLoggedPersonFromSession(model).getUsername();
         if (!audioService.saveAudio(username, id)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
