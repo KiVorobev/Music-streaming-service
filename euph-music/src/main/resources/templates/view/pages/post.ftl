@@ -40,7 +40,7 @@
                                  src="/persons/${comment.person.username}/avatar">
                         <#else>
                             <img onclick="goTo('persons/${comment.person.username}')"
-                                 src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+                                 src="/persons/avatar">
                         </#if>
                     </div>
                     <div class="author hover_span"

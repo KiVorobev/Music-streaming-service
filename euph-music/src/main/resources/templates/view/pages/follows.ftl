@@ -15,7 +15,11 @@
                     <#list person.followers as user>
                         <tr onclick="goTo('persons/${user.username}')">
                             <td class="image">
-                                <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+                                <#if user.image??>
+                                    <img src="/persons/${person.username}/avatar">
+                                <#else>
+                                    <img src="/persons/avatar">
+                                </#if>
                             </td>
                             <td class="username">${user.username}</td>
                         </tr>

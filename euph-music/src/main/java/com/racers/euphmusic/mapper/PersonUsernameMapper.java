@@ -11,6 +11,9 @@ public class PersonUsernameMapper implements Mapper<Person, PersonUsernameDto> {
     public PersonUsernameDto map(Person from) {
         return PersonUsernameDto.builder()
                 .username(from.getUsername())
+                .image(from.getImage() == null
+                        ? null
+                        : from.getImage())
                 .build();
     }
 }

@@ -78,6 +78,10 @@ public class PersonService implements UserDetailsService {
                 .flatMap(imageService::get);
     }
 
+    public Optional<byte[]> findDefaultAvatar() {
+        return imageService.findDefaultPersonAvatar(com.racers.euphmusic.utils.StringUtils.DEFAULT_IMAGE_AVATAR_NAME);
+    }
+
     @Transactional
     public boolean delete(String username) {
         return personRepo.findByUsername(username)

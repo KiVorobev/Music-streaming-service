@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @Controller
@@ -28,6 +29,11 @@ public class PersonController {
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
+                    person.getFollowers();
+                    person.getFollowTo();
+                    person.getLoadedAudios();
+                    person.getSavedAudios();
+                    person.getPosts();
                     boolean isFollowed = isPersonFollowedToAnotherPerson(
                             person.getFollowers(),
                             PersonLoggedDto.getLoggedPersonFromSession(model).getUsername()
@@ -64,6 +70,16 @@ public class PersonController {
     @GetMapping(value = "/{username}/avatar")
     public ResponseEntity<byte[]> findAvatar(@PathVariable("username") String username) {
         return personService.findAvatar(username)
+                .map(content -> ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(ResponseEntity.notFound()::build);
+    }
+
+    @GetMapping(value = "/avatar")
+    public ResponseEntity<byte[]> findDefaultAvatar() {
+        return personService.findDefaultAvatar()
                 .map(content -> ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
                         .contentLength(content.length)
