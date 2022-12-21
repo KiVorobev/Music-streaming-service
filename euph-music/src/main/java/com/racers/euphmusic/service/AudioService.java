@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -42,9 +41,8 @@ public class AudioService {
                 audioCreateDto.getImage() == null
                         ? null
                         : audioCreateDto.getImage().getOriginalFilename(),
-                audioCreateDto.getAuthors().stream()
-                        .map(String::valueOf)
-                        .collect(Collectors.joining(","))
+                audioCreateDto.getAuthors(),
+                audioCreateDto.getGenres()
         ).map(audioReadMapper::map);
     }
 

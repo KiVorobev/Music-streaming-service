@@ -8,7 +8,7 @@
 <#macro content>
     <div id="caption">
         <div id="back_button" onclick="goTo('persons/${loggedPerson.username}')">
-            <img id="back_arrow" src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+            <img id="back_arrow" src="/images/arrow.png">
             Назад
         </div>
         <span>Новая запись</span>
