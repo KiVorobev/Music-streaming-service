@@ -6,7 +6,7 @@
 </#macro>
 
 <#macro content>
-    <form method="post" action="/persons/update">
+    <form method="post" action="/persons/update" enctype="multipart/form-data">
         <div id="top_area">
             <div id="left">
                 <div id="status">

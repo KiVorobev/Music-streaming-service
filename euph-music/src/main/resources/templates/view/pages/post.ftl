@@ -19,12 +19,14 @@
         <@post id=post.id date=post.publicationDate description=post.description media=post.playlist comments=post.comments?size/>
     </#if>
     <div id="add_comment">
-        <input id="add_comment_input" type="text" placeholder="Добавить комментарий"/>
+        <form id="add_comment_form" method="post" action="comments/add">
+            <input name="text" id="add_comment_input" type="text" placeholder="Добавить комментарий"/>
+        </form>
     </div>
     <script>
         document.getElementById('add_comment_input').onkeypress = function (e) {
             if (e.keyCode === 13) {
-                addComment(${post.id})
+                document.getElementById('add_comment_form').submit()
             }
         }
     </script>

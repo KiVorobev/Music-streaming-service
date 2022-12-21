@@ -33,7 +33,7 @@ public class PostController {
         return postService.findById(id)
                 .map(post -> {
                     model.addAttribute("post", post);
-                    return "redirect:/view/pages/post";
+                    return "/view/pages/post";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -51,10 +51,10 @@ public class PostController {
     @PostMapping("/{id}/comments/add")
     public String accComment(@PathVariable("id") Integer postId, CommentCreateDto commentCreateDto, Model model) {
         return commentService.addComment(
-                        commentCreateDto.getText(),
-                        PersonLoggedDto.getLoggedPersonFromSession(model).getUsername(),
-                        postId
-                ).map(it -> "redirect:/posts/{id}")
+                commentCreateDto.getText(),
+                PersonLoggedDto.getLoggedPersonFromSession(model).getUsername(),
+                postId
+        ).map(it -> "redirect:/posts/{id}/comments")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
