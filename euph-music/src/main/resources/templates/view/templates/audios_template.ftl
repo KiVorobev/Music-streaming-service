@@ -6,7 +6,8 @@
                     <img id="back_arrow" src="/images/arrow.png">
                     Назад
                 </div>
-                <span id="caption">Сохраненные аудио</span>
+                <div id="caption">Сохраненные аудио</div>
+                <div id="make_block">Создать плейлист</div>
             </div>
             <div class="scroll-table-body">
                 <table>
@@ -40,7 +41,8 @@
                     <img id="back_arrow" src="/images/arrow.png">
                     Назад
                 </div>
-                <span id="caption">Авторство</span>
+                <div id="caption">Авторство</div>
+                <div id="make_block" onclick="goTo('audios/create')">Создать аудио</div>
             </div>
             <div class="scroll-table-body">
                 <table>

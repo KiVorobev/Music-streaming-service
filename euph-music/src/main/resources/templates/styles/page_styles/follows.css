@@ -69,6 +69,31 @@ td img {
     word-wrap: break-word;
 }
 
+main #back_button {
+    position: absolute;
+    font-size: 5vmin;
+    margin-left: 3vw;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #back_button:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #topic {
+    height: 5vmin;
+    width: 98vw;
+    vertical-align: middle;
+    margin-bottom: 3vh;
+}
+
+main #back_arrow {
+    float: bottom;
+    height: 4vmin;
+}
+
 /* Стили для скролла */
 ::-webkit-scrollbar {
     width: 2px;

@@ -6,6 +6,12 @@
 </#macro>
 
 <#macro content>
+    <div id="topic">
+        <div id="back_button" onclick="goTo('persons/${loggedPerson.username}')">
+            <img id="back_arrow" src="/images/arrow.png">
+            Назад
+        </div>
+    </div>
     <div id="left_table">
         <div class="main_activity_table">
             <span>Подписчики:</span>

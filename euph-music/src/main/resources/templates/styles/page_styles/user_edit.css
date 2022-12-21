@@ -111,6 +111,10 @@ main #bottom_area {
     text-align: center;
 }
 
+main #right input {
+    display: none;
+}
+
 main #cancel_edit, main #save_edit {
     background: rgba(62, 45, 113, 0.42);
     border-radius: 16px;
@@ -122,10 +126,6 @@ main #cancel_edit, main #save_edit {
 
 main #cancel_edit {
     margin-left: 5vmin;
-}
-
-main #right input {
-    display: none;
 }
 
 main #cancel_edit, main #save_edit {

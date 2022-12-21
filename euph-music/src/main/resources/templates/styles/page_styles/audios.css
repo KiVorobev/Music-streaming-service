@@ -14,8 +14,21 @@ table {
     border-collapse: collapse;
 }
 
-main #caption {
+main #caption, main #back_button, main #make_block {
+    display: inline-block;
+    width: 30vw;
     font-size: 5vmin;
+}
+
+main #make_block {
+    text-align: right;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #make_block:hover {
+    color: #16ece6;
+    transition: 300ms;
 }
 
 tr {
@@ -62,9 +75,7 @@ td img {
 }
 
 main #back_button {
-    position: absolute;
-    font-size: 5vmin;
-    margin-left: 3vw;
+    text-align: left;
     cursor: pointer;
     transition: 300ms;
 }
