@@ -6,7 +6,7 @@
 </#macro>
 <#macro content>
     <div id="topic">
-        <div id="back_button" onclick="goTo('persons/${loggedPerson.username}/saved')">
+        <div id="back_button" onclick="goTo('persons/${loggedPerson.username}/loaded')">
             <img id="back_arrow" src="/images/arrow.png">
             Назад
         </div>

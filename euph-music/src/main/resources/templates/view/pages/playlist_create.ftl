@@ -20,11 +20,11 @@
                 <textarea id="audio_text" name="description" placeholder="Описание" required></textarea>
             </div>
             <div id="playlist_image_block">
-                <input id="playlist_image_input" type="file" name="image" placeholder="Картинка">
+                <input id="playlist_image_input" type="file" name="image" placeholder="Картинка" requied>
             </div>
             <div id="playlist_authors_block">
                 <label for="playlist_authors_block">Выберите соавторов</label>
-                <select id="playlist_authors_select" multiple="multiple" name="authors">
+                <select id="playlist_authors_select" multiple="multiple" name="authors" required>
                     <#list persons as person>
                         <option value="${person.username}">${person.username}</option>
                     </#list>
@@ -32,7 +32,7 @@
             </div>
             <div>
                 <label for="audios_select">Выберите аудио</label>
-                <select id="audios_select" multiple="multiple" name="audios">
+                <select id="audios_select" multiple="multiple" name="audios" required>
                     <#list audios as audio>
                         <option value="${audio.id}">${audio.name}</option>
                     </#list>
@@ -45,8 +45,8 @@
     </form>
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
     <script>
-        new MultiSelectTag('audio_authors_select')
-        new MultiSelectTag('audio_genres_select')
+        new MultiSelectTag('playlist_authors_select')
+        new MultiSelectTag('audios_select')
     </script>
 </#macro>
 

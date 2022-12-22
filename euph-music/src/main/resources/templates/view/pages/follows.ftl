@@ -7,7 +7,7 @@
 
 <#macro content>
     <div id="topic">
-        <div id="back_button" onclick="goTo('persons/${loggedPerson.username}')">
+        <div id="back_button" onclick="goTo('persons/${person.username}')">
             <img id="back_arrow" src="/images/arrow.png">
             Назад
         </div>

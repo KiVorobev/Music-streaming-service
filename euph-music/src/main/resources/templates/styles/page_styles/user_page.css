@@ -18,7 +18,7 @@ main .block:not(#avatar, #unfollow) {
 }
 
 main .block:not(#username_text) {
-    margin-top: 3vh;
+    margin-top: 2vh;
 }
 
 main div {

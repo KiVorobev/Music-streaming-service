@@ -92,10 +92,15 @@
                  onmouseout="hover_unhighlight('info_loaded')">
                 <span id="info_loaded">Авторство: ${person.loadedAudios?size}</span>
             </div>
-            <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/saved')"
+            <div class="user_info_hover" onclick="goTo('persons/${person.username}/saved')"
                  onmouseover="hover_highlight('info_saved')"
                  onmouseout="hover_unhighlight('info_saved')">
                 <span id="info_saved">Сохраненные аудио: ${person.savedAudios?size}</span>
+            </div>
+            <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/playlists')"
+                 onmouseover="hover_highlight('info_playlists')"
+                 onmouseout="hover_unhighlight('info_playlists')">
+                <span id="info_playlists">Плейлисты: 0</span>
             </div>
         </div>
     </div>

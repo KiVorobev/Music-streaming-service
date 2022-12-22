@@ -65,11 +65,6 @@ td img {
     transition: 300ms;
 }
 
-.action_button {
-    text-align: center;
-    width: 6vw;
-}
-
 .image {
     width: 6vw;
 }
@@ -110,6 +105,8 @@ main #back_arrow {
 }
 
 .scroll-table-body {
+    width: 93vw;
+    margin-left: 3vw;
     margin-top: 2vh;
     height: 78vh;
     overflow-x: auto;

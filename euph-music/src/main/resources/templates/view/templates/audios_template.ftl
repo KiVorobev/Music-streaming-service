@@ -7,7 +7,11 @@
                     Назад
                 </div>
                 <div id="caption">Сохраненные аудио</div>
-                <div id="make_block">Создать плейлист</div>
+                <#if person.username == loggedPerson.username>
+                    <div id="make_block" onclick="goTo('playlists/create')">Создать плейлист</div>
+                <#else>
+                    <div id="make_block"></div>
+                </#if>
             </div>
             <div class="scroll-table-body">
                 <table>
@@ -29,9 +33,6 @@
                                             <span class="elem_author">
                                             ${author.username}<#if author_has_next>,</#if></span></#list></span>
                             </td>
-                            <td class="action_button">
-                                <button/>
-                            </td>
                         </tr>
                     </#list>
                     </tbody>
@@ -46,7 +47,11 @@
                     Назад
                 </div>
                 <div id="caption">Авторство</div>
-                <div id="make_block" onclick="goTo('audios/create')">Создать аудио</div>
+                <#if person.username == loggedPerson.username>
+                    <div id="make_block" onclick="goTo('audios/create')">Добавить аудио</div>
+                <#else>
+                    <div id="make_block"></div>
+                </#if>
             </div>
             <div class="scroll-table-body">
                 <table>
@@ -67,9 +72,6 @@
                                         <#list elem.authors as author>
                                             <span class="elem_author">
                                             ${author.username}<#if author_has_next>,</#if></span></#list></span>
-                            </td>
-                            <td class="action_button">
-                                <button/>
                             </td>
                         </tr>
                     </#list>
