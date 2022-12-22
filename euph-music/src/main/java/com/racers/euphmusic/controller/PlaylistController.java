@@ -45,7 +45,7 @@ public class PlaylistController {
     public String createPlaylist(PlaylistCreateDto playlistCreateDto, Model model) {
         String loggedUsername = getLoggedPersonFromSession(model).getUsername();
         return playlistService.createPlaylist(playlistCreateDto, loggedUsername)
-                .map(dto -> "redirect:/persons/" + loggedUsername)
+                .map(dto -> "redirect:/playlists/" + dto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

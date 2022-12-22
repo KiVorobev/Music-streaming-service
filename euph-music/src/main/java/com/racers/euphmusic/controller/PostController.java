@@ -2,8 +2,8 @@ package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.CommentCreateDto;
 import com.racers.euphmusic.dto.PostCreateDto;
-import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.service.CommentService;
+import com.racers.euphmusic.service.PersonService;
 import com.racers.euphmusic.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,26 +22,24 @@ public class PostController {
 
     private final PostService postService;
     private final CommentService commentService;
-    private final PersonRepo personRepo;
+    private final PersonService personService;
 
     @GetMapping("/create")
-    public String createPost() {
-        return "/view/pages/add_post";
-    }
-
-    @GetMapping("/{id}/comments")
-    private String findCommentsOnPostByPostId(@PathVariable("id") Integer id, Model model) {
-        return postService.findById(id)
-                .map(post -> {
-                    model.addAttribute("post", post);
-                    return "/view/pages/post";
+    public String loadCreatePostPage(Model model) {
+        String loggedUsername = getLoggedPersonFromSession(model).getUsername();
+        return personService.findByUsername(loggedUsername)
+                .map(dto -> {
+                    dto.getSavedAudios().addAll(dto.getLoadedAudios());
+                    model.addAttribute("audios", dto.getSavedAudios());
+                    model.addAttribute("playlists", dto.getPlaylists());
+                    return "/view/pages/add_post";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/create")
     public String create(PostCreateDto postCreateDto, Model model) {
-        return personRepo.findByUsername(getLoggedPersonFromSession(model).getUsername())
+        return personService.findByUsername(getLoggedPersonFromSession(model).getUsername())
                 .map(person -> {
                     postService.createPost(postCreateDto, person.getUsername());
                     return "redirect:/persons/" + person.getUsername();
@@ -58,6 +56,15 @@ public class PostController {
         return "redirect:/persons/" + loggedUsername;
     }
 
+    @GetMapping("/{id}/comments")
+    private String findCommentsOnPostByPostId(@PathVariable("id") Integer id, Model model) {
+        return postService.findById(id)
+                .map(post -> {
+                    model.addAttribute("post", post);
+                    return "/view/pages/post";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
     @PostMapping("/{id}/comments/add")
     public String accComment(@PathVariable("id") Integer postId, CommentCreateDto commentCreateDto, Model model) {
