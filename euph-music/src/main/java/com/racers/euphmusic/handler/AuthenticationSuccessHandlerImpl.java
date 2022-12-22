@@ -4,7 +4,6 @@ import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.entity.Person;
 import com.racers.euphmusic.repository.PersonRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -32,15 +31,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         String username = ((User) authentication.getPrincipal()).getUsername();
         person = personRepo.findByUsername(username).get();
         PersonLoggedDto personReadDto = PersonLoggedDto.builder()
-                .id(person.getId())
                 .username(person.getUsername())
-                .email(person.getEmail())
-                .balance(person.getBalance())
+                .image(person.getImage())
                 .build();
         session.setAttribute("loggedPerson", personReadDto);
-        
-//        response.sendRedirect("/persons/" + personReadDto.getUsername());
-        redirectStrategy.sendRedirect(request, response, "/persons/" + personReadDto.getUsername());
+        redirectStrategy.sendRedirect(request, response, "/");
     }
 
 }
