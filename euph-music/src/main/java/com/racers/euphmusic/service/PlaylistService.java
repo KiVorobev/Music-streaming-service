@@ -3,7 +3,6 @@ package com.racers.euphmusic.service;
 import com.racers.euphmusic.dto.PlaylistCreateDto;
 import com.racers.euphmusic.dto.PlaylistFoundedDto;
 import com.racers.euphmusic.dto.PlaylistReadDto;
-import com.racers.euphmusic.entity.Audio;
 import com.racers.euphmusic.entity.Playlist;
 import com.racers.euphmusic.mapper.PlaylistFoundedMapper;
 import com.racers.euphmusic.mapper.PlaylistReadMapper;
@@ -47,12 +46,18 @@ public class PlaylistService {
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
         if (!image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Audio.class);
+            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Playlist.class);
         }
     }
 
     public Optional<Playlist> findById(Integer id) {
         return playlistRepo.findById(id);
+    }
+
+    public List<PlaylistReadDto> findAllByAuthorName(String authorName) {
+        return playlistRepo.findAllByAuthorName(authorName).stream()
+                .map(playlistReadMapper::map)
+                .collect(Collectors.toList());
     }
 
     public List<PlaylistFoundedDto> findPlaylistByNameLike(String name) {
