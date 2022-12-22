@@ -3,6 +3,7 @@ package com.racers.euphmusic.controller;
 import com.racers.euphmusic.dto.PersonEditDto;
 import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.service.PersonService;
+import com.racers.euphmusic.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/persons")
 @SessionAttributes(names = "loggedPerson")
@@ -20,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class PersonController {
 
     private final PersonService personService;
+    private final PlaylistService playlistService;
 
     @GetMapping("/{username}")
     public String findPersonByUsername(@PathVariable String username, Model model) {
@@ -118,6 +122,15 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/{username}/playlists")
+    public String loadPlaylistsPage(@PathVariable String username, Model model) {
+        return Optional.ofNullable(playlistService.findAllByAuthorName(username))
+                .map(playlistReadDtos -> {
+                    model.addAttribute("playlists", playlistReadDtos);
+                    return "/view/pages/playlists";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
     @GetMapping("/follow/{followToUsername}")
     public String followTo(@PathVariable String followToUsername, Model model) {

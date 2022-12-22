@@ -1,8 +1,6 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.AudioCreateDto;
-import com.racers.euphmusic.dto.GenreReadDto;
-import com.racers.euphmusic.dto.PersonUsernameDto;
 import com.racers.euphmusic.service.AudioService;
 import com.racers.euphmusic.service.GenreService;
 import com.racers.euphmusic.service.PersonService;
@@ -16,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 import static com.racers.euphmusic.dto.PersonLoggedDto.getLoggedPersonFromSession;
 
 @Controller
@@ -30,21 +26,26 @@ public class AudioController {
     private final PersonService personService;
     private final GenreService genreService;
 
+    @GetMapping("/{id}")
+    public String findById(@PathVariable Integer id, Model model) {
+        return audioService.findById(id)
+                .map(audio -> {
+                    model.addAttribute("audio", audio);
+                    return "view/pages/audio";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
     @GetMapping("/create")
-    public String loadAddAudioCreatePage(Model model) {
-        List<GenreReadDto> genreReadDtos = genreService.findAll();
-        List<PersonUsernameDto> personReadDtos = personService.findAll();
-        personReadDtos
-                .removeIf(personReadDto -> personReadDto.getUsername().equals(getLoggedPersonFromSession(model).getUsername()));
-        model.addAttribute("genres", genreReadDtos);
-        model.addAttribute("persons", personReadDtos);
+    public String loadAudioCreatePage(Model model) {
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("persons", personService.getPersonUsernameListDtoWithoutLoggedPerson(getLoggedPersonFromSession(model).getUsername()));
         return "/view/pages/audio_create";
     }
 
     @PostMapping("/create")
     public String addAudio(AudioCreateDto audioCreateDto, Model model) {
-        audioCreateDto.setAuthors(audioCreateDto.getAuthors() + "," + getLoggedPersonFromSession(model).getUsername());
-        return audioService.addAudio(audioCreateDto)
+        return audioService.addAudio(audioCreateDto, getLoggedPersonFromSession(model).getUsername())
                 .map(dto -> "redirect:/audios/" + dto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -58,16 +59,6 @@ public class AudioController {
         return "redirect:/persons/" + username + "/saved";
     }
 
-    @GetMapping("/{id}")
-    public String findById(@PathVariable Integer id, Model model) {
-        return audioService.findById(id)
-                .map(audio -> {
-                    model.addAttribute("audio", audio);
-                    return "view/pages/audio";
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping("/{id}/avatar")
     public ResponseEntity<byte[]> findAvatar(@PathVariable("id") Integer id) {
         return audioService.findAvatar(id)
@@ -77,6 +68,5 @@ public class AudioController {
                         .body(content))
                 .orElseGet(ResponseEntity.notFound()::build);
     }
-
 
 }
