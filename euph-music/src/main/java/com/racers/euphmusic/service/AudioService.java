@@ -3,6 +3,7 @@ package com.racers.euphmusic.service;
 import com.racers.euphmusic.dto.AudioCreateDto;
 import com.racers.euphmusic.dto.AudioFoundedDto;
 import com.racers.euphmusic.dto.AudioReadDto;
+import com.racers.euphmusic.dto.PersonReadDto;
 import com.racers.euphmusic.entity.Audio;
 import com.racers.euphmusic.mapper.AudioFoundedMapper;
 import com.racers.euphmusic.mapper.AudioReadMapper;
@@ -64,6 +65,15 @@ public class AudioService {
         return audioRepo.findAllBy(request).stream()
                 .map(audioReadMapper::map)
                 .collect(toList());
+    }
+
+    public List<AudioReadDto> markAllSavedAudios(PersonReadDto personReadDto, List<AudioReadDto> audioReadDtos) {
+        List<AudioReadDto> savedAudios = personReadDto.getSavedAudios();
+        audioReadDtos.removeAll(savedAudios);
+        savedAudios.stream()
+                .forEach(audio -> audio.setSaved(true));
+        audioReadDtos.addAll(savedAudios);
+        return audioReadDtos;
     }
 
     public List<AudioFoundedDto> finaAllByAuthorName(String authorName) {

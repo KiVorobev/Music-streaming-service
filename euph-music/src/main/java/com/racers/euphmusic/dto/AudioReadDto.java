@@ -22,4 +22,6 @@ public class AudioReadDto {
     private List<PersonUsernameDto> authors;
 
     private List<GenreReadDto> genres;
+
+    private boolean isSaved;
 }
