@@ -1,7 +1,6 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonEditDto;
-import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.service.PersonService;
 import com.racers.euphmusic.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-import static org.springframework.security.core.userdetails.User.builder;
+import static com.racers.euphmusic.dto.PersonLoggedDto.builder;
+import static com.racers.euphmusic.dto.PersonLoggedDto.getLoggedPersonFromSession;
 
 @Controller
 @RequestMapping("/persons")
@@ -41,14 +41,13 @@ public class PersonController {
 
                     boolean isFollowed = personService.isPersonFollowedToAnotherPerson(
                             person.getFollowers(),
-                            PersonLoggedDto.getLoggedPersonFromSession(model).getUsername()
+                            getLoggedPersonFromSession(model).getUsername()
                     );
                     model.addAttribute("isFollowed", isFollowed);
                     return "view/pages/user_page";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
 
     @PostMapping("/update")
     public String update(Model model, PersonEditDto personEditDto, HttpServletRequest request) {
@@ -67,7 +66,7 @@ public class PersonController {
 
     @PostMapping("/delete")
     public String delete(Model model) {
-        if (!personService.delete(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername())) {
+        if (!personService.delete(getLoggedPersonFromSession(model).getUsername())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/";
@@ -147,7 +146,7 @@ public class PersonController {
     public String followTo(@PathVariable String followToUsername, Model model) {
         return personService.findByUsername(followToUsername)
                 .map(followedToPerson -> {
-                    personService.follow(PersonLoggedDto.getLoggedPersonFromSession(model), followedToPerson);
+                    personService.follow(getLoggedPersonFromSession(model), followedToPerson);
                     return "redirect:/persons/" + followToUsername;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -157,7 +156,7 @@ public class PersonController {
     public String unfollowFrom(@PathVariable String unfollowFromUsername, Model model) {
         return personService.findByUsername(unfollowFromUsername)
                 .map(unfollowFromPerson -> {
-                    personService.unfollow(PersonLoggedDto.getLoggedPersonFromSession(model), unfollowFromPerson);
+                    personService.unfollow(getLoggedPersonFromSession(model), unfollowFromPerson);
                     return "redirect:/persons/" + unfollowFromUsername;
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
