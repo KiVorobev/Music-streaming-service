@@ -124,6 +124,9 @@ public class PersonController {
 
     @GetMapping("/{username}/edit")
     public String loadEditUserPage(@PathVariable String username, Model model) {
+        if (!getLoggedPersonFromSession(model).getUsername().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.LOCKED);
+        }
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
