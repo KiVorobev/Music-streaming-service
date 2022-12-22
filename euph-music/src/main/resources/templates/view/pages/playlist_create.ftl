@@ -24,7 +24,7 @@
             </div>
             <div id="playlist_authors_block">
                 <label for="playlist_authors_block">Выберите соавторов</label>
-                <select id="playlist_authors_select" multiple="multiple" name="authors" required>
+                <select id="playlist_authors_select" multiple="multiple" name="authors">
                     <#list persons as person>
                         <option value="${person.username}">${person.username}</option>
                     </#list>
