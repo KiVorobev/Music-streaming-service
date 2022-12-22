@@ -60,12 +60,12 @@ td img {
     object-fit: cover;
 }
 
-.elem_author, .username {
+main .elem_author, .username {
     cursor: pointer;
     transition: 300ms;
 }
 
-.image {
+main .image {
     width: 6vw;
 }
 
@@ -91,16 +91,16 @@ main #back_arrow {
     height: 4vmin;
 }
 
-.name_authors {
+main .name_authors {
     width: 79vw;
     text-align: left;
 }
 
-.elem_name {
+main .elem_name {
     font-size: 4vmin;
 }
 
-.elem_authors {
+main .elem_authors {
     font-size: 3vmin;
 }
 

@@ -34,7 +34,7 @@
                 <label for="audios_select">Выберите аудио</label>
                 <select id="audios_select" multiple="multiple" name="audios" required>
                     <#list audios as audio>
-                        <option value="${audio.id}">${audio.name}</option>
+                        <option value="${audio.id?c}">${audio.name}</option>
                     </#list>
                 </select>
             </div>

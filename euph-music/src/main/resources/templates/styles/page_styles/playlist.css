@@ -61,7 +61,7 @@ main #information_block {
     margin-bottom: 2vh;
 }
 
-main .audio_info {
+main .playlist_info {
     padding: 2vmin;
 }
 
@@ -117,6 +117,69 @@ main #label_text {
     font-size: 4vmin;
 }
 
+main #audios {
+    text-align: center;
+}
+
+main .audio_block {
+    width: 78%;
+    text-align: left;
+    padding: 1vmin;
+    display: inline-block;
+    border-radius: 10px;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+    margin-left: 5vw;
+    background: rgba(62, 45, 113, 0.42);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .audio_block:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .audio_cell {
+    display: inline-block;
+    border: none;
+    padding: 1vmin;
+    vertical-align: middle;
+}
+
+main .audio_cell img {
+    display: block;
+    margin: 0 auto;
+    width: 4.5vw;
+    height: 8vh;
+    object-fit: cover;
+}
+
 main .text {
     font-size: 3vmin;
+}
+
+main .elem_author, .username {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .image {
+    width: 6vw;
+}
+
+main .name_authors {
+    text-align: left;
+}
+
+main .elem_name {
+    font-size: 4vmin;
+}
+
+main .elem_authors {
+    font-size: 3vmin;
+}
+
+main .numeration {
+    display: inline-block;
 }
