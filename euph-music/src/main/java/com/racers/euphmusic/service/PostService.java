@@ -1,15 +1,14 @@
 package com.racers.euphmusic.service;
 
-import com.racers.euphmusic.dto.PostReadDto;
-import com.racers.euphmusic.entity.Person;
-import com.racers.euphmusic.entity.Post;
 import com.racers.euphmusic.dto.PostCreateDto;
-import com.racers.euphmusic.mapper.PostReadMapper;
+import com.racers.euphmusic.dto.PostReadDto;
 import com.racers.euphmusic.mapper.PostCreateMapper;
+import com.racers.euphmusic.mapper.PostReadMapper;
 import com.racers.euphmusic.repository.PostRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -27,15 +26,18 @@ public class PostService {
     }
 
     @Transactional
-    public Optional<PostReadDto> createPost(PostCreateDto postCreateDto, Person person) {
-        return Optional.of(postCreateDto)
-                .map(dto -> {
-                    Post createPost = postCreateMapper.map(postCreateDto);
-                    person.addPost(createPost);
-                    postRepo.save(createPost);
-                    return Optional.of(postReadMapper.map(createPost));
-                })
-                .orElseThrow();
+    public Optional<PostReadDto> createPost(PostCreateDto postCreateDto, String username) {
+        return
+                postRepo.createPost(username,
+                                postCreateDto.getPlaylistId() == null
+                                        ? null
+                                        : postCreateDto.getPlaylistId(),
+                                postCreateDto.getAudioId() == null
+                                        ? null
+                                        : postCreateDto.getAudioId(),
+                                postCreateDto.getDescription())
+                        .map(postReadMapper::map);
+
     }
 
 }

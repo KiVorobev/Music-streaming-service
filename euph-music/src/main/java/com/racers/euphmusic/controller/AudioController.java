@@ -30,6 +30,7 @@ public class AudioController {
     public String findById(@PathVariable Integer id, Model model) {
         return audioService.findById(id)
                 .map(audio -> {
+                    audioService.markIsAudioSaved(audio, getLoggedPersonFromSession(model).getUsername());
                     model.addAttribute("audio", audio);
                     return "view/pages/audio";
                 })
