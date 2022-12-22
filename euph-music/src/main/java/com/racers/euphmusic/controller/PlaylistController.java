@@ -60,7 +60,7 @@ public class PlaylistController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping(value = "/{id}/avatar")
+    @GetMapping("/{id}/avatar")
     public ResponseEntity<byte[]> findAvatar(@PathVariable("id") Integer id) {
         return playlistService.findAvatar(id)
                 .map(content -> ResponseEntity.ok()

@@ -29,9 +29,6 @@
                                             <span class="elem_author">
                                             ${author.username}<#if author_has_next>,</#if></span></#list></span>
                     </td>
-                    <td class="action_button">
-                        <button/>
-                    </td>
                 </tr>
             </#list>
             </tbody>

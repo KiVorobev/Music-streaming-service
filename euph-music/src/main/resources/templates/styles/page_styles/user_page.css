@@ -71,7 +71,7 @@ main #unfollow {
 }
 
 main #unfollow:hover {
-    background: rgb(203, 12, 12);
+    background: rgba(203, 12, 12, 0.8);
     transition: 300ms;
 }
 

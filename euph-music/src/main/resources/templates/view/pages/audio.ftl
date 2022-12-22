@@ -50,6 +50,15 @@
             </div>
         </div>
         <div id="bottom">
+            <#if !audio.saved>
+                <form method="post" action="${audio.id?c}/save">
+                    <button id="save_button" class="add_saved" type="submit">Добавить в сохраненные</button>
+                </form>
+            <#else>
+                <form method="post" action="${audio.id?c}/unsave">
+                    <button id="save_button" class="remove_saved" type="submit">Удалить из сохраненных</button>
+                </form>
+            </#if>
             <div id="text" class="audio_info">
                 <span id="label_text">Текст</span>
                 <br>

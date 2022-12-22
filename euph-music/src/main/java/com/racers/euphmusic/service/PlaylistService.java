@@ -50,8 +50,9 @@ public class PlaylistService {
         }
     }
 
-    public Optional<Playlist> findById(Integer id) {
-        return playlistRepo.findById(id);
+    public Optional<PlaylistReadDto> findById(Integer id) {
+        return playlistRepo.findById(id)
+                .map(playlistReadMapper::map);
     }
 
     public List<PlaylistReadDto> findAllByAuthorName(String authorName) {

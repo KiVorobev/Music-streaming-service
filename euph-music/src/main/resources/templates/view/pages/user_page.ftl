@@ -100,7 +100,7 @@
             <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/playlists')"
                  onmouseover="hover_highlight('info_playlists')"
                  onmouseout="hover_unhighlight('info_playlists')">
-                <span id="info_playlists">Плейлисты: 0</span>
+                <span id="info_playlists">Плейлисты: ${person.playlists?size}</span>
             </div>
         </div>
     </div>

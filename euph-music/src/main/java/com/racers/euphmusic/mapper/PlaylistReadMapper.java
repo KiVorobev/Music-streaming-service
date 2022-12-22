@@ -18,6 +18,7 @@ public class PlaylistReadMapper implements Mapper<Playlist, PlaylistReadDto> {
     public PlaylistReadDto map(Playlist from) {
         return PlaylistReadDto.builder()
                 .id(from.getId())
+                .name(from.getName())
                 .description(from.getDescription())
                 .creationDate(from.getCreationDate())
                 .image(from.getImage())
