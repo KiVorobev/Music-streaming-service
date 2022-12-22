@@ -88,6 +88,14 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Post> posts;
 
+    @ManyToMany
+    @JoinTable(
+            name = "playlist_author",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "playlist_id")
+    )
+    private List<Playlist> playlists;
+
     public void addPost(Post post) {
         post.setPerson(this);
         this.getPosts().add(post);
