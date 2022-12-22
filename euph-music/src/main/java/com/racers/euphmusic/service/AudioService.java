@@ -54,6 +54,11 @@ public class AudioService {
         return audioRepo.saveAudio(username, audioId) == 1;
     }
 
+    @Transactional
+    public boolean removeAudioFromSaved(String username, Integer audioId) {
+        return audioRepo.removeAudioFromSaved(username, audioId) == 1;
+    }
+
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
         if (!image.isEmpty()) {

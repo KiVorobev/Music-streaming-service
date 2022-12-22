@@ -21,7 +21,10 @@ public interface AudioRepo extends JpaRepository<Audio, Integer> {
     Optional<Audio> addAudio(@Param("name") String audio, @Param("text") String text, @Param("image") String image,
                              @Param("authors") String authors, @Param("genres") String genres);
 
-    @Query(value = "SELECT save_audio(:username, :audioId);", nativeQuery = true)
+    @Query(value = "SELECT *  save_audio(:username, :audioId);", nativeQuery = true)
     Integer saveAudio(@Param("username") String username, @Param("audioId") Integer audioId);
+
+    @Query(value = "SELECT *  FROM remove_audio_from_saved(:username, :audioId);", nativeQuery = true)
+    Integer removeAudioFromSaved(@Param("username") String username, @Param("audioId") Integer audioId);
 
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface PostRepo extends JpaRepository<Post, Integer> {
 
-    @Query(value = "SELECT * FROM add_post(:username, playlistId, :audioId, :description);", nativeQuery = true)
+    @Query(value = "SELECT * FROM add_post(:username, :playlistId, :audioId, :description);", nativeQuery = true)
     Optional<Post> createPost(@Param("username") String username,
                               @Param("playlistId") @Nullable Integer playlistId,
                               @Param("audioId") @Nullable Integer audioId,
