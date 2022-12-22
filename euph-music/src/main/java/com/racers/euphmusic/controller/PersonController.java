@@ -1,6 +1,7 @@
 package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonEditDto;
+import com.racers.euphmusic.dto.PersonLoggedDto;
 import com.racers.euphmusic.service.PersonService;
 import com.racers.euphmusic.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-import static com.racers.euphmusic.dto.PersonLoggedDto.builder;
 import static com.racers.euphmusic.dto.PersonLoggedDto.getLoggedPersonFromSession;
 
 @Controller
@@ -55,7 +55,7 @@ public class PersonController {
         return personService.update(loggedUsername, personEditDto)
                 .map(it -> {
                     request.getSession().setAttribute("loggedPerson",
-                            builder()
+                            PersonLoggedDto.builder()
                                     .username(it.getUsername())
                                     .image(it.getImage())
                                     .build());

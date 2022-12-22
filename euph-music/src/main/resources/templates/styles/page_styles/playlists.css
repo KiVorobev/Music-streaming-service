@@ -1,0 +1,121 @@
+main #back_button {
+    text-align: left;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #back_button:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #topic {
+    height: 5vmin;
+    width: 98vw;
+    vertical-align: middle;
+    text-align: center;
+}
+
+main #back_arrow {
+    float: bottom;
+    height: 4vmin;
+}
+
+main #caption, main #back_button, main #make_block {
+    display: inline-block;
+    width: 30vw;
+    font-size: 5vmin;
+}
+
+main #content {
+    overflow-y: hidden;
+    margin-top: 10vh;
+}
+
+main #playlists {
+    display: flex;
+    text-align: center;
+}
+
+main .playlist_block {
+    min-width: 21vw;
+    max-width: 21vw;
+    text-align: center;
+    padding: 1vmin;
+    display: table-cell;
+    border-radius: 10px;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+    margin-left: 1vw;
+    background: rgba(62, 45, 113, 0.42);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .playlist_block:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .playlist_cell {
+    display: block;
+    border: none;
+    padding: 1vmin;
+    vertical-align: middle;
+}
+
+main .playlist_cell img {
+    display: block;
+    margin: 0 auto;
+    width: 20vw;
+    height: 29vh;
+    object-fit: cover;
+}
+
+main .text {
+    font-size: 3vmin;
+}
+
+main .elem_author, .username {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .image {
+    width: 6vw;
+}
+
+main .name_authors {
+    text-align: left;
+}
+
+main .elem_name {
+    font-size: 4vmin;
+}
+
+main .elem_authors {
+    font-size: 3vmin;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+main #make_block {
+    text-align: right;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #make_block:hover {
+    color: #16ece6;
+    transition: 300ms;
+}

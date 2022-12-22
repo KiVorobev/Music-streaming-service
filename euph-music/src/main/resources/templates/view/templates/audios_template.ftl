@@ -7,11 +7,7 @@
                     Назад
                 </div>
                 <div id="caption">Сохраненные аудио</div>
-                <#if person.username == loggedPerson.username>
-                    <div id="make_block" onclick="goTo('playlists/create')">Создать плейлист</div>
-                <#else>
-                    <div id="make_block"></div>
-                </#if>
+                <div id="make_block"></div>
             </div>
             <div class="scroll-table-body">
                 <table>
