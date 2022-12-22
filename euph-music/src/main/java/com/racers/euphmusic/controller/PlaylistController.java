@@ -18,7 +18,6 @@ import java.util.List;
 
 import static com.racers.euphmusic.dto.PersonLoggedDto.getLoggedPersonFromSession;
 
-
 @Controller
 @RequestMapping("/playlists")
 @SessionAttributes(names = "loggedPerson")
@@ -46,8 +45,17 @@ public class PlaylistController {
     public String createPlaylist(PlaylistCreateDto playlistCreateDto, Model model) {
         String loggedUsername = getLoggedPersonFromSession(model).getUsername();
         return playlistService.createPlaylist(playlistCreateDto, loggedUsername)
-                .map(dto -> "redirect:/persons/" + loggedUsername)
+                .map(dto -> "redirect:/playlists/" + dto.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping("{id}/delete")
+    public String deletePlaylist(@PathVariable Integer id, Model model) {
+        String loggedUsername = getLoggedPersonFromSession(model).getUsername();
+        if (!playlistService.deletePlaylist(loggedUsername, id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return "redirect:persons/" + loggedUsername + "/playlists";
     }
 
     @GetMapping("/{id}")

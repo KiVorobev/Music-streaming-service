@@ -17,6 +17,7 @@ public class PlaylistReadMapper implements Mapper<Playlist, PlaylistReadDto> {
     @Override
     public PlaylistReadDto map(Playlist from) {
         return PlaylistReadDto.builder()
+                .name(from.getName())
                 .id(from.getId())
                 .name(from.getName())
                 .description(from.getDescription())

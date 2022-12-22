@@ -40,4 +40,8 @@ public class PostService {
 
     }
 
+    @Transactional
+    public boolean deletePost(String username, Integer postId) {
+        return postRepo.deletePost(username, postId) == 1;
+    }
 }

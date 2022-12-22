@@ -43,6 +43,11 @@ public class PlaylistService {
                 .map(playlistReadMapper::map);
     }
 
+    @Transactional
+    public boolean deletePlaylist(String authorName, Integer playlistId) {
+        return playlistRepo.deletePlaylist(authorName, playlistId) == 1;
+    }
+
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
         if (!image.isEmpty()) {

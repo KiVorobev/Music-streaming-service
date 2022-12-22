@@ -21,6 +21,9 @@ public interface PlaylistRepo extends JpaRepository<Playlist, Integer> {
                                       @Param(("audios")) String audios,
                                       @Param(("authors")) String authors);
 
+    @Query(value = "SELECT * FROM delete_playlist(:authorName, :playlistId);", nativeQuery = true)
+    Integer deletePlaylist(@Param("authorName") String authorName, @Param("playlistId") Integer playlistId);
+
     @Query(value = "SELECT * FROM get_playlists_by_username(:authorName);", nativeQuery = true)
     List<Playlist> findAllByAuthorName(@Param("authorName") String authorName);
 }

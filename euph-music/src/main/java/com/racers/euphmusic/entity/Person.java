@@ -18,9 +18,6 @@ import java.util.List;
 @Table(schema = "s312762")
 public class Person {
 
-    // TODO: 15.12.2022
-//    - сделать запрос на количество подписчиков и на кого подписан, чтоб сразу не дергать лист
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -51,7 +48,6 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles;
-
 
     @ManyToMany
     @JoinTable(
