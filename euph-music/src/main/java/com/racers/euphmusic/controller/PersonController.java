@@ -14,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
+
+import static org.springframework.security.core.userdetails.User.builder;
 
 @Controller
 @RequestMapping("/persons")
@@ -48,10 +51,17 @@ public class PersonController {
 
 
     @PostMapping("/update")
-    public String update(Model model, PersonEditDto personEditDto) {
-        String loggedUsername = PersonLoggedDto.getLoggedPersonFromSession(model).getUsername();
+    public String update(Model model, PersonEditDto personEditDto, HttpServletRequest request) {
+        String loggedUsername = getLoggedPersonFromSession(model).getUsername();
         return personService.update(loggedUsername, personEditDto)
-                .map(it -> "redirect:/persons/" + loggedUsername)
+                .map(it -> {
+                    request.getSession().setAttribute("loggedPerson",
+                            builder()
+                                    .username(it.getUsername())
+                                    .image(it.getImage())
+                                    .build());
+                    return "redirect:/persons/" + loggedUsername;
+                })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

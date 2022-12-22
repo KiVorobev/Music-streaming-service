@@ -46,12 +46,13 @@ header text {
 header #username {
     cursor: pointer;
     vertical-align: middle;
+    font-size: 7vmin;
 }
 
 header ul {
     padding: 0;
     margin-top: 0;
-    margin-left: -25vmin;
+    margin-left: -21vmin;
     position: absolute;
     display: none;
 }
