@@ -30,7 +30,6 @@ public class PlaylistService {
 
     @Transactional
     public Optional<PlaylistReadDto> createPlaylist(PlaylistCreateDto playlistCreateDto, String loggedUsername) {
-        playlistCreateDto.setAuthors(playlistCreateDto.getAuthors() + "," + loggedUsername);
         Optional.ofNullable(playlistCreateDto.getImage())
                 .ifPresent(this::uploadImage);
         return playlistRepo.createPlaylist(
@@ -38,7 +37,9 @@ public class PlaylistService {
                         playlistCreateDto.getDescription(),
                         playlistCreateDto.getImage().getOriginalFilename(),
                         playlistCreateDto.getAudios(),
-                        playlistCreateDto.getAuthors()
+                        playlistCreateDto.getAuthors() == null
+                                ? loggedUsername
+                                : playlistCreateDto.getAuthors() + "," + loggedUsername
                 )
                 .map(playlistReadMapper::map);
     }

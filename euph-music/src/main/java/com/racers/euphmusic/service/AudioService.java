@@ -35,7 +35,6 @@ public class AudioService {
 
     @Transactional
     public Optional<AudioReadDto> addAudio(AudioCreateDto audioCreateDto, String loggedUsername) {
-        audioCreateDto.setAuthors(audioCreateDto.getAuthors() + "," + loggedUsername);
         Optional.ofNullable(audioCreateDto.getImage())
                 .ifPresent(this::uploadImage);
         return audioRepo.addAudio(
@@ -44,7 +43,9 @@ public class AudioService {
                 audioCreateDto.getImage() == null
                         ? null
                         : audioCreateDto.getImage().getOriginalFilename(),
-                audioCreateDto.getAuthors(),
+                audioCreateDto.getAuthors() == null
+                        ? loggedUsername
+                        : audioCreateDto.getAuthors() + "," + loggedUsername,
                 audioCreateDto.getGenres()
         ).map(audioReadMapper::map);
     }

@@ -2,10 +2,18 @@ package com.racers.euphmusic.mapper;
 
 import com.racers.euphmusic.dto.PlaylistFoundedDto;
 import com.racers.euphmusic.projection.PlaylistFoundByName;
+import com.racers.euphmusic.repository.PlaylistRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
+@RequiredArgsConstructor
 public class PlaylistFoundedMapper implements Mapper<PlaylistFoundByName, PlaylistFoundedDto> {
+
+    private final PersonUsernameMapper personUsernameMapper;
+    private final PlaylistRepo playlistRepo;
 
     @Override
     public PlaylistFoundedDto map(PlaylistFoundByName from) {
@@ -15,6 +23,12 @@ public class PlaylistFoundedMapper implements Mapper<PlaylistFoundByName, Playli
                 .image(from.getImage() == null
                         ? null
                         : from.getImage())
+                .authors(
+                        playlistRepo.findById(from.getId()).get()
+                                .getAuthors().stream()
+                                .map(personUsernameMapper::map)
+                                .collect(Collectors.toList())
+                )
                 .build();
     }
 }
