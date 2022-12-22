@@ -1,13 +1,19 @@
 package com.racers.euphmusic.service;
 
+import com.racers.euphmusic.dto.PlaylistCreateDto;
 import com.racers.euphmusic.dto.PlaylistFoundedDto;
+import com.racers.euphmusic.dto.PlaylistReadDto;
+import com.racers.euphmusic.entity.Audio;
 import com.racers.euphmusic.entity.Playlist;
 import com.racers.euphmusic.mapper.PlaylistFoundedMapper;
+import com.racers.euphmusic.mapper.PlaylistReadMapper;
 import com.racers.euphmusic.repository.PlaylistRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +27,29 @@ public class PlaylistService {
     private final ImageService imageService;
     private final PlaylistRepo playlistRepo;
     private final PlaylistFoundedMapper playlistFoundedMapper;
+    private final PlaylistReadMapper playlistReadMapper;
+
+    @Transactional
+    public Optional<PlaylistReadDto> createPlaylist(PlaylistCreateDto playlistCreateDto, String loggedUsername) {
+        playlistCreateDto.setAuthors(playlistCreateDto.getAuthors() + "," + loggedUsername);
+        Optional.ofNullable(playlistCreateDto.getImage())
+                .ifPresent(this::uploadImage);
+        return playlistRepo.createPlaylist(
+                        playlistCreateDto.getName(),
+                        playlistCreateDto.getDescription(),
+                        playlistCreateDto.getImage().getOriginalFilename(),
+                        playlistCreateDto.getAudios(),
+                        playlistCreateDto.getAuthors()
+                )
+                .map(playlistReadMapper::map);
+    }
+
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Audio.class);
+        }
+    }
 
     public Optional<Playlist> findById(Integer id) {
         return playlistRepo.findById(id);

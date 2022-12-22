@@ -32,7 +32,8 @@ public class AudioService {
     private final ImageService imageService;
 
     @Transactional
-    public Optional<AudioReadDto> addAudio(AudioCreateDto audioCreateDto) {
+    public Optional<AudioReadDto> addAudio(AudioCreateDto audioCreateDto, String loggedUsername) {
+        audioCreateDto.setAuthors(audioCreateDto.getAuthors() + "," + loggedUsername);
         Optional.ofNullable(audioCreateDto.getImage())
                 .ifPresent(this::uploadImage);
         return audioRepo.addAudio(

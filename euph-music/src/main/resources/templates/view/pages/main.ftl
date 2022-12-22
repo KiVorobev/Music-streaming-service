@@ -15,7 +15,11 @@
             <#list audios as audio>
                 <tr onclick="goTo('audios/${audio.id?c}')">
                     <td class="image">
-                        <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                        <#if audio.image??>
+                            <img src="/audios/${audio.id?c}/avatar">
+                        <#else>
+                            <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                        </#if>
                     </td>
                     <td class="name_authors">
                         <span class="elem_name">${audio.name}</span>

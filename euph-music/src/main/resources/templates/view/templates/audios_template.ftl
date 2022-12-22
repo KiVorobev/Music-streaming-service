@@ -15,7 +15,11 @@
                     <#list person.savedAudios as elem>
                         <tr onclick="goTo('audios/${elem.id?c}')">
                             <td class="image">
-                                <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                                <#if elem.image??>
+                                    <img src="/audios/${elem.id?c}/avatar">
+                                <#else>
+                                    <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                                </#if>
                             </td>
                             <td class="name_authors">
                                 <span class="elem_name">${elem.name}</span>
@@ -50,7 +54,11 @@
                     <#list person.loadedAudios as elem>
                         <tr onclick="goTo('audios/${elem.id?c}')">
                             <td class="image">
-                                <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                                <#if elem.image??>
+                                    <img src="/audios/${elem.id?c}/avatar">
+                                <#else>
+                                    <img src="https://stihi.ru/pics/2019/07/14/5314.jpg">
+                                </#if>
                             </td>
                             <td class="name_authors">
                                 <span class="elem_name">${elem.name}</span>
