@@ -17,6 +17,7 @@ public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
     private final PersonUsernameMapper personUsernameMapper;
     private final AudioReadMapper audioReadMapper;
     private final PostReadMapper postReadMapper;
+    private final PlaylistReadMapper playlistReadMapper;
 
     @Override
     public PersonReadDto map(Person from) {
@@ -57,6 +58,13 @@ public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
                                 .stream()
                                 .flatMap(Collection::stream)
                                 .map(postReadMapper::map)
+                                .collect(toList())
+                )
+                .playlists(
+                        Optional.ofNullable(from.getPlaylists())
+                                .stream()
+                                .flatMap(Collection::stream)
+                                .map(playlistReadMapper::map)
                                 .collect(toList())
                 )
                 .build();
