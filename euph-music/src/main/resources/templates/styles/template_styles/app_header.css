@@ -18,7 +18,7 @@ header #left {
 header #right {
     vertical-align: middle;
     float: right;
-    margin-right: 10vmin;
+    margin-right: 7vmin;
 }
 
 header #left img {
@@ -43,7 +43,7 @@ header text {
     position: relative;
 }
 
-header #username, header #balance {
+header #username {
     cursor: pointer;
     vertical-align: middle;
 }
@@ -51,7 +51,7 @@ header #username, header #balance {
 header ul {
     padding: 0;
     margin-top: 0;
-    margin-left: -9vmin;
+    margin-left: -25vmin;
     position: absolute;
     display: none;
 }
@@ -91,6 +91,7 @@ header li:hover #to_profile, header li:hover #logout {
 }
 
 header #to_profile, header #logout {
+    min-width: 15vw;
     font-size: 3vmin;
     text-decoration: none;
     display: block;

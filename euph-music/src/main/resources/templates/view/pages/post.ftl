@@ -14,9 +14,9 @@
         </div>
     </div>
     <#if post.audio??>
-        <@posts id=post.id date=post.publicationDate description=post.description media=post.audio comments=post.comments?size/>
+        <@posts id=post.id date=post.publicationDate description=post.description media=post.audio comments=post.comments?size type='audios'/>
     <#elseif post.playlist??>
-        <@post id=post.id date=post.publicationDate description=post.description media=post.playlist comments=post.comments?size/>
+        <@posts id=post.id date=post.publicationDate description=post.description media=post.playlist comments=post.comments?size type='playlists'/>
     </#if>
     <div id="add_comment">
         <form id="add_comment_form" method="post" action="comments/add">

@@ -122,14 +122,14 @@ main #audios {
 }
 
 main .audio_block {
-    width: 78%;
+    width: 82%;
     text-align: left;
     padding: 1vmin;
     display: inline-block;
     border-radius: 10px;
     margin-top: 1vmin;
     margin-bottom: 1vmin;
-    margin-left: 5vw;
+    margin-left: 1vw;
     background: rgba(62, 45, 113, 0.42);
     cursor: pointer;
     transition: 300ms;

@@ -29,9 +29,5 @@
                 <li><span id="logout" onclick="goTo('logout')">Выйти</span></li>
             </ul>
         </div>
-        <div id="balance" onclick="goTo('balance')">
-            <img src="/images/balance.png"/>
-            <text>${loggedPerson.balance}</text>
-        </div>
     </div>
 </#macro>

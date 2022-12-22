@@ -35,10 +35,10 @@
         <div id="posts">
             <#if person.posts?has_content>
                 <#list person.posts as note>
-                    <#if note.audio.name??>
-                        <@posts id=note.id date=note.publicationDate description=note.description media=note.audio comments=note.comments?size/>
-                    <#elseif note.playlist.name??>
-                        <@posts id=note.id date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size/>
+                    <#if note.audio??>
+                        <@posts id=note.id date=note.publicationDate description=note.description media=note.audio comments=note.comments?size type='audios'/>
+                    <#elseif note.playlist??>
+                        <@posts id=note.id date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size type='playlists'/>
                     </#if>
                 </#list>
             <#else>
