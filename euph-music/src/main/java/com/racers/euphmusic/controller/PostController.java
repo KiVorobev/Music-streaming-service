@@ -42,7 +42,7 @@ public class PostController {
     public String create(PostCreateDto postCreateDto, Model model) {
         return personRepo.findByUsername(PersonLoggedDto.getLoggedPersonFromSession(model).getUsername())
                 .map(person -> {
-                    postService.createPost(postCreateDto, person);
+                    postService.createPost(postCreateDto, person.getUsername());
                     return "redirect:/persons/" + person.getUsername();
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -51,10 +51,10 @@ public class PostController {
     @PostMapping("/{id}/comments/add")
     public String accComment(@PathVariable("id") Integer postId, CommentCreateDto commentCreateDto, Model model) {
         return commentService.addComment(
-                commentCreateDto.getText(),
-                PersonLoggedDto.getLoggedPersonFromSession(model).getUsername(),
-                postId
-        ).map(it -> "redirect:/posts/{id}/comments")
+                        commentCreateDto.getText(),
+                        PersonLoggedDto.getLoggedPersonFromSession(model).getUsername(),
+                        postId
+                ).map(it -> "redirect:/posts/{id}/comments")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

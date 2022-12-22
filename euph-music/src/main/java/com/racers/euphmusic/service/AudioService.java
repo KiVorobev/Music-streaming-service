@@ -31,6 +31,7 @@ public class AudioService {
     private final AudioReadMapper audioReadMapper;
     private final AudioFoundedMapper audioFoundedMapper;
     private final ImageService imageService;
+    private final PersonService personService;
 
     @Transactional
     public Optional<AudioReadDto> addAudio(AudioCreateDto audioCreateDto, String loggedUsername) {
@@ -51,6 +52,11 @@ public class AudioService {
     @Transactional
     public boolean saveAudio(String username, Integer audioId) {
         return audioRepo.saveAudio(username, audioId) == 1;
+    }
+
+    @Transactional
+    public boolean removeAudioFromSaved(String username, Integer audioId) {
+        return audioRepo.removeAudioFromSaved(username, audioId) == 1;
     }
 
     @SneakyThrows
@@ -74,6 +80,17 @@ public class AudioService {
                 .forEach(audio -> audio.setSaved(true));
         audioReadDtos.addAll(savedAudios);
         return audioReadDtos;
+    }
+
+    public AudioReadDto markIsAudioSaved(AudioReadDto audioReadDto, String loggedUsername) {
+        boolean isSaved = personService.findByUsername(loggedUsername).get()
+                .getSavedAudios()
+                .stream()
+                .map(AudioReadDto::getId)
+                .collect(toList())
+                .contains(audioReadDto.getId());
+        audioReadDto.setSaved(isSaved);
+        return audioReadDto;
     }
 
     public List<AudioFoundedDto> finaAllByAuthorName(String authorName) {

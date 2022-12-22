@@ -30,6 +30,7 @@ public class AudioController {
     public String findById(@PathVariable Integer id, Model model) {
         return audioService.findById(id)
                 .map(audio -> {
+                    audioService.markIsAudioSaved(audio, getLoggedPersonFromSession(model).getUsername());
                     model.addAttribute("audio", audio);
                     return "view/pages/audio";
                 })
@@ -56,7 +57,16 @@ public class AudioController {
         if (!audioService.saveAudio(username, id)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
-        return "redirect:/persons/" + username + "/saved";
+        return "redirect:/audios/{id}";
+    }
+
+    @PostMapping("/{id}/unsave")
+    public String removeAudioFromSaved(@PathVariable("id") Integer id, Model model) {
+        String username = getLoggedPersonFromSession(model).getUsername();
+        if (!audioService.removeAudioFromSaved(username, id)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return "redirect:/audios/{id}";
     }
 
     @GetMapping("/{id}/avatar")
