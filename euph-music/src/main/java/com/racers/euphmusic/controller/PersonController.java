@@ -49,8 +49,7 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-
-    @PostMapping(value = "/update")
+    @PostMapping("/update")
     public String update(Model model, PersonEditDto personEditDto, HttpServletRequest request) {
         String loggedUsername = getLoggedPersonFromSession(model).getUsername();
         return personService.update(loggedUsername, personEditDto)
@@ -73,7 +72,7 @@ public class PersonController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/{username}/avatar")
+    @GetMapping("/{username}/avatar")
     public ResponseEntity<byte[]> findAvatar(@PathVariable("username") String username) {
         return personService.findAvatar(username)
                 .map(content -> ResponseEntity.ok()
@@ -83,7 +82,7 @@ public class PersonController {
                 .orElseGet(ResponseEntity.notFound()::build);
     }
 
-    @GetMapping(value = "/avatar")
+    @GetMapping("/avatar")
     public ResponseEntity<byte[]> findDefaultAvatar() {
         return personService.findDefaultAvatar()
                 .map(content -> ResponseEntity.ok()

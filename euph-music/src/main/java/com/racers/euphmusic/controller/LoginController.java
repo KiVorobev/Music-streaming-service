@@ -30,7 +30,7 @@ public class LoginController {
         return "view/pages/registration";
     }
 
-    @PostMapping(value = "/registration")
+    @PostMapping("/registration")
     public String register(PersonCreateDto personCreateDto) {
         return Optional.of(personCreateDto)
                 .map(personService::create)
