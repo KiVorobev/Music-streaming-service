@@ -43,6 +43,11 @@ public class PlaylistService {
                 .map(playlistReadMapper::map);
     }
 
+    @Transactional
+    public boolean deletePlaylist(String authorName, Integer playlistId) {
+        return playlistRepo.deletePlaylist(authorName, playlistId) == 1;
+    }
+
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
         if (!image.isEmpty()) {
@@ -50,8 +55,9 @@ public class PlaylistService {
         }
     }
 
-    public Optional<Playlist> findById(Integer id) {
-        return playlistRepo.findById(id);
+    public Optional<PlaylistReadDto> findById(Integer id) {
+        return playlistRepo.findById(id)
+                .map(playlistReadMapper::map);
     }
 
     public List<PlaylistReadDto> findAllByAuthorName(String authorName) {
