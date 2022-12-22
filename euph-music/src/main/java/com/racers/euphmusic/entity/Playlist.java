@@ -11,6 +11,7 @@ import java.util.List;
 @Table(schema = "s312762")
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = {"audios", "authors"})
 @EqualsAndHashCode(of = "id")
 @Builder
 public class Playlist {

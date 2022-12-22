@@ -109,6 +109,20 @@ public class PersonService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    public boolean isPersonFollowedToAnotherPerson(List<PersonUsernameDto> persons, String loggedPersonUsername) {
+        return persons.stream()
+                .map(PersonUsernameDto::getUsername)
+                .anyMatch(username -> username.equals(loggedPersonUsername));
+    }
+
+    public List<PersonUsernameDto> getPersonUsernameListDtoWithoutLoggedPerson(String loggedUsername) {
+        return personRepo.findAll()
+                .stream()
+                .map(personUsernameMapper::map)
+                .filter(dto -> !dto.getUsername().equals(loggedUsername))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public void follow(PersonLoggedDto from, PersonReadDto to) {
         personRepo.follow(from.getUsername(), to.getUsername());

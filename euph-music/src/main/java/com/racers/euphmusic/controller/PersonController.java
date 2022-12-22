@@ -2,7 +2,6 @@ package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonEditDto;
 import com.racers.euphmusic.dto.PersonLoggedDto;
-import com.racers.euphmusic.dto.PersonUsernameDto;
 import com.racers.euphmusic.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/persons")
@@ -34,7 +31,7 @@ public class PersonController {
                     person.getLoadedAudios();
                     person.getSavedAudios();
                     person.getPosts();
-                    boolean isFollowed = isPersonFollowedToAnotherPerson(
+                    boolean isFollowed = personService.isPersonFollowedToAnotherPerson(
                             person.getFollowers(),
                             PersonLoggedDto.getLoggedPersonFromSession(model).getUsername()
                     );
@@ -44,12 +41,6 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    private boolean isPersonFollowedToAnotherPerson(List<PersonUsernameDto> persons, String loggedPersonUsername) {
-        return persons.stream()
-                .map(PersonUsernameDto::getUsername)
-                .anyMatch(username -> username.equals(loggedPersonUsername));
-
-    }
 
     @PostMapping(value = "/update")
     public String update(Model model, PersonEditDto personEditDto) {
