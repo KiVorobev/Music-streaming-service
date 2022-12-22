@@ -6,10 +6,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.Optional;
 
+import java.util.Optional;
 
 @Controller
 @SessionAttributes(names = "loggedPerson")
@@ -29,12 +31,12 @@ public class LoginController {
     }
 
     @PostMapping(value = "/registration")
-    @ResponseStatus(HttpStatus.CREATED)
     public String register(PersonCreateDto personCreateDto) {
         return Optional.of(personCreateDto)
                 .map(personService::create)
                 .map(it -> "redirect:/login")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new
+                        ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
 }

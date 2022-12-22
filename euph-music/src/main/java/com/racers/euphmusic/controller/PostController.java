@@ -32,7 +32,7 @@ public class PostController {
                     dto.getSavedAudios().addAll(dto.getLoadedAudios());
                     model.addAttribute("audios", dto.getSavedAudios());
                     model.addAttribute("playlists", dto.getPlaylists());
-                    return "/view/pages/add_post";
+                    return "/view/pages/post_create";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
