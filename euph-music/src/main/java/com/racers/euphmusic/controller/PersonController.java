@@ -38,12 +38,9 @@ public class PersonController {
                     person.getLoadedAudios();
                     person.getSavedAudios();
                     person.getPosts();
-
-                    boolean isFollowed = personService.isPersonFollowedToAnotherPerson(
+                    model.addAttribute("isFollowed", personService.isPersonFollowedToAnotherPerson(
                             person.getFollowers(),
-                            getLoggedPersonFromSession(model).getUsername()
-                    );
-                    model.addAttribute("isFollowed", isFollowed);
+                            getLoggedPersonFromSession(model).getUsername()));
                     return "view/pages/user_page";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
