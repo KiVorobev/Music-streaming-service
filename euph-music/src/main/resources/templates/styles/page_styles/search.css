@@ -2,7 +2,7 @@ main #content {
     margin-top: 3vh;
 }
 
-#content > span {
+main .topic {
     display: inline-block;
     text-align: center;
     width: 98vw;
@@ -42,6 +42,15 @@ main .elem_name {
 
 main .elem_authors {
     font-size: 2vmin;
+}
+
+main .no_content_block {
+    color: #16ece6;
+    margin-top: 2vh;
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-size: 3.5vmin;
 }
 
 ::-webkit-scrollbar {
