@@ -23,5 +23,7 @@ public class PostReadDto {
 
     private AudioReadDto audio;
 
+    private boolean isOwnedBy;
+
     private List<CommentReadDto> comments;
 }

@@ -2,8 +2,10 @@ package com.racers.euphmusic.service;
 
 import com.racers.euphmusic.dto.PostCreateDto;
 import com.racers.euphmusic.dto.PostReadDto;
+import com.racers.euphmusic.entity.Post;
 import com.racers.euphmusic.mapper.PostCreateMapper;
 import com.racers.euphmusic.mapper.PostReadMapper;
+import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.PostRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepo postRepo;
+    private final PersonRepo personRepo;
     private final PostReadMapper postReadMapper;
     private final PostCreateMapper postCreateMapper;
 
@@ -43,5 +46,18 @@ public class PostService {
     @Transactional
     public boolean deletePost(String username, Integer postId) {
         return postRepo.deletePost(username, postId) == 1;
+    }
+
+    public PostReadDto markIsOwnedByLoggedUser(PostReadDto postReadDto, String loggedUsername) {
+        return personRepo.findByUsername(loggedUsername)
+                .map(it -> {
+                    boolean contains = it.getPosts().stream()
+                            .map(Post::getId)
+                            .toList()
+                            .contains(postReadDto.getId());
+                    postReadDto.setOwnedBy(contains);
+                    return postReadDto;
+                })
+                .orElse(null);
     }
 }
