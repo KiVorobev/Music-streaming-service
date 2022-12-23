@@ -11,15 +11,15 @@
                 </#if>
         >
             <div class="inputs">
-                <input id="username" name="username" type="text" placeholder="Логин"/>
+                <input id="username" name="username" type="text" placeholder="Логин" required/>
             </div>
             <#if page == 'registration'>
                 <div class="inputs">
-                    <input id="email" name="email" type="text" placeholder="Email"/>
+                    <input id="email" name="email" type="text" placeholder="Email" required/>
                 </div>
             </#if>
             <div class="inputs">
-                <input id="password" name="password" type="password" placeholder="Пароль"/>
+                <input id="password" name="password" type="password" placeholder="Пароль" required/>
             </div>
             <button id="submit_button" type="submit">
                 <#if page == 'login'>Войти
