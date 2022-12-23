@@ -92,8 +92,4 @@ public class Person {
     )
     private List<Playlist> playlists;
 
-    public void addPost(Post post) {
-        post.setPerson(this);
-        this.getPosts().add(post);
-    }
 }
