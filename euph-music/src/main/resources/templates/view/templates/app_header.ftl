@@ -5,7 +5,7 @@
         </div>
         <div id="search_block">
             <form id="search_form" method="get" action="/search">
-                <input name="text" id="search_input" type="text" placeholder="Поиск" required>
+                <input name="text" id="search_input" type="text" placeholder="Поиск">
             </form>
         </div>
     </div>

@@ -47,6 +47,11 @@
             </div>
         </div>
         <div id="bottom">
+            <#if playlist.ownedBy>
+                <form method="post" action="${playlist.id?c}/delete">
+                    <button id="remove_button" class="remove_playlist" type="submit">Удалить плейлист</button>
+                </form>
+            </#if>
             <div id="audios" class="audio_info">
                 <#list 0..playlist.audios?size-1 as index>
                     <div class="audio_block" onclick="goTo('audios/${playlist.audios[index].id?c}')">
