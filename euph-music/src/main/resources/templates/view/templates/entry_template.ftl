@@ -1,6 +1,6 @@
 <#macro entry page>
     <div id="logo">
-        <img src="https://adonius.club/uploads/posts/2022-02/1644938357_35-adonius-club-p-lotos-na-belom-fone-56.png"/>
+        <img src="/images/logo.png">
     </div>
     <div id="inputs_block">
         <form method="post"
