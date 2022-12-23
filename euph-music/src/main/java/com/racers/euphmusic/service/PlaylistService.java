@@ -6,6 +6,7 @@ import com.racers.euphmusic.dto.PlaylistReadDto;
 import com.racers.euphmusic.entity.Playlist;
 import com.racers.euphmusic.mapper.PlaylistFoundedMapper;
 import com.racers.euphmusic.mapper.PlaylistReadMapper;
+import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.PlaylistRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -25,6 +26,7 @@ public class PlaylistService {
 
     private final ImageService imageService;
     private final PlaylistRepo playlistRepo;
+    private final PersonRepo personRepo;
     private final PlaylistFoundedMapper playlistFoundedMapper;
     private final PlaylistReadMapper playlistReadMapper;
 
@@ -78,5 +80,18 @@ public class PlaylistService {
                 .map(Playlist::getImage)
                 .filter(StringUtils::hasText)
                 .flatMap(image -> imageService.get(image, Playlist.class));
+    }
+
+    public PlaylistReadDto markIsOwnedByLoggedUser(PlaylistReadDto playlistReadDto, String loggedUsername) {
+        return personRepo.findByUsername(loggedUsername)
+                .map(it -> {
+                    boolean contains = it.getPlaylists().stream()
+                            .map(Playlist::getId)
+                            .toList()
+                            .contains(playlistReadDto.getId());
+                    playlistReadDto.setOwnedBy(contains);
+                    return playlistReadDto;
+                })
+                .orElse(null);
     }
 }

@@ -60,6 +60,8 @@ public class PostController {
     private String findCommentsOnPostByPostId(@PathVariable("id") Integer id, Model model) {
         return postService.findById(id)
                 .map(post -> {
+                    String loggedUsername = getLoggedPersonFromSession(model).getUsername();
+                    postService.markIsOwnedByLoggedUser(post, loggedUsername);
                     model.addAttribute("post", post);
                     return "/view/pages/post";
                 })
@@ -67,7 +69,7 @@ public class PostController {
     }
 
     @PostMapping("/{id}/comments/add")
-    public String accComment(@PathVariable("id") Integer postId, CommentCreateDto commentCreateDto, Model model) {
+    public String addComment(@PathVariable("id") Integer postId, CommentCreateDto commentCreateDto, Model model) {
         return commentService.addComment(
                         commentCreateDto.getText(),
                         getLoggedPersonFromSession(model).getUsername(),

@@ -18,6 +18,8 @@ public class PlaylistReadDto {
 
     private String image;
 
+    private boolean isOwnedBy;
+
     private LocalDate creationDate;
 
     private List<AudioReadDto> audios;

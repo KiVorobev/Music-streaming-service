@@ -62,6 +62,8 @@ public class PlaylistController {
     public String findPlaylistById(@PathVariable Integer id, Model model) {
         return playlistService.findById(id)
                 .map(playlist -> {
+                    String loggedUsername = getLoggedPersonFromSession(model).getUsername();
+                    playlistService.markIsOwnedByLoggedUser(playlist, loggedUsername);
                     model.addAttribute("playlist", playlist);
                     return "view/pages/playlist";
                 })
