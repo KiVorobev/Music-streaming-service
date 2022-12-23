@@ -7,19 +7,9 @@
     </div>
     <div id="search_block">
         <form id="search_form" method="get" action="/search">
-            <input id="search_input" type="text" placeholder="Поиск"/>
+            <input name="text" id="search_input" type="text" placeholder="Поиск">
         </form>
     </div>
-    <script>
-        document.getElementById('search_input').onkeypress = function (e) {
-            if (e.keyCode === 13) {
-                document.getElementById('search_form').submit()
-            }
-        }
-        if (window.location.href === 'http://localhost:8080/search') {
-            document.getElementById('search_block').style.display = 'none'
-        }
-    </script>
     <div id="right">
         <div id="username">
             ${loggedPerson.username}

@@ -1,0 +1,171 @@
+main #content {
+    margin-top: 3vh;
+}
+
+#content > span {
+    display: inline-block;
+    text-align: center;
+    width: 98vw;
+    font-size: 4vmin;
+    margin-top: 4vh;
+}
+
+main #authors, main #playlists, main #audios {
+    width: 90%;
+    margin-left: 5%;
+}
+
+main .person_block, main .playlist_block, main .audio_block {
+    border-radius: 10px;
+    margin-top: 1vmin;
+    margin-bottom: 1vmin;
+    padding: 1vmin;
+    background: rgba(62, 45, 113, 0.42);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .person_cell, main .playlist_cell, main .audio_cell {
+    border: none;
+    padding: 1vmin;
+    vertical-align: middle;
+}
+
+main .elem_author {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .elem_name {
+    font-size: 3vmin;
+}
+
+main .elem_authors {
+    font-size: 2vmin;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 16px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 16px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* persons */
+
+main #authors {
+    display: flex;
+    overflow-y: hidden;
+}
+
+main .person_block {
+    display: flex;
+    text-align: left;
+    margin-left: 1vw;
+    min-width: 25vw;
+    max-width: 25vw;
+}
+
+main .person_block:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transition: 300ms;
+}
+
+main .person_cell {
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 3vmin;
+    vertical-align: middle;
+    line-height: 5vmin;
+}
+
+main .person_cell img {
+    display: block;
+    margin: 0 auto;
+    width: 5vmin;
+    height: 5vmin;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+main #authors .username {
+    font-size: 5vmin;
+    text-align: left;
+}
+
+/* playlists */
+
+main #playlists {
+    display: flex;
+    overflow-y: hidden;
+}
+
+main .playlist_block {
+    text-align: center;
+    display: table-cell;
+    margin-left: 1vw;
+    min-width: 15vw;
+    max-width: 15vw;
+}
+
+main .playlist_block:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .playlist_cell {
+    display: block;
+    border-radius: 10px;
+}
+
+main .playlist_cell img {
+    display: block;
+    margin: 0 auto;
+    width: 14vw;
+    height: 22vh;
+    object-fit: cover;
+}
+
+main #playlists .name_authors {
+    text-align: left;
+}
+
+/* audios */
+
+main #audios {
+    display: inline-block;
+}
+
+main .audio_block {
+    text-align: left;
+    display: inline-block;
+    width: 99%;
+}
+
+main .audio_block:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .audio_cell {
+    display: inline-block;
+}
+
+main .audio_cell img {
+    display: block;
+    margin: 0 auto;
+    width: 4.5vw;
+    height: 8vh;
+    object-fit: cover;
+}
+
+main #audios .image {
+    width: 6vw;
+}

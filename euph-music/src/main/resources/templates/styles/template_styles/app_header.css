@@ -44,6 +44,7 @@ header text {
 }
 
 header #username {
+    margin-right: 7vw;
     cursor: pointer;
     vertical-align: middle;
     font-size: 7vmin;
@@ -52,7 +53,7 @@ header #username {
 header ul {
     padding: 0;
     margin-top: 0;
-    margin-left: -21vmin;
+    margin-left: -5vw;
     position: absolute;
     display: none;
 }
