@@ -199,3 +199,28 @@ main #add_comment_input:focus {
 ::-webkit-input-placeholder {
     color: #FFDE88;
 }
+
+main form .remove_post {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main form .remove_post:hover {
+    background: rgba(203, 12, 12, 0.8);
+    transition: 300ms;
+}
+
+main form #remove_button {
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 16px;
+    padding: 1vmin;
+    font-size: 4vmin;
+    display: inline-block;
+    margin-top: 2vh;
+    margin-right: 1vw;
+    width: 53%;
+    margin-left: 1vw;
+    transition: 300ms;
+}

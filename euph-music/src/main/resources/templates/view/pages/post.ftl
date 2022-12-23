@@ -18,6 +18,11 @@
     <#elseif post.playlist??>
         <@posts id=post.id date=post.publicationDate description=post.description media=post.playlist comments=post.comments?size type='playlists'/>
     </#if>
+    <#if post.ownedBy>
+        <form method="post" action="delete">
+            <button id="remove_button" class="remove_post" type="submit">Удалить плейлист</button>
+        </form>
+    </#if>
     <div id="add_comment">
         <form id="add_comment_form" method="post" action="comments/add">
             <input name="text" id="add_comment_input" type="text" placeholder="Добавить комментарий"/>
