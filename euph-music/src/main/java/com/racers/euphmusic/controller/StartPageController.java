@@ -28,7 +28,6 @@ public class StartPageController {
         List<AudioReadDto> audios = audioService.findAll(0, 5);
         return personService.findByUsername(getLoggedPersonFromSession(model).getUsername())
                 .map(loggedDto -> {
-                    audioService.markAllSavedAudios(loggedDto, audios);
                     model.addAttribute("audios", audios);
                     return "view/pages/main";
                 })
