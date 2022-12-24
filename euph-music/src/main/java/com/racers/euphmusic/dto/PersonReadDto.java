@@ -19,9 +19,9 @@ public class PersonReadDto {
 
     private Integer balance;
 
-    private List<PersonUsernameDto> followers;
+    private List<PersonShowProfileDto> followers;
 
-    private List<PersonUsernameDto> followTo;
+    private List<PersonShowProfileDto> followTo;
 
     private List<AudioReadDto> loadedAudios;
 
@@ -30,6 +30,4 @@ public class PersonReadDto {
     private List<PostReadDto> posts;
 
     private List<PlaylistReadDto> playlists;
-
-
 }

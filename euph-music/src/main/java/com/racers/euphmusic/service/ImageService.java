@@ -48,5 +48,4 @@ public class ImageService {
                 ? Optional.of(Files.readAllBytes(fullImagePath))
                 : Optional.empty();
     }
-
 }

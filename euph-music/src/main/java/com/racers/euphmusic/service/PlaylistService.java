@@ -30,6 +30,23 @@ public class PlaylistService {
     private final PlaylistFoundedMapper playlistFoundedMapper;
     private final PlaylistReadMapper playlistReadMapper;
 
+    public Optional<PlaylistReadDto> findById(Integer id) {
+        return playlistRepo.findById(id)
+                .map(playlistReadMapper::map);
+    }
+
+    public List<PlaylistReadDto> findAllByAuthorName(String authorName) {
+        return playlistRepo.findAllByAuthorName(authorName).stream()
+                .map(playlistReadMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public List<PlaylistFoundedDto> findPlaylistByNameLike(String name) {
+        return playlistRepo.findPlaylistByNameLike(name).stream()
+                .map(playlistFoundedMapper::map)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Optional<PlaylistReadDto> createPlaylist(PlaylistCreateDto playlistCreateDto, String loggedUsername) {
         Optional.ofNullable(playlistCreateDto.getImage())
@@ -56,23 +73,6 @@ public class PlaylistService {
         if (!image.isEmpty()) {
             imageService.upload(image.getOriginalFilename(), image.getInputStream(), Playlist.class);
         }
-    }
-
-    public Optional<PlaylistReadDto> findById(Integer id) {
-        return playlistRepo.findById(id)
-                .map(playlistReadMapper::map);
-    }
-
-    public List<PlaylistReadDto> findAllByAuthorName(String authorName) {
-        return playlistRepo.findAllByAuthorName(authorName).stream()
-                .map(playlistReadMapper::map)
-                .collect(Collectors.toList());
-    }
-
-    public List<PlaylistFoundedDto> findPlaylistByNameLike(String name) {
-        return playlistRepo.findPlaylistByNameLike(name).stream()
-                .map(playlistFoundedMapper::map)
-                .collect(Collectors.toList());
     }
 
     public Optional<byte[]> findAvatar(Integer id) {

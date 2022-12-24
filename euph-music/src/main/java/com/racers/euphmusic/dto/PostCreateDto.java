@@ -12,5 +12,4 @@ public class PostCreateDto {
     private Integer playlistId;
 
     private Integer audioId;
-
 }

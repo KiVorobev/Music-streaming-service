@@ -1,9 +1,10 @@
 package com.racers.euphmusic.mapper;
 
 import com.racers.euphmusic.dto.AudioFoundedDto;
-import com.racers.euphmusic.dto.PersonUsernameDto;
+import com.racers.euphmusic.dto.PersonShowProfileDto;
 import com.racers.euphmusic.projection.AudioFoundByUsername;
 import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class AudioFoundedMapper implements Mapper<AudioFoundByUsername, AudioFou
                         : from.getImage())
                 .authors(Arrays.stream(from.getAuthors().split(","))
                         .map(String::trim)
-                        .map(username -> PersonUsernameDto.builder().username(username).build())
+                        .map(username -> PersonShowProfileDto.builder().username(username).build())
                         .collect(Collectors.toList()))
                 .build();
     }

@@ -5,7 +5,6 @@ import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Value
 @FieldNameConstants
 @Builder
@@ -18,5 +17,4 @@ public class PersonCreateDto {
     private String email;
 
     private MultipartFile image;
-
 }

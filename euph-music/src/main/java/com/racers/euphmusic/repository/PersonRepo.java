@@ -5,6 +5,7 @@ import com.racers.euphmusic.projection.PersonFoundByUsername;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,4 @@ public interface PersonRepo extends JpaRepository<Person, Integer> {
 
     @Query(value = "SELECT unfollow (:followerUsername , :followToUsername);", nativeQuery = true)
     void unfollow(@Param("followerUsername") String fromUsername, @Param("followToUsername") String toUsername);
-
 }

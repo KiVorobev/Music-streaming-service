@@ -27,6 +27,18 @@ public class PlaylistController {
     private final PlaylistService playlistService;
     private final PersonService personService;
 
+    @GetMapping("/{id}")
+    public String findPlaylistById(@PathVariable Integer id, Model model) {
+        return playlistService.findById(id)
+                .map(playlist -> {
+                    String loggedUsername = getLoggedPersonFromSession(model).getUsername();
+                    playlistService.markIsOwnedByLoggedUser(playlist, loggedUsername);
+                    model.addAttribute("playlist", playlist);
+                    return "view/pages/playlist";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
     @GetMapping("/create")
     public String loadPlaylistCreatePage(Model model) {
         String loggedUsername = getLoggedPersonFromSession(model).getUsername();
@@ -56,18 +68,6 @@ public class PlaylistController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/persons/" + loggedUsername + "/playlists";
-    }
-
-    @GetMapping("/{id}")
-    public String findPlaylistById(@PathVariable Integer id, Model model) {
-        return playlistService.findById(id)
-                .map(playlist -> {
-                    String loggedUsername = getLoggedPersonFromSession(model).getUsername();
-                    playlistService.markIsOwnedByLoggedUser(playlist, loggedUsername);
-                    model.addAttribute("playlist", playlist);
-                    return "view/pages/playlist";
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/{id}/avatar")

@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString(exclude = {"authors", "savedBy", "genres"})
 @EqualsAndHashCode(of = "id")
+@Entity
 @Table(schema = "s312762")
 public class Audio {
 

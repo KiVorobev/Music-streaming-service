@@ -38,5 +38,4 @@ public class LoginController {
                 .orElseThrow(() -> new
                         ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
 }

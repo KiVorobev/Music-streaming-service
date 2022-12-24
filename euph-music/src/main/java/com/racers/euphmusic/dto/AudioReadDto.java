@@ -19,7 +19,7 @@ public class AudioReadDto {
 
     private String image;
 
-    private List<PersonUsernameDto> authors;
+    private List<PersonShowProfileDto> authors;
 
     private List<GenreReadDto> genres;
 

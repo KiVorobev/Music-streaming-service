@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PlaylistFoundedMapper implements Mapper<PlaylistFoundByName, PlaylistFoundedDto> {
 
-    private final PersonUsernameMapper personUsernameMapper;
+    private final PersonShowProfileMapper personShowProfileMapper;
     private final PlaylistRepo playlistRepo;
 
     @Override
@@ -26,7 +26,7 @@ public class PlaylistFoundedMapper implements Mapper<PlaylistFoundByName, Playli
                 .authors(
                         playlistRepo.findById(from.getId()).get()
                                 .getAuthors().stream()
-                                .map(personUsernameMapper::map)
+                                .map(personShowProfileMapper::map)
                                 .collect(Collectors.toList())
                 )
                 .build();

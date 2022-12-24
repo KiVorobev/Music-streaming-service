@@ -18,5 +18,4 @@ public interface PostRepo extends JpaRepository<Post, Integer> {
 
     @Query(value = "SELECT * FROM delete_post(:username, :postId);", nativeQuery = true)
     Integer deletePost(@Param("username") String username, @Param("postId") Integer postId);
-
 }

@@ -9,12 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.racers.euphmusic.entity.Role.*;
-import static java.util.function.Predicate.*;
+import static com.racers.euphmusic.entity.Role.USER;
+import static java.util.function.Predicate.not;
 
 @Component
 @RequiredArgsConstructor
@@ -45,5 +46,4 @@ public class PersonCreateMapper implements Mapper<PersonCreateDto, Person> {
     public RoleEntity getBaseRole() {
         return roleRepo.findRoleEntityByRole(USER);
     }
-
 }

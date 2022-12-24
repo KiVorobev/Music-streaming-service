@@ -78,5 +78,4 @@ public class AudioController {
                         .body(content))
                 .orElseGet(ResponseEntity.notFound()::build);
     }
-
 }

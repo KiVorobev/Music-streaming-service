@@ -77,5 +77,4 @@ public class PostController {
                 ).map(it -> "redirect:/posts/{id}/comments")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
 }

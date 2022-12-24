@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class PlaylistReadMapper implements Mapper<Playlist, PlaylistReadDto> {
 
     private final AudioReadMapper audioReadMapper;
-    private final PersonUsernameMapper personUsernameMapper;
+    private final PersonShowProfileMapper personShowProfileMapper;
 
     @Override
     public PlaylistReadDto map(Playlist from) {
@@ -27,7 +27,7 @@ public class PlaylistReadMapper implements Mapper<Playlist, PlaylistReadDto> {
                         .map(audioReadMapper::map)
                         .collect(Collectors.toList()))
                 .authors(from.getAuthors().stream()
-                        .map(personUsernameMapper::map)
+                        .map(personShowProfileMapper::map)
                         .collect(Collectors.toList()))
                 .build();
     }

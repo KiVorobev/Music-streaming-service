@@ -2,6 +2,7 @@ package com.racers.euphmusic.controller;
 
 import com.racers.euphmusic.dto.PersonEditDto;
 import com.racers.euphmusic.dto.PersonLoggedDto;
+import com.racers.euphmusic.mapper.PersonReadMapper;
 import com.racers.euphmusic.service.PersonService;
 import com.racers.euphmusic.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -27,21 +28,30 @@ public class PersonController {
 
     private final PersonService personService;
     private final PlaylistService playlistService;
+    private final PersonReadMapper personReadMapper;
 
     @GetMapping("/{username}")
     public String findPersonByUsername(@PathVariable String username, Model model) {
         return personService.findByUsername(username)
                 .map(person -> {
                     model.addAttribute("person", person);
-                    person.getFollowers();
-                    person.getFollowTo();
-                    person.getLoadedAudios();
-                    person.getSavedAudios();
-                    person.getPosts();
                     model.addAttribute("isFollowed", personService.isPersonFollowedToAnotherPerson(
                             person.getFollowers(),
                             getLoggedPersonFromSession(model).getUsername()));
                     return "view/pages/user_page";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{username}/edit")
+    public String loadEditUserPage(@PathVariable String username, Model model) {
+        if (!getLoggedPersonFromSession(model).getUsername().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.LOCKED);
+        }
+        return personService.findByUsername(username)
+                .map(person -> {
+                    model.addAttribute("person", person);
+                    return "view/pages/user_edit";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -69,24 +79,14 @@ public class PersonController {
         return "redirect:/";
     }
 
-    @GetMapping("/{username}/avatar")
-    public ResponseEntity<byte[]> findAvatar(@PathVariable("username") String username) {
-        return personService.findAvatar(username)
-                .map(content -> ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
-                        .contentLength(content.length)
-                        .body(content))
-                .orElseGet(ResponseEntity.notFound()::build);
-    }
-
-    @GetMapping("/avatar")
-    public ResponseEntity<byte[]> findDefaultAvatar() {
-        return personService.findDefaultAvatar()
-                .map(content -> ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
-                        .contentLength(content.length)
-                        .body(content))
-                .orElseGet(ResponseEntity.notFound()::build);
+    @GetMapping("/{username}/playlists")
+    public String loadPlaylistsPage(@PathVariable String username, Model model) {
+        return Optional.ofNullable(playlistService.findAllByAuthorName(username))
+                .map(playlistReadDtos -> {
+                    model.addAttribute("playlists", playlistReadDtos);
+                    return "/view/pages/playlists";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/{username}/saved")
@@ -119,29 +119,6 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/{username}/edit")
-    public String loadEditUserPage(@PathVariable String username, Model model) {
-        if (!getLoggedPersonFromSession(model).getUsername().equals(username)) {
-            throw new ResponseStatusException(HttpStatus.LOCKED);
-        }
-        return personService.findByUsername(username)
-                .map(person -> {
-                    model.addAttribute("person", person);
-                    return "view/pages/user_edit";
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/{username}/playlists")
-    public String loadPlaylistsPage(@PathVariable String username, Model model) {
-        return Optional.ofNullable(playlistService.findAllByAuthorName(username))
-                .map(playlistReadDtos -> {
-                    model.addAttribute("playlists", playlistReadDtos);
-                    return "/view/pages/playlists";
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping("/follow/{followToUsername}")
     public String followTo(@PathVariable String followToUsername, Model model) {
         return personService.findByUsername(followToUsername)
@@ -162,4 +139,23 @@ public class PersonController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/{username}/avatar")
+    public ResponseEntity<byte[]> findAvatar(@PathVariable("username") String username) {
+        return personService.findAvatar(username)
+                .map(content -> ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(ResponseEntity.notFound()::build);
+    }
+
+    @GetMapping("/avatar")
+    public ResponseEntity<byte[]> findDefaultAvatar() {
+        return personService.findDefaultAvatar()
+                .map(content -> ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(ResponseEntity.notFound()::build);
+    }
 }

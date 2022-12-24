@@ -7,13 +7,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@Entity
-@Table(schema = "s312762")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = {"audios", "authors"})
 @EqualsAndHashCode(of = "id")
-@Builder
+@Entity
+@Table(schema = "s312762")
 public class Playlist {
 
     @Id

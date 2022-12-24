@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
 @ToString(exclude = {"roles", "posts", "followers", "followTo", "loadedAudios", "savedAudios"})
-@Builder
+@EqualsAndHashCode(of = "id")
+@Entity
 @Table(schema = "s312762")
 public class Person {
 
@@ -91,5 +91,4 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "playlist_id")
     )
     private List<Playlist> playlists;
-
 }
