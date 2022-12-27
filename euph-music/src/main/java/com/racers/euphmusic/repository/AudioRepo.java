@@ -26,5 +26,4 @@ public interface AudioRepo extends JpaRepository<Audio, Integer> {
 
     @Query(value = "SELECT *  FROM remove_audio_from_saved(:username, :audioId);", nativeQuery = true)
     Integer removeAudioFromSaved(@Param("username") String username, @Param("audioId") Integer audioId);
-
 }

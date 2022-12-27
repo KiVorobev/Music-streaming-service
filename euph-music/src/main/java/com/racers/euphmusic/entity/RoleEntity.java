@@ -1,16 +1,18 @@
 package com.racers.euphmusic.entity;
+
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Entity
-@Table(name = "role", schema = "s312762")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "persons")
-@Builder
+@Entity
+@Table(name = "role", schema = "s312762")
 public class RoleEntity {
 
     @Id

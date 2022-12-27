@@ -38,7 +38,7 @@ public class PersonService implements UserDetailsService {
     private final PersonReadMapper personReadMapper;
     private final PersonEditMapper personEditMapper;
     private final PersonFoundedMapper personFoundedMapper;
-    private final PersonUsernameMapper personUsernameMapper;
+    private final PersonShowProfileMapper personShowProfileMapper;
 
     @Transactional
     public PersonReadDto create(PersonCreateDto personCreateDto) {
@@ -64,24 +64,6 @@ public class PersonService implements UserDetailsService {
                 });
     }
 
-    @SneakyThrows
-    private void uploadImage(MultipartFile image) {
-        if (!image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Person.class);
-        }
-    }
-
-    public Optional<byte[]> findAvatar(String username) {
-        return personRepo.findByUsername(username)
-                .map(Person::getImage)
-                .filter(StringUtils::hasText)
-                .flatMap(image -> imageService.get(image, Person.class));
-    }
-
-    public Optional<byte[]> findDefaultAvatar() {
-        return imageService.findDefaultPersonAvatar(DEFAULT_IMAGE_AVATAR_NAME, Person.class);
-    }
-
     @Transactional
     public boolean delete(String username) {
         return personRepo.findByUsername(username)
@@ -90,47 +72,6 @@ public class PersonService implements UserDetailsService {
                     return true;
                 })
                 .orElse(false);
-    }
-
-    public Optional<PersonReadDto> findByUsername(String username) {
-        return personRepo.findByUsername(username)
-                .map(personReadMapper::map);
-    }
-
-    public List<PersonFoundedDto> findUsersByUsernameLike(String username) {
-        return personRepo.findUsersByUsernameLike(username).stream()
-                .map(personFoundedMapper::map)
-                .collect(Collectors.toList());
-    }
-
-    public List<PersonUsernameDto> findAll() {
-        return personRepo.findAll().stream()
-                .map(personUsernameMapper::map)
-                .collect(Collectors.toList());
-    }
-
-    public boolean isPersonFollowedToAnotherPerson(List<PersonUsernameDto> persons, String loggedPersonUsername) {
-        return persons.stream()
-                .map(PersonUsernameDto::getUsername)
-                .anyMatch(username -> username.equals(loggedPersonUsername));
-    }
-
-    public List<PersonUsernameDto> getPersonUsernameListDtoWithoutLoggedPerson(String loggedUsername) {
-        return personRepo.findAll()
-                .stream()
-                .map(personUsernameMapper::map)
-                .filter(dto -> !dto.getUsername().equals(loggedUsername))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void follow(PersonLoggedDto from, PersonReadDto to) {
-        personRepo.follow(from.getUsername(), to.getUsername());
-    }
-
-    @Transactional
-    public void unfollow(PersonLoggedDto from, PersonReadDto to) {
-        personRepo.unfollow(from.getUsername(), to.getUsername());
     }
 
     @Override
@@ -149,5 +90,64 @@ public class PersonService implements UserDetailsService {
                         rolesSet
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
+    }
+
+    public Optional<PersonReadDto> findByUsername(String username) {
+        return personRepo.findByUsername(username)
+                .map(personReadMapper::map);
+    }
+
+    public List<PersonFoundedDto> findUsersByUsernameLike(String username) {
+        return personRepo.findUsersByUsernameLike(username).stream()
+                .map(personFoundedMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream(), Person.class);
+        }
+    }
+
+    public Optional<byte[]> findAvatar(String username) {
+        return personRepo.findByUsername(username)
+                .map(Person::getImage)
+                .filter(StringUtils::hasText)
+                .flatMap(image -> imageService.get(image, Person.class));
+    }
+
+    public Optional<byte[]> findDefaultAvatar() {
+        return imageService.findDefaultPersonAvatar(DEFAULT_IMAGE_AVATAR_NAME, Person.class);
+    }
+
+    public List<PersonShowProfileDto> findAll() {
+        return personRepo.findAll().stream()
+                .map(personShowProfileMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isPersonFollowedToAnotherPerson(List<PersonShowProfileDto> persons, String loggedPersonUsername) {
+        return persons.stream()
+                .map(PersonShowProfileDto::getUsername)
+                .anyMatch(username -> username.equals(loggedPersonUsername));
+    }
+
+    public List<PersonShowProfileDto> getPersonUsernameListDtoWithoutLoggedPerson(String loggedUsername) {
+        return personRepo.findAll()
+                .stream()
+                .map(personShowProfileMapper::map)
+                .filter(dto -> !dto.getUsername().equals(loggedUsername))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void follow(PersonLoggedDto from, PersonReadDto to) {
+        personRepo.follow(from.getUsername(), to.getUsername());
+    }
+
+    @Transactional
+    public void unfollow(PersonLoggedDto from, PersonReadDto to) {
+        personRepo.unfollow(from.getUsername(), to.getUsername());
     }
 }

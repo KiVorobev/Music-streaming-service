@@ -24,5 +24,5 @@ public class PlaylistReadDto {
 
     private List<AudioReadDto> audios;
 
-    private List<PersonUsernameDto> authors;
+    private List<PersonShowProfileDto> authors;
 }

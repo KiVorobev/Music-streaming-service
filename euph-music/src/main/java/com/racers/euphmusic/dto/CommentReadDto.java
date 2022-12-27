@@ -15,6 +15,5 @@ public class CommentReadDto {
 
     private String publicationDate;
 
-    private PersonUsernameDto person;
-
+    private PersonShowProfileDto person;
 }

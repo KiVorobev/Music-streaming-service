@@ -30,11 +30,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         Person person;
         String username = ((User) authentication.getPrincipal()).getUsername();
         person = personRepo.findByUsername(username).get();
-        PersonLoggedDto personReadDto = PersonLoggedDto.builder()
+        PersonLoggedDto personLoggedDto = PersonLoggedDto.builder()
                 .username(person.getUsername())
                 .image(person.getImage())
                 .build();
-        session.setAttribute("loggedPerson", personReadDto);
+        session.setAttribute("loggedPerson", personLoggedDto);
         redirectStrategy.sendRedirect(request, response, "/");
     }
 

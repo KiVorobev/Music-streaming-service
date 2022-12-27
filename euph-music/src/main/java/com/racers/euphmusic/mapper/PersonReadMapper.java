@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
 
-    private final PersonUsernameMapper personUsernameMapper;
+    private final PersonShowProfileMapper personShowProfileMapper;
     private final AudioReadMapper audioReadMapper;
     private final PostReadMapper postReadMapper;
     private final PlaylistReadMapper playlistReadMapper;
@@ -31,14 +31,14 @@ public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
                         Optional.ofNullable(from.getFollowers())
                                 .stream()
                                 .flatMap(Collection::stream)
-                                .map(personUsernameMapper::map)
+                                .map(personShowProfileMapper::map)
                                 .collect(toList())
                 )
                 .followTo(
                         Optional.ofNullable(from.getFollowTo())
                                 .stream()
                                 .flatMap(Collection::stream)
-                                .map(personUsernameMapper::map)
+                                .map(personShowProfileMapper::map)
                                 .collect(toList()))
                 .savedAudios(
                         Optional.ofNullable(from.getSavedAudios())
@@ -68,7 +68,6 @@ public class PersonReadMapper implements Mapper<Person, PersonReadDto> {
                                 .collect(toList())
                 )
                 .build();
-
     }
 }
 

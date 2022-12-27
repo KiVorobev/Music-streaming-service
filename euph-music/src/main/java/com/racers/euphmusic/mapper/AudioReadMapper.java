@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AudioReadMapper implements Mapper<Audio, AudioReadDto> {
 
-    private final PersonUsernameMapper authorAudioMapper;
+    private final PersonShowProfileMapper authorAudioMapper;
     private final GenreReadMapper genreReadMapper;
 
     @Override

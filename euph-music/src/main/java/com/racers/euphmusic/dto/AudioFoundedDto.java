@@ -15,5 +15,5 @@ public class AudioFoundedDto {
 
     private String image;
 
-    List<PersonUsernameDto> authors;
+    List<PersonShowProfileDto> authors;
 }

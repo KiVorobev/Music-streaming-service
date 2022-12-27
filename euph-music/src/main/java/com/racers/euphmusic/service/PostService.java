@@ -3,7 +3,6 @@ package com.racers.euphmusic.service;
 import com.racers.euphmusic.dto.PostCreateDto;
 import com.racers.euphmusic.dto.PostReadDto;
 import com.racers.euphmusic.entity.Post;
-import com.racers.euphmusic.mapper.PostCreateMapper;
 import com.racers.euphmusic.mapper.PostReadMapper;
 import com.racers.euphmusic.repository.PersonRepo;
 import com.racers.euphmusic.repository.PostRepo;
@@ -21,7 +20,6 @@ public class PostService {
     private final PostRepo postRepo;
     private final PersonRepo personRepo;
     private final PostReadMapper postReadMapper;
-    private final PostCreateMapper postCreateMapper;
 
     public Optional<PostReadDto> findById(Integer id) {
         return postRepo.findById(id)

@@ -6,13 +6,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "comments")
-@Builder
+@Entity
 @Table(schema = "s312762")
 public class Post {
 
@@ -38,5 +38,4 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
-
 }

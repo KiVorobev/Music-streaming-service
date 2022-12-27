@@ -15,5 +15,5 @@ public class PlaylistFoundedDto {
 
     private String image;
 
-    private List<PersonUsernameDto> authors;
+    private List<PersonShowProfileDto> authors;
 }

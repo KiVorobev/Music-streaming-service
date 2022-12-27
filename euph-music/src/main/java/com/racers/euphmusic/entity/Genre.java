@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@EqualsAndHashCode(of = "id")
 @ToString(exclude = "audiosOfThisGenre")
+@EqualsAndHashCode(of = "id")
+@Entity
 @Table(schema = "s312762")
 public class Genre {
 
