@@ -69,7 +69,7 @@ main textarea:focus {
     transition: 300ms;
 }
 
-main #content #select_audio, main #content #select_playlist {
+main #content #select_audio_block, main #content #select_playlist_block {
     display: inline-block;
     width: 32vw;
     font-size: 3vmin;
@@ -106,5 +106,13 @@ main form button[type=submit]:hover {
 }
 
 select {
+    display: inline-block;
+    width: 32vw;
+    font-size: 3vmin;
+    padding: 2vmin;
+    cursor: pointer;
+    border-radius: 16px;
+    transition: 300ms;
+    outline: none;
     background: transparent;
 }

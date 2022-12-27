@@ -20,7 +20,7 @@
     </#if>
     <#if post.ownedBy>
         <form method="post" action="delete">
-            <button id="remove_button" class="remove_post" type="submit">Удалить плейлист</button>
+            <button id="remove_button" class="remove_post" type="submit">Удалить пост</button>
         </form>
     </#if>
     <div id="add_comment">
