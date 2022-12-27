@@ -92,10 +92,6 @@ main form button[type=submit]:hover {
     transition: 300ms;
 }
 
-main form #audio_text_block {
-    height: 13vh;
-}
-
 main form textarea {
     outline: none;
     font-size: 3vmin;

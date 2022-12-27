@@ -14,13 +14,13 @@
     <form enctype="multipart/form-data" method="post" action="/audios/create">
         <div id="content">
             <div id="audio_name_block">
-                <input id="audio_name_input" type="text" name="name" placeholder="Название" required>
+                <input id="audio_name_input" type="text" name="name" placeholder="Название" maxlength="32" required>
             </div>
             <div id="audio_text_block">
-                <textarea id="audio_text" name="text" placeholder="Текст" required></textarea>
+                <textarea id="audio_text" name="text" placeholder="Текст" maxlength="10000" required></textarea>
             </div>
             <div id="audio_image_block">
-                <input id="audio_image_input" type="file" name="image" placeholder="Картинка">
+                <input id="audio_image_input" type="file" name="image" placeholder="Картинка" required>
             </div>
             <div id="audio_authors_block">
                 <label for="audio_authors_select">Выберите соавторов</label>
@@ -32,7 +32,7 @@
             </div>
             <div>
                 <label for="audio_genres_select">Выберите жанр</label>
-                <select id="audio_genres_select" multiple="multiple" name="genres">
+                <select id="audio_genres_select" multiple="multiple" name="genres" required>
                     <#list genres as genre>
                         <option value="${genre.name}">${genre.name}</option>
                     </#list>

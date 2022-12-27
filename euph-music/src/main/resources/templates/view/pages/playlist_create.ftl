@@ -14,10 +14,11 @@
     <form enctype="multipart/form-data" method="post" action="/playlists/create">
         <div id="content">
             <div id="playlist_name_block">
-                <input id="playlist_name_input" type="text" name="name" placeholder="Название" required>
+                <input id="playlist_name_input" type="text" name="name" placeholder="Название" maxlength="32" required>
             </div>
             <div id="playlist_description_block">
-                <textarea id="audio_text" name="description" placeholder="Описание" required></textarea>
+                <textarea id="playlist_description" name="description" placeholder="Описание" maxlength="5000"
+                          required></textarea>
             </div>
             <div id="playlist_image_block">
                 <input id="playlist_image_input" type="file" name="image" placeholder="Картинка" requied>
