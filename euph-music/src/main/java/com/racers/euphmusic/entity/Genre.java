@@ -12,7 +12,6 @@ import java.util.List;
 @ToString(exclude = "audiosOfThisGenre")
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(schema = "s312762")
 public class Genre {
 
     @Id

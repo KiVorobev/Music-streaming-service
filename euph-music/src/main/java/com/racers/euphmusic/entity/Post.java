@@ -13,7 +13,6 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "comments")
 @Entity
-@Table(schema = "s312762")
 public class Post {
 
     @Id

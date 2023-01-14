@@ -15,7 +15,6 @@ import java.util.List;
 @ToString(exclude = {"roles", "posts", "followers", "followTo", "loadedAudios", "savedAudios"})
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(schema = "s312762")
 public class Person {
 
     @Id

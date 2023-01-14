@@ -13,7 +13,6 @@ import java.util.List;
 @ToString(exclude = {"audios", "authors"})
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(schema = "s312762")
 public class Playlist {
 
     @Id

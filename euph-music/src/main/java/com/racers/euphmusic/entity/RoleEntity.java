@@ -12,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "persons")
 @Entity
-@Table(name = "role", schema = "s312762")
+@Table(name = "role")
 public class RoleEntity {
 
     @Id

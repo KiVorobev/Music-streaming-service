@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(schema = "s312762")
 public class Comment {
 
     @Id
