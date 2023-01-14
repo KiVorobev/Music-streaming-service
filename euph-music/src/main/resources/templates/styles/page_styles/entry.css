@@ -49,11 +49,8 @@ main input:focus {
     transition: 300ms;
 }
 
-main #buttons {
-    margin-top: 3vh;
-}
-
 main button {
+    margin-top: 3vh;
     display: inline-block;
     text-align: center;
     border-radius: 16px;

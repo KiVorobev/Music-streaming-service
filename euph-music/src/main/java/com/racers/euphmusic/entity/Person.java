@@ -1,22 +1,22 @@
 package com.racers.euphmusic.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
 @ToString(exclude = {"roles", "posts", "followers", "followTo", "loadedAudios", "savedAudios"})
-@Builder
+@EqualsAndHashCode(of = "id")
+@Entity
 @Table(schema = "s312762")
 public class Person {
-
-    // TODO: 15.12.2022
-//    - сделать запрос на количество подписчиков и на кого подписан, чтоб сразу не дергать лист
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,7 @@ public class Person {
 
     private String username;
 
+    @Column(updatable = false)
     private String password;
 
     private String email;
@@ -31,13 +32,16 @@ public class Person {
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
 
+    @Generated(GenerationTime.ALWAYS)
     private Integer balance;
 
     private String status;
 
     private String description;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    private String image;
+
+    @ManyToMany
     @JoinTable(
             name = "role_person",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -45,8 +49,7 @@ public class Person {
     )
     private List<RoleEntity> roles;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follow_to_person_id"),
@@ -54,7 +57,7 @@ public class Person {
     )
     private List<Person> followers;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
             name = "person_follow",
             joinColumns = @JoinColumn(name = "follower_person_id"),
@@ -62,7 +65,7 @@ public class Person {
     )
     private List<Person> followTo;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
             name = "author_audio",
             joinColumns = @JoinColumn(name = "author_id"),
@@ -70,7 +73,7 @@ public class Person {
     )
     private List<Audio> loadedAudios;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "save_audio",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -78,13 +81,14 @@ public class Person {
     )
     private List<Audio> savedAudios;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "person")
     private List<Post> posts;
 
-    public void addRole(RoleEntity role) {
-        this.roles.add(role);
-        role.getPersons().add(this);
-    }
-
-
+    @ManyToMany
+    @JoinTable(
+            name = "playlist_author",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "playlist_id")
+    )
+    private List<Playlist> playlists;
 }

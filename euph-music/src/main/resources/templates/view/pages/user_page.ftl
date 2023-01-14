@@ -1,6 +1,6 @@
 <#include "../templates/main_template.ftl"/>
 <#include "../templates/app_header.ftl"/>
-<#include "../templates/post.ftl"/>
+<#include "../templates/posts_template.ftl"/>
 
 <#macro header>
     <@appHeader/>
@@ -26,18 +26,19 @@
             </div>
         </#if>
         <#if loggedPerson.username == person.username>
-        <div class="block" id="add_post" onmouseover="hover_highlight('add_post_text')"
-             onmouseout="hover_unhighlight('add_post_text')">
-            <span id="add_post_text">Добавить запись</span>
-        </div>
+            <div class="block" id="add_post" onclick="goTo('posts/create')"
+                 onmouseover="hover_highlight('add_post_text')"
+                 onmouseout="hover_unhighlight('add_post_text')">
+                <span id="add_post_text">Добавить запись</span>
+            </div>
         </#if>
         <div id="posts">
             <#if person.posts?has_content>
                 <#list person.posts as note>
-                    <#if note.audio.name??>
-                        <@post date=note.publicationDate description=note.description media=note.audio comments=note.comments?size/>
-                    <#elseif note.playlist.name??>
-                        <@post date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size/>
+                    <#if note.audio??>
+                        <@posts id=note.id date=note.publicationDate description=note.description media=note.audio comments=note.comments?size type='audios'/>
+                    <#elseif note.playlist??>
+                        <@posts id=note.id date=note.publicationDate description=note.description media=note.playlist comments=note.comments?size type='playlists'/>
                     </#if>
                 </#list>
             <#else>
@@ -51,40 +52,55 @@
     </div>
     <div id="right">
         <div class="block" id="avatar">
-            <img src="https://all-aforizmy.ru/wp-content/uploads/2022/01/6936_43430_1a2d8f8dc6.jpg">
+            <#if person.image??>
+                <img src="/persons/${person.username}/avatar">
+            <#else>
+                <img src="/persons/avatar">
+            </#if>
         </div>
         <#if loggedPerson.username == person.username>
             <div class="block" id="edit" onmouseover="hover_highlight('active_block')"
-                 onmouseout="hover_unhighlight('active_block')">
+                 onmouseout="hover_unhighlight('active_block')" onclick="goTo('persons/${person.username}/edit')">
                 <span id="active_block">Редактировать</span>
             </div>
         <#elseif !isFollowed>
-            <div class="block" id="follow" onclick="followTo()" onmouseover="hover_highlight('active_block')"
+            <div class="block" id="follow" onclick="goTo('persons/follow/${person.username}')"
+                 onmouseover="hover_highlight('active_block')"
                  onmouseout="hover_unhighlight('active_block')">
                 <span id="active_block">Подписаться</span>
             </div>
         <#elseif isFollowed>
-            <div class="block" id="unfollow" onclick="unfollowFrom()" onmouseover="hover_highlight('active_block')"
+            <div class="block" id="unfollow" onclick="goTo('persons/unfollow/${person.username}')"
+                 onmouseover="hover_highlight('active_block')"
                  onmouseout="hover_unhighlight('active_block')">
                 <span id="active_block">Отписаться</span>
             </div>
         </#if>
         <div class="block" id="user_info">
-            <div class="user_info_hover" id="first_user_info" onclick="goTo('persons/${person.username}/follows')" onmouseover="hover_highlight('info_followTo')"
+            <div class="user_info_hover" id="first_user_info" onclick="goTo('persons/${person.username}/follows')"
+                 onmouseover="hover_highlight('info_followTo')"
                  onmouseout="hover_unhighlight('info_followTo')">
                 <span id="info_followTo">Подписки: ${person.followTo?size}</span>
             </div>
-            <div class="user_info_hover" onclick="goTo('persons/${person.username}/follows')" onmouseover="hover_highlight('info_followers')"
+            <div class="user_info_hover" onclick="goTo('persons/${person.username}/follows')"
+                 onmouseover="hover_highlight('info_followers')"
                  onmouseout="hover_unhighlight('info_followers')">
                 <span id="info_followers">Подписчики: ${person.followers?size}</span>
             </div>
-            <div class="user_info_hover" onclick="goTo('persons/${person.username}/loaded')" onmouseover="hover_highlight('info_loaded')"
+            <div class="user_info_hover" onclick="goTo('persons/${person.username}/loaded')"
+                 onmouseover="hover_highlight('info_loaded')"
                  onmouseout="hover_unhighlight('info_loaded')">
-                <span id="info_loaded">Авторство</span>
+                <span id="info_loaded">Авторство: ${person.loadedAudios?size}</span>
             </div>
-            <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/saved')" onmouseover="hover_highlight('info_saved')"
+            <div class="user_info_hover" onclick="goTo('persons/${person.username}/saved')"
+                 onmouseover="hover_highlight('info_saved')"
                  onmouseout="hover_unhighlight('info_saved')">
-                <span id="info_saved">Сохраненные аудио</span>
+                <span id="info_saved">Сохраненные аудио: ${person.savedAudios?size}</span>
+            </div>
+            <div class="user_info_hover" id="last_user_info" onclick="goTo('persons/${person.username}/playlists')"
+                 onmouseover="hover_highlight('info_playlists')"
+                 onmouseout="hover_unhighlight('info_playlists')">
+                <span id="info_playlists">Плейлисты: ${person.playlists?size}</span>
             </div>
         </div>
     </div>

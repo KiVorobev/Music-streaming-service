@@ -7,14 +7,15 @@ import com.racers.euphmusic.repository.RoleRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.racers.euphmusic.entity.Role.*;
+import static com.racers.euphmusic.entity.Role.USER;
+import static java.util.function.Predicate.not;
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +27,10 @@ public class PersonCreateMapper implements Mapper<PersonCreateDto, Person> {
     @Override
     public Person map(PersonCreateDto from) {
         Person person = new Person();
+        Optional.ofNullable(from.getImage())
+                .filter(not(MultipartFile::isEmpty))
+                .ifPresent(image -> person.setImage(image.getOriginalFilename()));
+
         Optional.ofNullable(from.getPassword())
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)
@@ -41,5 +46,4 @@ public class PersonCreateMapper implements Mapper<PersonCreateDto, Person> {
     public RoleEntity getBaseRole() {
         return roleRepo.findRoleEntityByRole(USER);
     }
-
 }

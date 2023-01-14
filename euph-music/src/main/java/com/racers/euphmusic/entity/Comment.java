@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-@Table(schema = "s312762")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Builder
+@Entity
+@Table(schema = "s312762")
 public class Comment {
 
     @Id
@@ -27,7 +27,7 @@ public class Comment {
     @JoinColumn
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Post post;
 }

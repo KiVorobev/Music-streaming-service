@@ -2,10 +2,6 @@ main {
     text-align: center;
 }
 
-ul {
-    text-align: center;
-}
-
 #left_table, #right_table {
     display: inline-block;
     width: 48vw;
@@ -31,6 +27,8 @@ span {
 }
 
 tr {
+    display: block;
+    border-radius: 16px;
     cursor: pointer;
     transition: 300ms;
 }
@@ -71,15 +69,42 @@ td img {
     word-wrap: break-word;
 }
 
+main #back_button {
+    position: absolute;
+    font-size: 5vmin;
+    margin-left: 3vw;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #back_button:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #topic {
+    height: 5vmin;
+    width: 98vw;
+    vertical-align: middle;
+    margin-bottom: 3vh;
+}
+
+main #back_arrow {
+    float: bottom;
+    height: 4vmin;
+}
+
 /* Стили для скролла */
 ::-webkit-scrollbar {
     width: 2px;
 }
 
 ::-webkit-scrollbar-track {
+    border-radius: 16px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {
+    border-radius: 16px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }

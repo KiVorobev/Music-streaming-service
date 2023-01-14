@@ -3,7 +3,7 @@ package com.racers.euphmusic.dto;
 import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @Value
 @FieldNameConstants
@@ -16,5 +16,5 @@ public class PersonCreateDto {
 
     private String email;
 
-
+    private MultipartFile image;
 }
