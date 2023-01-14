@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@300&family=Raleway:wght@200&display=swap');
+
+* {
+    font-family: 'Bellota Text', cursive;
+    color: #FFDE88;
+    word-wrap: break-word;
+}
+
+body {
+    background: radial-gradient(farthest-corner at 85vw 50vh, #e7801fa1 10%, #6e0a9f 80%);
+    background-attachment: fixed;
+    height: 97vh;
+}
+
+main {
+    display: inline-block;
+    width: 100%;
+    margin-top: 1vh;
+    transition: 300ms;
+}

@@ -1,0 +1,240 @@
+main #left {
+    display: inline-block;
+    margin-left: 5vw;
+    float: left;
+    width: 55vw
+}
+
+main #right {
+    display: inline-block;
+    margin-left: 5vw;
+    width: 30vw;
+}
+
+main .block:not(#avatar, #unfollow) {
+    background: rgba(62, 45, 113, 0.42);
+    border-radius: 16px;
+    word-wrap: break-word;
+}
+
+main .block:not(#username_text) {
+    margin-top: 2vh;
+}
+
+main div {
+    color: #FFDE88;
+}
+
+main #username_text {
+    text-align: center;
+    font-size: 8vmin;
+}
+
+main #user_mood, main #user_info, main #null_posts, main #edit, main #follow, main #unfollow {
+    text-align: center;
+}
+
+main #user_mood {
+    padding: 1vmin;
+}
+
+main #user_mood > div {
+    word-wrap: break-word;
+    padding: 1.5vh;
+}
+
+main #avatar {
+    height: 35vh;
+}
+
+main #avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+main #edit, main #follow, main #unfollow {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main #edit:hover, main #follow:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main #unfollow {
+    background: rgba(62, 45, 113, 0.82);
+    border-radius: 16px;
+    word-wrap: break-word;
+}
+
+main #unfollow:hover {
+    background: rgba(203, 12, 12, 0.8);
+    transition: 300ms;
+}
+
+main #user_info span, main #edit span, main #follow span, main #unfollow span {
+    cursor: pointer;
+    padding: 1.5vh;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    transition: 300ms;
+}
+
+main #user_info span:hover {
+    transform: scale(1.2);
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #null_posts {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+main #null_post_img {
+    margin-top: 2vh;
+    width: 4vmin;
+    height: 5vmin;
+    mix-blend-mode: darken;
+}
+
+main .post {
+    text-align: left;
+    width: 90%;
+    height: 90%;
+    padding: 3vmin;
+    word-wrap: break-word;
+}
+
+main .post_view {
+    text-align: center;
+    vertical-align: middle;
+}
+
+main .bottom_post, main .top_post {
+    overflow: hidden;
+}
+
+main .left_top_post {
+    vertical-align: middle;
+}
+
+main .right_top_post {
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+}
+
+main .right_top_post img {
+    display: block;
+    margin: 0 auto;
+    width: 25vmin;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .right_top_post img:hover {
+    transform: scale(1.05);
+    transition: 300ms;
+}
+
+main .left_top_post > div {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+main .left_top_post, main .left_bottom_post {
+    display: inline-block;
+    width: 30vw;
+    float: left;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+main .right_top_post, main .right_bottom_post {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 2.5vw;
+    width: 17vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+main .left_bottom_post {
+    width: 20vw;
+    height: 5vh;
+}
+
+main .right_bottom_post {
+    margin-left: 10vw;
+    width: 19vw;
+}
+
+main .post_comments {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .post_comments:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main .post {
+    overflow: hidden;
+}
+
+main .hover_span {
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main .hover_span:hover {
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #add_post {
+    padding: 2vh;
+    text-align: center;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+main #add_post:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .user_info_hover {
+    transition: 300ms;
+}
+
+main .user_info_hover:hover {
+    background: rgba(62, 45, 113, 0.82);
+    transition: 300ms;
+}
+
+main .hover_elements {
+    transform: scale(1.2);
+    color: #16ece6;
+    transition: 300ms;
+}
+
+main #first_user_info {
+    border-radius: 16px 16px 0 0;
+}
+
+main #last_user_info {
+    border-radius: 0 0 16px 16px;
+}
+
+main #add_post_text {
+    display: inline-block;
+    transition: 300ms;
+}
